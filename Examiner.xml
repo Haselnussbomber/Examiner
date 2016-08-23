@@ -18,7 +18,7 @@
 	<Script file="Modules\stats.lua"/>
 	<Script file="Modules\pvp.lua"/>
 	<Script file="Modules\feats.lua"/>
-	<Script file="Modules\talents.lua"/>
+	<Script file="Modules\talents_legion.lua"/>
 	<Script file="Modules\gearlist.lua"/>
 	<Script file="Modules\itemusage.lua"/>
 	<Script file="Modules\guild.lua"/>

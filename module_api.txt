@@ -6,7 +6,7 @@ Module Meta Functions
 ---------------------
 CanCache()							-- Returns wheather or not the calling module is allowed to cache or not (module.canCache need to be true or this will ALWAYS return false)
 HasData(value)						-- Tells Examiner if we have data to show on our page
-HasButton(value)					-- Toggles wheather or not the module has a button in Examiner
+HasButton(value)					-- Toggles whether or not the module has a button in Examiner
 CreatePage(full,header)				-- Creates a standard page
 
 Module Table Entries

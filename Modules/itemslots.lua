@@ -7,7 +7,6 @@ local mod = ex:CreateModule("ItemSlots");
 mod.slotBtns = {};
 
 -- Variables
-local statTipStats1, statTipStats2 = {}, {};
 local ITEM_ICON_UNKNOWN = "Interface\\Icons\\INV_Misc_QuestionMark";
 
 -- Options

@@ -1,5 +1,5 @@
-## Interface: 60200
-## Version: 15.12.07
+## Interface: 70000
+## Version: 16.08.22
 ## Title: Examiner
 ## Author: Aezay (Earthen Ring EU)
 ## Notes: Advanced Inspection Mod of Gear, Talents, Honor, Arena and Achievements.
