@@ -305,8 +305,8 @@ end
 ex:SetWidth(384);
 ex:SetHeight(440);
 ex:SetPoint("CENTER");
-ex:SetToplevel(1);
-ex:EnableMouse(1);
+ex:EnableMouse(true);
+ex:SetToplevel(true);
 ex:Hide();
 ex:SetHitRectInsets(12,35,10,2);
 ex:SetScript("OnShow",Examiner_OnShow);

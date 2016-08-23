@@ -1,3 +1,10 @@
+Examiner Changes | 2016 Aug 22
+------------------------------
+- TOC version updated to 70000 for the Legion 7.0.3 pre-patch.
+- Talents: Updated this module so it should be working again (thanks Farami).
+- Talents: Removed some global namespace pollution.
+- Updated the "GetUpgradedItemLevel" library. Now supports itemStrings with omitted zeros. Added more Timewarped Warforged IDs (thanks Cidrei).
+
 Examiner Changes | 2015 Dec 07
 ------------------------------
 - TOC version changed to 60200.

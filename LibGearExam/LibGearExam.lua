@@ -1,4 +1,4 @@
-local REVISION = 7;
+local REVISION = 8;
 if (type(LibGearExam) == "table") and (LibGearExam.revision and LibGearExam.revision >= REVISION) then
 	return;
 end
@@ -25,9 +25,9 @@ LGE.revision = REVISION;
 
 LGE.ITEMLINK_PATTERN			= "(item:[^|]+)";					-- Matches the raw itemLink from the full itemString
 -- Pattern generation for itemLinks. Always match from the start of the itemLink, to ensure that any new properties added to itemLinks, wont break our patterns.
-LGE.ITEMLINK_PATTERN_ID			= "item:"..("[^:]+:"):rep(0).."(%d+)";
-LGE.ITEMLINK_PATTERN_ENCHANT	= "item:"..("[^:]+:"):rep(1).."(%d+)";
-LGE.ITEMLINK_PATTERN_LEVEL		= "(item:"..("[^:]+:"):rep(8)..")(%d+)(.+)";		-- used in gsub, so the pattern must match the entire link, even future added properties
+LGE.ITEMLINK_PATTERN_ID			= "item:"..("[^:]*:"):rep(0).."(%d*)";
+LGE.ITEMLINK_PATTERN_ENCHANT	= "item:"..("[^:]*:"):rep(1).."(%d*)";
+LGE.ITEMLINK_PATTERN_LEVEL		= "(item:"..("[^:]*:"):rep(8)..")(%d*)(.+)";		-- used in gsub, so the pattern must match the entire link, even future added properties
 
 -- Other Patterns
 LGE.ItemUseToken = "^"..ITEM_SPELL_TRIGGER_ONUSE.." ";
