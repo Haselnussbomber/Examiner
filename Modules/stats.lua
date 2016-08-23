@@ -1,6 +1,7 @@
 local ex = Examiner;
 local cfg, cache;
 local gtt = GameTooltip;
+local LibItemUpgradeInfo = LibStub("LibItemUpgradeInfo-1.0");
 
 -- Module
 local mod = ex:CreateModule("Stats","Gear Statistics");
@@ -82,7 +83,7 @@ function mod:OnCacheLoaded(entry,unit)
 		local iLvlTotal = 0;
 		for slotName, link in next, entry.Items do
 			if (slotName ~= "TabardSlot") and (slotName ~= "ShirtSlot") then
-				local itemLevel = GetUpgradedItemLevelFromItemLink(link);
+				local itemLevel = LibItemUpgradeInfo:GetUpgradedItemLevel(link);
 				if (itemLevel) then
 					if (slotName == "MainHandSlot") and (not entry.Items.SecondaryHandSlot) then
 						itemLevel = (itemLevel * 2);
@@ -200,7 +201,7 @@ local function GetGemAndItemInfo()
 		-- Calculate Item Level Numbers
 		if (slotName ~= "TabardSlot") and (slotName ~= "ShirtSlot") then
 			local _, _, itemRarity, itemLevel = GetItemInfo(link);
-			itemLevel = GetUpgradedItemLevelFromItemLink(link);
+			itemLevel = LibItemUpgradeInfo:GetUpgradedItemLevel(link);
 			if (itemLevel) then
 				iLvlMin = min(iLvlMin or itemLevel,itemLevel);
 				iLvlMax = max(iLvlMax or itemLevel,itemLevel);

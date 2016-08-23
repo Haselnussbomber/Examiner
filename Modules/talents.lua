@@ -2,7 +2,7 @@ local ex = Examiner;
 local cfg;
 
 -- Module
-local mod = ex:CreateModule("Talent",TALENTS);
+local mod = ex:CreateModule(TALENTS,TALENTS);
 mod.help = "The Inspected Player's Talent Specialization";
 --mod.page = CreateFrame("Frame",nil,ex);
 mod:CreatePage(false,SPECIALIZATION);
@@ -15,7 +15,7 @@ local TALENT_BUTTON_SIZE = 28;
 local TALENT_BUTTON_SPACING = 7;
 
 -- Variables
-local talentGroup;
+local _, talentGroup, classID;
 
 --------------------------------------------------------------------------------------------------------
 --                                           Module Scripts                                           --
@@ -37,7 +37,7 @@ end
 
 -- OnInspectReady
 function mod:OnInspectReady(unit)
-	talentGroup = ex.isSelf and GetActiveSpecGroup() or nil;
+	talentGroup = GetActiveSpecGroup(unit ~= "player");
 	self:HasData(ex.canInspect);
 	self:InitTalents();
 end
@@ -103,9 +103,8 @@ end
 
 -- Talent OnEnter
 local function TalentButton_OnEnter(self,motion)
-	local classDisplayName, class, classID = UnitClass(INSPECTED_UNIT);
 	GameTooltip:SetOwner(self,"ANCHOR_RIGHT");
-	GameTooltip:SetTalent(self.id,true,talentGroup,ex.unit,classID);
+	GameTooltip:SetTalent(self.id, true, talentGroup, ex.unit, classID);
 end
 
 -- Create Talent Row
@@ -134,8 +133,6 @@ function CreateTalentRow(parent,tier)
 		btn.icon:SetPoint("TOPLEFT",1,-1);
 		btn.icon:SetPoint("BOTTOMRIGHT",-1,1);
 		btn.icon:SetTexCoord(0.07,0.93,0.07,0.93);
-
-		btn.id = (tier - 1) * 3 + i;
 
 		row["talent"..i] = btn;
 	end
@@ -186,7 +183,7 @@ end
 
 -- Initialize Talents
 function mod:InitTalents()
-	local _, class, classID = UnitClass(ex.unit);	-- Az: classID not used anymore, remove?
+	_, class, classID = UnitClass(ex.unit);
 	-- Background
 --	local background = "WarriorProtection";
 --	ex:SetBackgroundTexture("Interface\\TalentFrame\\"..background.."-");
@@ -201,6 +198,7 @@ function mod:InitTalents()
 		for column = 1, NUM_TALENT_COLUMNS do
 			local talentID, name, iconTexture, selected, available = GetTalentInfo(tier,column,talentGroup,true,ex.unit);	-- always inspect mode
 			local talent = group["talent"..column];
+			talent.id = talentID;
 			talent.icon:SetTexture(iconTexture);
 			talent.icon:SetDesaturated(not selected);
 		end

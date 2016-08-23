@@ -1,6 +1,7 @@
 local ex = Examiner;
 local cfg;
 local gtt = GameTooltip;
+local LibItemUpgradeInfo = LibStub("LibItemUpgradeInfo-1.0");
 
 -- Module
 local mod = ex:CreateModule("ItemSlots");
@@ -90,7 +91,7 @@ function mod:UpdateItemSlots()
 				local r,g,b = GetItemQualityColor(itemRarity and itemRarity > 0 and itemRarity or 0);
 				button.border:SetVertexColor(r,g,b);
 				button.border:Show();
-				itemLevel = GetUpgradedItemLevelFromItemLink(link);
+				itemLevel = LibItemUpgradeInfo:GetUpgradedItemLevel(link);
 				button.level:SetText(itemLevel);
 			else
 				button.realLink = link;

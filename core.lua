@@ -20,7 +20,7 @@ ex.unitStats = unitStats;
 ex.info = info;
 
 -- Misc Constants
-local HOOK_DEFAULT_INSPECT = true;	-- Hook Default Inspect Frame -- Az: Disable for debugging
+local HOOK_DEFAULT_INSPECT = false;	-- Hook Default Inspect Frame -- Az: Disable for debugging
 local DELAYED_INSPECT_TIME = 1;
 local CLASSIFICATION_NAMES = {
 	worldboss = BOSS,
@@ -178,6 +178,7 @@ function ex:PLAYER_TARGET_CHANGED(event)
 		self.unit = nil;
 		self:SetScript("OnUpdate",nil);
 	end
+	self:SendModuleEvent("OnTargetChanged");
 end
 
 -- Mouseover Unit Changed

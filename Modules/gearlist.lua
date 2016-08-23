@@ -1,4 +1,5 @@
 local ex = Examiner;
+local LibItemUpgradeInfo = LibStub("LibItemUpgradeInfo-1.0");
 
 -- Module
 local mod = ex:CreateModule("Gear","Gear List (beta)");
@@ -125,7 +126,7 @@ function UpdateShownItems()
 		local link = items[slotName];
 		if (link) then
 			local itemName, _, itemRarity, itemLevel, _, _, _, _, itemEquipLoc, itemTexture = GetItemInfo(link);
-			itemLevel = GetUpgradedItemLevelFromItemLink(link);
+			itemLevel = LibItemUpgradeInfo:GetUpgradedItemLevel(link);
 
 			btn.link = link;
 --			btn.name:SetText(itemName);
