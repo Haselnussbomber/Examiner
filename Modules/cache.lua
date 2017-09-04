@@ -211,7 +211,7 @@ local function CacheEntry_OnClick(self,button)
 				cfg.activePage = cfg.prevPage;
 				mod.page:Hide();
 			end
-			PlaySound("igMainMenuOptionCheckBoxOn");
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
 			ex:ClearInspect();
 			ex:LoadPlayerFromCache(self.entryName);
 		end

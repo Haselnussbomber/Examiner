@@ -78,7 +78,7 @@ local function Button_OnClick(self,button)
 	local id = self.id;
 	local module = ex.modules[id];
 	if (module.hasData) then
-		PlaySound("igMainMenuOptionCheckBoxOn");
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
 		cfg.lastActivatedModule = id;
 		-- Call Module OnButtonClick
 		if (module.OnButtonClick) then

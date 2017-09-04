@@ -242,7 +242,7 @@ function AzDropDown.ToggleMenu(parent,initFunc,selectValueFunc,point,parentPoint
 	if (not menu) then
 		CreateMenu();
 	end
-	PlaySound("igMainMenuOptionCheckBoxOn");
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
 	if (menu:IsShown()) and (menu.parent == parent) then
 		menu:Hide();
 	else
