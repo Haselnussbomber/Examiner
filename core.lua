@@ -87,8 +87,6 @@ end
 
 -- OnHide
 local function Examiner_OnHide(self)
-	self.model.isRotating = nil;
-	self.model.isPanning = nil;
 	self:UnregisterEvent("INSPECT_READY");
 	self:UnregisterEvent("PLAYER_TARGET_CHANGED");
 	self:UnregisterEvent("UNIT_MODEL_CHANGED");
@@ -250,53 +248,6 @@ local function Model_OnShow(self)
 	end
 end
 
-local function Model_OnUpdate(self,elapsed)
-	if (self.isRotating) then
-		local endx, endy = GetCursorPosition();
-		self.rotation = (endx - self.startx) / 34 + self:GetFacing();
-		self:SetFacing(self.rotation);
-		self.startx, self.starty = GetCursorPosition();
-	elseif (self.isPanning) then
-		local endx, endy = GetCursorPosition();
-		local z, x, y = self:GetPosition(z,x,y);
-		x = (endx - self.startx) / 45 + x;
-		y = (endy - self.starty) / 45 + y;
-		self:SetPosition(z,x,y);
-		self.startx, self.starty = GetCursorPosition();
-	end
-end
-
-local function Model_OnMouseWheel(self,delta)
-	local z, x, y = self:GetPosition();
-	local scale = (IsControlKeyDown() and 2 or 0.7);
-	z = (delta > 0 and z + scale or z - scale);
-	self:SetPosition(z,x,y);
-end
-
-local function Model_OnMouseDown(self,button)
-	self.startx, self.starty = GetCursorPosition();
-	if (button == "LeftButton") then
-		self.isRotating = 1;
-		if (IsControlKeyDown()) then
-			ex:SetBackgroundTexture(true);
-		end
-	elseif (button == "RightButton") then
-		self.isPanning = 1;
-		if (IsControlKeyDown()) then
-			cfg.showBackground = (not cfg.showBackground);
-			ex:ShowBackground();
-		end
-	end
-end
-
-local function Model_OnMouseUp(self,button)
-	if (button == "LeftButton") then
-		self.isRotating = nil;
-	elseif (button == "RightButton") then
-		self.isPanning = nil;
-	end
-end
-
 --------------------------------------------------------------------------------------------------------
 --                                            Init Examiner                                           --
 --------------------------------------------------------------------------------------------------------
@@ -373,17 +324,12 @@ ex.bgBottomRight:SetPoint("LEFT",ex.bgBottomLeft,"RIGHT");
 ex.bgBottomRight:SetHeight(128 * bgScale);
 
 -- Model
-ex.model = CreateFrame("PlayerModel",nil,ex);
+ex.model = CreateFrame("PlayerModel",nil,ex,"ModelWithControlsTemplate");
 ex.model:SetWidth(320);
 ex.model:SetHeight(354);
 ex.model:SetPoint("BOTTOM",-11,10);
-ex.model:EnableMouse(1);
-ex.model:EnableMouseWheel(1);
+ex.model:SetScript("OnLoad", function(self) Model_OnLoad(self, MODELFRAME_MAX_PLAYER_ZOOM); end)
 ex.model:SetScript("OnShow",Model_OnShow);
-ex.model:SetScript("OnUpdate",Model_OnUpdate);
-ex.model:SetScript("OnMouseDown",Model_OnMouseDown);
-ex.model:SetScript("OnMouseUp",Model_OnMouseUp);
-ex.model:SetScript("OnMouseWheel",Model_OnMouseWheel);
 
 --------------------------------------------------------------------------------------------------------
 --                                            Unit Details                                            --
