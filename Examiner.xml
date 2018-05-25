@@ -1,8 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\..\FrameXML\UI.xsd">
 	<Script file="ExaminerMixin.lua"/>
+
+	<Script file="ExaminerTabMixin.lua"/>
 	<Script file="ExaminerItemSlotButtonMixin.lua"/>
-	
+	<Script file="ExaminerTalentButtonMixin.lua"/>
+
 	<Button name="ExaminerItemSlotButtonTemplate" inherits="ItemButtonTemplate" mixin="ExaminerItemSlotButtonMixin" virtual="true">
 		<Layers>
 			<Layer level="OVERLAY">
@@ -14,15 +17,9 @@
 			</Layer>
 		</Layers>
 		<NormalTexture file="Interface\Buttons\UI-Quickslot2">
-			<Size>
-				<AbsDimension x="64" y="64"/>
-			</Size>
+			<Size x="64" y="64"/>
 			<Anchors>
-				<Anchor point="CENTER">
-					<Offset>
-						<AbsDimension x="0" y="-1"/>
-					</Offset>
-				</Anchor>
+				<Anchor point="CENTER" x="0" y="-1"/>
 			</Anchors>
 		</NormalTexture>
 		<Scripts>
@@ -33,6 +30,61 @@
 			<OnUpdate function="CursorOnUpdate"/>
 		</Scripts>
 	</Button>
+
+	<Button name="ExaminerTalentButtonTemplate" virtual="true" mixin="ExaminerTalentButtonMixin">
+		<Size x="26" y="26"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentIconTexture" parentKey="icon">
+					<Size x="26" y="26"/>
+					<Anchors>
+						<Anchor point="CENTER" x="-1" y="2"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK" textureSubLevel="1">
+				<Texture name="$parentSlot" inherits="Talent-SingleBorder" parentKey="Slot">
+					<Size x="26" y="26"/>
+					<Anchors>
+						<Anchor point="CENTER" x="-1" y="2"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentBorder" parentKey="border" atlas="inspect-talent-selected" useAtlasSize="true">
+					<Anchors>
+						<Anchor point="CENTER" x="-1" y="2"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnClick method="OnClick"/>
+			<OnEnter method="OnEnter"/>
+			<OnLeave function="GameTooltip_Hide"/>
+		</Scripts>
+	</Button>
+
+	<Frame name="ExaminerTalentRowTemplate" virtual="true">
+		<Size x="110" y="26"/>
+		<Frames>
+			<Button name="$parentTalent1" inherits="ExaminerTalentButtonTemplate" parentKey="talent1">
+				<Anchors>
+					<Anchor point="LEFT" x="0" y="0"/>
+				</Anchors>
+			</Button>
+			<Button name="$parentTalent2" inherits="ExaminerTalentButtonTemplate" parentKey="talent2">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentTalent1" relativePoint="RIGHT" x="16"/>
+				</Anchors>
+			</Button>
+			<Button name="$parentTalent3" inherits="ExaminerTalentButtonTemplate" parentKey="talent3">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentTalent2" relativePoint="RIGHT" x="16"/>
+				</Anchors>
+			</Button>
+		</Frames>
+	</Frame>
 
 	<Frame name="Examiner" toplevel="true" movable="true" enableMouse="true" hidden="true" parent="UIParent" inherits="ButtonFrameTemplate" mixin="ExaminerMixin">
 		<Size x="338" y="424"/>
@@ -49,19 +101,10 @@
 						<Anchor point="BOTTOM" relativeKey="$parent.title" relativePoint="TOP" y="-52"/>
 					</Anchors>
 				</FontString>
-
-				<!-- big ass texture in background-->
-				<Texture name="ExaminerFaction" file="Interface\Timer\Panda-Logo" hidden="true">
-					<Size x="256" y="256"/>
-					<Anchors>
-						<Anchor point="CENTER" x="0" y="-10"/>
-					</Anchors>
-					<TexCoords left="0" right="1" top="0" bottom="1"/>	
-				</Texture>
 			</Layer>
 		</Layers>
 		<Frames>
-			<!-- Tabs -->
+			<!-- Tabs, always visible -->
 			<Button name="ExaminerTab1" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="1" text="CHARACTER">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="11" y="2"/>
@@ -115,7 +158,7 @@
 				</Scripts>
 			</Button>
 
-			<!-- Model/Background -->
+			<!-- Model/Background, always visible -->
 			<PlayerModel name="ExaminerModelFrame" inherits="ModelWithControlsTemplate" parentKey="model">
 				<Size x="320" y="352"/>
 				<Anchors>
@@ -156,7 +199,7 @@
 				</Scripts>
 			</PlayerModel>
 
-			<!-- Items -->
+			<!-- Items, always visible (Tab 1) -->
 			<Frame name="ExaminerItemsFrame" setAllPoints="true" parentKey="items">
 				<Frames>
 					<Button name="ExaminerHeadSlot" inherits="ExaminerItemSlotButtonTemplate">
@@ -263,118 +306,58 @@
 				</Frames>
 			</Frame>
 
-			<!-- Talents
-			<Frame name="ExaminerTalentsFrame" setAllPoints="true" parentKey="talents" hidden="true">
-				<Frames>
-					<Button name="ExaminerHeadSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerInset" x="7" y="-7"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerNeckSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerHeadSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerShoulderSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerNeckSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerBackSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerShoulderSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerChestSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerBackSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerShirtSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerChestSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerTabardSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerShirtSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerWristSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerTabardSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerHandsSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPRIGHT" relativeTo="ExaminerInset" x="-5" y="-7"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerWaistSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerHandsSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerLegsSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerWaistSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerFeetSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerLegsSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerFinger0Slot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerFeetSlot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerFinger1Slot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerFinger0Slot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerTrinket0Slot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerFinger1Slot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerTrinket1Slot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerTrinket0Slot" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerMainHandSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="BOTTOMLEFT" x="130" y="11"/>
-						</Anchors>
-					</Button>
-					<Button name="ExaminerSecondaryHandSlot" inherits="ExaminerItemSlotButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ExaminerMainHandSlot" relativePoint="TOPRIGHT" x="5" y="0"/>
-						</Anchors>
-					</Button>
-				</Frames>
-			</Frame>
-			-->
-
-			<!-- PvP
+			<!-- PvP, visible on Tab 2 -->
 			<Frame name="ExaminerPvPFrame" setAllPoints="true" parentKey="pvp" hidden="true">
-				<Frames>
-				
-				</Frames>
 			</Frame>
-			-->
 
-			<!-- Guild
-			<Frame name="ExaminerGuildFrame" setAllPoints="true" parentKey="guild" hidden="true">
+			<!-- Talents, visible on Tab 3 -->
+			<Frame name="ExaminerTalentsFrame" parentKey="talents" hidden="true">
+				<Size x="300" y="300"/>
+				<Anchors>
+					<Anchor point="TOP" x="0" y="0"/>
+				</Anchors>
 				<Frames>
-				
+					<Frame name="$parentTalentRow1" inherits="ExaminerTalentRowTemplate" parentKey="tier1" id="1">
+						<Anchors>
+							<Anchor point="TOP" x="0" y="-100"/>
+						</Anchors>				
+					</Frame>
+					<Frame name="$parentTalentRow2" inherits="ExaminerTalentRowTemplate" parentKey="tier2" id="2">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow1" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
+						</Anchors>				
+					</Frame>
+					<Frame name="$parentTalentRow3" inherits="ExaminerTalentRowTemplate" parentKey="tier3" id="3">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow2" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
+						</Anchors>				
+					</Frame>
+					<Frame name="$parentTalentRow4" inherits="ExaminerTalentRowTemplate" parentKey="tier4" id="4">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow3" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
+						</Anchors>				
+					</Frame>
+					<Frame name="$parentTalentRow5" inherits="ExaminerTalentRowTemplate" parentKey="tier5" id="5">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow4" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
+						</Anchors>				
+					</Frame>
+					<Frame name="$parentTalentRow6" inherits="ExaminerTalentRowTemplate" parentKey="tier6" id="6">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow5" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
+						</Anchors>				
+					</Frame>
+					<Frame name="$parentTalentRow7" inherits="ExaminerTalentRowTemplate" parentKey="tier7" id="7">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow6" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
+						</Anchors>
+					</Frame>
 				</Frames>
 			</Frame>
-			-->
+
+			<!-- Guild, visible on Tab 4 -->
+			<Frame name="ExaminerGuildFrame" setAllPoints="true" parentKey="guild" hidden="true">
+			</Frame>
 		</Frames>
 		<Scripts>
 			<OnLoad method="OnLoad"/>
@@ -383,5 +366,4 @@
 			<OnUpdate method="OnUpdate"/>
 		</Scripts>
 	</Frame>
-
 </Ui>

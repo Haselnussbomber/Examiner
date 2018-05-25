@@ -121,6 +121,7 @@ function ExaminerMixin:INSPECT_READY(guid)
 	end
 
 	self:UpdateSpecialization();
+	self:UpdateTalents();
 	self:UpdateDetailFrame();
 	self:UpdateItems();
 	self:UpdateFrames();
@@ -132,6 +133,7 @@ function ExaminerMixin:PLAYER_SPECIALIZATION_CHANGED()
 	end
 
 	self:UpdateSpecialization();
+	self:UpdateTalents();
 	self:UpdateDetailFrame();
 end
 
@@ -184,6 +186,7 @@ function ExaminerMixin:Inspect()
 
 			self:UpdateItems();
 			self:UpdateSpecialization();
+			self:UpdateTalents();
 		end
 
 		local currentTab = PanelTemplates_GetSelectedTab(self);
@@ -243,6 +246,8 @@ function ExaminerMixin:UpdateSpecialization()
 			data.specName = select(2, GetSpecializationInfoByID(specID, data.sex));
 		end
 	end
+
+	data.specGroup = GetActiveSpecGroup(data.unit);
 end
 
 function ExaminerMixin:UpdateItems()
@@ -253,6 +258,40 @@ function ExaminerMixin:UpdateItems()
 	local itemButtonFrames = { self.items:GetChildren() };
 	for _, button in ipairs(itemButtonFrames) do
 		button:Update();
+	end
+end
+
+function ExaminerMixin:UpdateTalents()
+	local data = self.data;
+
+	if (not data.isPlayer) then
+		return;
+	end
+
+	for tier=1, MAX_TALENT_TIERS do
+		local tierFrame = self.talents["tier"..tier];
+		if (tierFrame) then
+			local tierAvailable, selectedTalent = GetTalentTierInfo(tier, data.specGroup, not data.isSelf, data.unit);
+
+			for column=1, NUM_TALENT_COLUMNS do
+				local columnFrame = tierFrame["talent"..column];
+				if (columnFrame) then
+					local talentID, name, iconTexture, selected, available, _, _, _, _, _, grantedByAura = GetTalentInfo(tier, column, data.specGroup, not data.isSelf, data.unit);
+					if (talentID) then
+						columnFrame:SetID(talentID);
+						SetItemButtonTexture(columnFrame, iconTexture);
+						SetDesaturation(columnFrame.icon, not (selected or grantedByAura));
+						columnFrame.border:SetShown(selected or grantedByAura);
+						if ( grantedByAura ) then
+							local color = ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_LEGENDARY];
+							columnFrame.border:SetVertexColor(color.r, color.g, color.b);
+						else
+							columnFrame.border:SetVertexColor(1, 1, 1);
+						end
+					end
+				end
+			end
+		end
 	end
 end
 
@@ -361,23 +400,8 @@ end
 function ExaminerMixin:SwitchTabs(id)
 	PanelTemplates_SetTab(self, id);
 
-end
-
-
-
------------------------------
-
-ExaminerTabMixin = {}
-
-function ExaminerTabMixin:OnClick()
-	PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB);
-	self:GetParent():SwitchTabs(self:GetID());
-	--InspectSwitchTabs(self:GetID());
-end
-
---function ExaminerTabMixin:OnEnter()
---end
-
-function ExaminerTabMixin:OnLeave()
-	GameTooltip_Hide(self);
+	self.model:SetAlpha(id ~= 1 and 0.2 or 1);
+	self.pvp:SetShown(id == 2);
+	self.talents:SetShown(id == 3);
+	self.guild:SetShown(id == 4);
 end

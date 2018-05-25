@@ -68,6 +68,7 @@ end
 
 function ExaminerItemSlotButtonMixin:Update()
     local data = Examiner.data;
+
     if (not data or not data.unit) then
         return;
     end
