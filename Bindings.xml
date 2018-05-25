@@ -1,15 +1,9 @@
 <Bindings>
-	<Binding name="EXAMINER_OPEN" header="EXAMINER">
-		Examiner:OpenSimple();
-	</Binding>
-	<Binding name="EXAMINER_TARGET">
-		if (Examiner:IsShown()) then
+	<Binding name="EXAMINER_OPEN" header="EXAMINER" category="ADDONS">
+		if (Examiner:IsVisible()) then
 			HideUIPanel(Examiner);
 		else
-			Examiner:DoInspect("target");
+			Examiner:Inspect();
 		end
-	</Binding>
-	<Binding name="EXAMINER_MOUSEOVER">
-		Examiner:InspectMouseover();		
 	</Binding>
 </Bindings>
