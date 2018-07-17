@@ -4,7 +4,7 @@ BINDING_NAME_EXAMINER_OPEN = "Open Examiner";
 ExaminerMixin = {};
 
 function ExaminerMixin:OnLoad()
-	UIPanelWindows[self:GetName()] = { area = "left", pushable = 0, xoffset = 0, yoffset = 0, whileDead = 1, minYOffset = 0 };
+	UIPanelWindows[self:GetName()] = { area = "left", pushable = 3, whileDead = 1 };
     --UISpecialFrames[#UISpecialFrames + 1] = modName;
 
 	self:RegisterEvent("PLAYER_TARGET_CHANGED"); -- check
@@ -148,6 +148,8 @@ function ExaminerMixin:Inspect()
 
 	local name, realm = UnitName(unit);
 	local class, classFixed, classID = UnitClass(unit);
+
+	-- Note: NPC guild names are only accessible via tooltip parsing
 	local guild, guildRank, guildIndex = GetGuildInfo(unit);
 
 	local data = {
@@ -272,6 +274,8 @@ function ExaminerMixin:UpdateTalents()
 		local tierFrame = self.talents["tier"..tier];
 		if (tierFrame) then
 			local tierAvailable, selectedTalent = GetTalentTierInfo(tier, data.specGroup, not data.isSelf, data.unit);
+			local talentLevel = CLASS_TALENT_LEVELS[class] or CLASS_TALENT_LEVELS["DEFAULT"];
+			tierFrame.level:SetText(talentLevel[tier] or "??");
 
 			for column=1, NUM_TALENT_COLUMNS do
 				local columnFrame = tierFrame["talent"..column];
@@ -314,7 +318,7 @@ function ExaminerMixin:UpdateDetailFrame()
 	end
 
 	if (not data.isPlayer) then
-		self.details:SetFormattedText(PLAYER_LEVEL_NO_SPEC..(data.name ~= data.class and  "\n%s" or ""), level, classColorString, data.race, data.class);
+		self.details:SetFormattedText(PLAYER_LEVEL_NO_SPEC..(data.name ~= data.class and "\n%s" or ""), level, classColorString, data.race, data.class);
 		return;
 	end
 
