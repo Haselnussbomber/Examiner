@@ -294,7 +294,7 @@
 				<FontString name="$parentDetailText" inherits="SystemFont_Shadow_Small" parentKey="details" justifyH="CENTER" justifyV="MIDDLE">
 					<Anchors>
 						<Anchor point="TOP" relativeKey="$parent.title" y="-20"/>
-						<Anchor point="BOTTOM" relativeKey="$parent.title" relativePoint="TOP" x="14" y="-52"/>
+						<Anchor point="BOTTOM" relativeKey="$parent.title" relativePoint="TOP" x="16" y="-52"/>
 					</Anchors>
 				</FontString>
 			</Layer>
