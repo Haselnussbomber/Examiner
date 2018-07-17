@@ -6,7 +6,7 @@
 	<Script file="ExaminerItemSlotButtonMixin.lua"/>
 	<Script file="ExaminerTalentButtonMixin.lua"/>
 
-	<Button name="ExaminerItemSlotButtonTemplate" inherits="ItemButtonTemplate" mixin="ExaminerItemSlotButtonMixin" virtual="true">
+	<Button name="ExaminerItemSlotButtonTemplate" inherits="ItemButtonTemplate, PaperDollAzeriteItemOverlayTemplate" mixin="ExaminerItemSlotButtonMixin" virtual="true">
 		<Layers>
 			<Layer level="OVERLAY">
 				<FontString name="$parentLevel" inherits="GameFontHighlightOutline" parentKey="level">

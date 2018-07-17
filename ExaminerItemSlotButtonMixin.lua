@@ -16,18 +16,34 @@ function ExaminerItemSlotButtonMixin:OnClick(button)
 		return;
 	end
 
-	if (not self.link) then
+    if (not Examiner.data or not self.link) then
+        return;
+    end
+
+	if (IsModifiedClick("EXPANDITEM")) then
+        if (Examiner.data.isSelf) then
+            local itemLocation = ItemLocation:CreateFromEquipmentSlot(self:GetID());
+            if C_Item.DoesItemExist(itemLocation) and C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation) then
+                OpenAzeriteEmpoweredItemUIFromItemLocation(itemLocation);
+                return;
+            end
+        end
+    
+		if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(self.link) then
+			local azeritePowerIDs = C_PaperDollInfo.GetInspectAzeriteItemEmpoweredChoices(Examiner.data.unit, self:GetID());
+			OpenAzeriteEmpoweredItemUIFromLink(self.link, Examiner.data.classID, azeritePowerIDs);
+			return;
+		end
+
+        SocketInventoryItem(self:GetID());
 		return;
 	end
 
-	local editBox = ChatEdit_GetActiveWindow();
-	if (IsModifiedClick("DRESSUP")) then
-		DressUpItemLink(self.link);
-	elseif (IsModifiedClick("CHATLINK") and editBox and editBox:IsVisible()) then
-		ChatEdit_InsertLink(self.link);
-	else
-		self:OnDrag();
+	if (HandleModifiedItemClick(self.link)) then
+		return;
 	end
+
+	self:OnDrag();
 end
 
 function ExaminerItemSlotButtonMixin:OnUpdate()
@@ -82,9 +98,6 @@ function ExaminerItemSlotButtonMixin:Update()
         SetItemButtonCount(self, GetInventoryItemCount(unit, id));
         self.hasItem = true;
 
-        local quality = GetInventoryItemQuality(unit, id);
-        SetItemButtonQuality(self, quality, GetInventoryItemID(unit, id));
-
         self.link = GetInventoryItemLink(unit, id);
         self.level:SetText(LibItemUpgradeInfo:GetUpgradedItemLevel(self.link));
     else
@@ -95,4 +108,15 @@ function ExaminerItemSlotButtonMixin:Update()
         self.link = nil;
         self.level:SetText("");
     end
+
+    local quality = GetInventoryItemQuality(unit, id);
+    SetItemButtonQuality(self, quality, GetInventoryItemID(unit, id), self.HasPaperDollAzeriteItemOverlay);
+
+    if self.HasPaperDollAzeriteItemOverlay then
+        self:SetAzeriteItem(self.hasItem and ItemLocation:CreateFromEquipmentSlot(self:GetID()) or nil);
+    end
+
+	if ( GameTooltip:IsOwned(self) ) then
+		GameTooltip:Hide();
+	end
 end
