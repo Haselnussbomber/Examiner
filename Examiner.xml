@@ -314,7 +314,7 @@
 					</OnEnter>
 				</Scripts>
 			</Button>
-			<Button name="ExaminerTab2" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="2" text="PVP">
+			<Button name="ExaminerTab2" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="2" text="TALENTS">
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="ExaminerTab1" relativePoint="RIGHT" x="-16" y="0"/>
 				</Anchors>
@@ -323,11 +323,12 @@
 					<OnLeave method="OnLeave"/>
 					<OnEnter>
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText(PLAYER_V_PLAYER, 1.0, 1.0, 1.0);
+						GameTooltip:SetText(TALENTS, 1.0, 1.0, 1.0);
 					</OnEnter>
 				</Scripts>
 			</Button>
-			<Button name="ExaminerTab3" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="3" text="TALENTS">
+			<!--
+			<Button name="ExaminerTab3" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="3" text="PVP">
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="ExaminerTab2" relativePoint="RIGHT" x="-16" y="0"/>
 				</Anchors>
@@ -336,7 +337,7 @@
 					<OnLeave method="OnLeave"/>
 					<OnEnter>
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText(TALENTS, 1.0, 1.0, 1.0);
+						GameTooltip:SetText(PLAYER_V_PLAYER, 1.0, 1.0, 1.0);
 					</OnEnter>
 				</Scripts>
 			</Button>
@@ -353,6 +354,7 @@
 					</OnEnter>
 				</Scripts>
 			</Button>
+			-->
 
 			<!-- Model/Background, always visible -->
 			<PlayerModel name="ExaminerModelFrame" inherits="ModelWithControlsTemplate" parentKey="model">

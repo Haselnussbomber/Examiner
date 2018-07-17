@@ -20,7 +20,8 @@ function ExaminerMixin:OnLoad()
     -- self:RegisterEvent("INSPECT_HONOR_UPDATE");
 
     ButtonFrameTemplate_HideButtonBar(self);
-	PanelTemplates_SetNumTabs(self, 4);
+	PanelTemplates_SetNumTabs(self, 2);
+	--PanelTemplates_SetNumTabs(self, 4);
 	PanelTemplates_SetTab(self, 1); -- Character
 	self.onUpdateTimer = 0;
 end
@@ -193,26 +194,26 @@ function ExaminerMixin:Inspect()
 
 		local currentTab = PanelTemplates_GetSelectedTab(self);
 
-		if (data.level < SHOW_PVP_TALENT_LEVEL) then
-			PanelTemplates_DisableTab(self, 2); -- PvP
+		if (data.level < SHOW_TALENT_LEVEL) then
+			PanelTemplates_DisableTab(self, 2); -- Talents
 			if (currentTab == 2) then
 				self:SwitchTabs(1);
 			end
 		end
 
-		if (data.level < SHOW_TALENT_LEVEL) then
-			PanelTemplates_DisableTab(self, 3); -- Talents
-			if (currentTab == 3) then
-				self:SwitchTabs(1);
-			end
-		end
+		--if (data.level < SHOW_PVP_TALENT_LEVEL) then
+		--	PanelTemplates_DisableTab(self, 3); -- PvP
+		--	if (currentTab == 3) then
+		--		self:SwitchTabs(1);
+		--	end
+		--end
 
-		if (not data.guild) then
-			PanelTemplates_DisableTab(self, 4); -- Guild
-			if (currentTab == 4) then
-				self:SwitchTabs(1);
-			end
-		end
+		--if (not data.guild) then
+		--	PanelTemplates_DisableTab(self, 4); -- Guild
+		--	if (currentTab == 4) then
+		--		self:SwitchTabs(1);
+		--	end
+		--end
 	else
 		data.race = UnitCreatureFamily(unit) or UnitCreatureType(unit);
 		self:SwitchTabs(1);
@@ -381,31 +382,31 @@ function ExaminerMixin:UpdateFrames()
 	self.items:SetShown(isPlayer);
 
 	if (isPlayer) then
-		if (self.data.level >= SHOW_PVP_TALENT_LEVEL) then
-			PanelTemplates_EnableTab(self, 2); -- PvP
-		end
-
 		if (self.data.level >= SHOW_TALENT_LEVEL) then
-			PanelTemplates_EnableTab(self, 3); -- Talents
+			PanelTemplates_EnableTab(self, 2); -- Talents
 		end
 
-		if (self.data.guild and self.data.guildMembers) then
-			PanelTemplates_EnableTab(self, 4); -- Guild
-		end
+		--if (self.data.level >= SHOW_PVP_TALENT_LEVEL) then
+		--	PanelTemplates_EnableTab(self, 3); -- PvP
+		--end
+
+		--if (self.data.guild and self.data.guildMembers) then
+		--	PanelTemplates_EnableTab(self, 4); -- Guild
+		--end
 	end
 
 	local TabSetShown = _G[isPlayer and "PanelTemplates_ShowTab" or "PanelTemplates_HideTab"];
 	TabSetShown(self, 1); -- Character
-	TabSetShown(self, 2); -- PvP
-	TabSetShown(self, 3); -- Talents
-	TabSetShown(self, 4); -- Guild
+	TabSetShown(self, 2); -- Talents
+	-- TabSetShown(self, 3); -- PvP
+	-- TabSetShown(self, 4); -- Guild
 end
 
 function ExaminerMixin:SwitchTabs(id)
 	PanelTemplates_SetTab(self, id);
 
 	self.model:SetAlpha(id ~= 1 and 0.2 or 1);
-	self.pvp:SetShown(id == 2);
-	self.talents:SetShown(id == 3);
-	self.guild:SetShown(id == 4);
+	self.talents:SetShown(id == 2);
+	--self.pvp:SetShown(id == 3);
+	--self.guild:SetShown(id == 4);
 end
