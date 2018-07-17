@@ -288,13 +288,13 @@
 			<Layer level="OVERLAY">
 				<FontString name="$parentTitleText" inherits="GameFontNormal" parentKey="title">
 					<Anchors>
-						<Anchor point="TOP" relativePoint="TOP" x="0" y="-6"/>
+						<Anchor point="TOP" relativePoint="TOP" x="14" y="-6"/>
 					</Anchors>
 				</FontString>
 				<FontString name="$parentDetailText" inherits="SystemFont_Shadow_Small" parentKey="details" justifyH="CENTER" justifyV="MIDDLE">
 					<Anchors>
 						<Anchor point="TOP" relativeKey="$parent.title" y="-20"/>
-						<Anchor point="BOTTOM" relativeKey="$parent.title" relativePoint="TOP" y="-52"/>
+						<Anchor point="BOTTOM" relativeKey="$parent.title" relativePoint="TOP" x="14" y="-52"/>
 					</Anchors>
 				</FontString>
 			</Layer>
