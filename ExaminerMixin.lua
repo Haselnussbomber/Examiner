@@ -219,8 +219,6 @@ function ExaminerMixin:Inspect()
 		self:SwitchTabs(1);
 	end
 
-	ViragDevTool_AddData(self.data, "inspecting " .. unit)
-
 	self:UpdateTitleFrame();
 	self:UpdateDetailFrame();
 	self:UpdatePortraitFrame();
