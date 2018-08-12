@@ -14,6 +14,7 @@ function ExaminerMixin:OnLoad()
 	self:RegisterEvent("UNIT_NAME_UPDATE");
 	self:RegisterEvent("INSPECT_READY");
 	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED");
+	self:RegisterEvent("UNIT_INVENTORY_CHANGED");
     -- self:RegisterEvent("INSPECT_HONOR_UPDATE");
 
     ButtonFrameTemplate_HideButtonBar(self);
@@ -66,6 +67,14 @@ function ExaminerMixin:PLAYER_TARGET_CHANGED()
 	end
 
 	self:Inspect();
+end
+
+function ExaminerMixin:UNIT_INVENTORY_CHANGED(unit)
+	if (not self:ShouldHandleEvent(UnitGUID(unit))) then
+		return;
+	end
+
+	self:UpdateItems();
 end
 
 function ExaminerMixin:UNIT_MODEL_CHANGED(unit)
