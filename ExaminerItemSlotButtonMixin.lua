@@ -25,13 +25,12 @@ function ExaminerItemSlotButtonMixin:OnClick(button)
 	if (IsModifiedClick("EXPANDITEM")) then
         if (data.isSelf) then
             local itemLocation = ItemLocation:CreateFromEquipmentSlot(self:GetID());
-            if C_Item.DoesItemExist(itemLocation) and C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation) then
+            if C_Item.DoesItemExist(itemLocation) and self.isAzeriteEmpoweredItem then
                 OpenAzeriteEmpoweredItemUIFromItemLocation(itemLocation);
                 return;
             end
         end
-
-		if (self.link and self.azeritePowerIDs and C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(self.link)) then
+		if (self.link and self.azeritePowerIDs and self.isAzeriteEmpoweredItem) then
 			OpenAzeriteEmpoweredItemUIFromLink(self.link, data.classID, self.azeritePowerIDs);
 			return;
 		end
