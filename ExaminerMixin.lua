@@ -7,16 +7,13 @@ function ExaminerMixin:OnLoad()
 	UIPanelWindows[self:GetName()] = { area = "left", pushable = 3, whileDead = 1 };
     --UISpecialFrames[#UISpecialFrames + 1] = modName;
 
-	self:RegisterEvent("PLAYER_TARGET_CHANGED"); -- check
-	self:RegisterEvent("UNIT_MODEL_CHANGED"); -- check
-	self:RegisterEvent("UNIT_PORTRAIT_UPDATE"); -- check
-	-- self:RegisterEvent("UNIT_INVENTORY_CHANGED");
-	self:RegisterEvent("UNIT_LEVEL"); -- check
-	self:RegisterEvent("UNIT_NAME_UPDATE"); -- check
-	self:RegisterEvent("INSPECT_READY"); -- check
-	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED"); -- check
-	-- self:RegisterEvent("GET_ITEM_INFO_RECEIVED");
-	-- self:RegisterEvent("MODIFIER_STATE_CHANGED");
+	self:RegisterEvent("PLAYER_TARGET_CHANGED");
+	self:RegisterEvent("UNIT_MODEL_CHANGED");
+	self:RegisterEvent("UNIT_PORTRAIT_UPDATE");
+	self:RegisterEvent("UNIT_LEVEL");
+	self:RegisterEvent("UNIT_NAME_UPDATE");
+	self:RegisterEvent("INSPECT_READY");
+	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED");
     -- self:RegisterEvent("INSPECT_HONOR_UPDATE");
 
     ButtonFrameTemplate_HideButtonBar(self);
@@ -44,7 +41,7 @@ function ExaminerMixin:OnUpdate(elapsed)
 		return;
 	end
 
-	self.onUpdateTimer = self.onUpdateTimer + elapsed; 	
+	self.onUpdateTimer = self.onUpdateTimer + elapsed;
 
 	if (self.onUpdateTimer < 0.666) then
 		return;
