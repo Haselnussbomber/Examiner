@@ -374,11 +374,11 @@ function ExaminerMixin:UpdateFrames()
 	if (self.data.loading) then
 		self.Bg:SetVertexColor(0.5, 1, 0.5);
 		self.Inset.Bg:SetVertexColor(0.5, 1, 0.5);
-		ExaminerTitleBg:SetVertexColor(0.5, 1, 0.5);
+		self.TitleBg:SetVertexColor(0.5, 1, 0.5);
 	else
 		self.Bg:SetVertexColor(1, 1, 1);
 		self.Inset.Bg:SetVertexColor(1, 1, 1);
-		ExaminerTitleBg:SetVertexColor(1, 1, 1);
+		self.TitleBg:SetVertexColor(1, 1, 1);
 	end
 
 	local isPlayer = self.data.isPlayer;
