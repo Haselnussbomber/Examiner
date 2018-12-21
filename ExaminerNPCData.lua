@@ -46,6 +46,21 @@ ExaminerNPCData = {
     [145371] = { 1177, 2332 }, -- Uu'nat
 
 
+    -------------------------------------
+    -- Battle for Azeroth World Bosses --
+    -------------------------------------
+    [132701] = { 1028, 2139 }, -- T'zane
+    [132253] = { 1028, 2141 }, -- Ji'arak
+    [140252] = { 1028, 2197 }, -- Hailstone Construct
+    [137374] = { 1028, 2212 }, -- The Lion's Roar (H)
+    [138122] = { 1028, 2213 }, -- Doom's Howl (A)
+    [136385] = { 1028, 2199 }, -- Azurethos
+    [140163] = { 1028, 2198 }, -- Warbringer Yenajz
+    [138794] = { 1028, 2210 }, -- Dunegorger Kraulok
+    [144946] = { 1028, 2329 }, -- Ivus the Forest Lord (H)
+    [148295] = { 1028, 2345 }, -- Ivus the Decayed (A)
+
+
     ---------------------------------
     -- Battle for Azeroth Dungeons --
     ---------------------------------
