@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\..\FrameXML\UI.xsd">
+	<Script file="ExaminerNPCData.lua"/>
 	<Script file="ExaminerMixin.lua"/>
 
 	<Script file="ExaminerAzeriteItemOverlayMixin.lua"/>
@@ -300,6 +301,23 @@
 			</Layer>
 		</Layers>
 		<Frames>
+			<!-- Encounter Journal button -->
+			<Button name="ExaminerEJButton" parentKey="ej" hidden="true">
+				<Size x="28" y="36"/>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-7" y="-25"/>
+				</Anchors>
+				<NormalTexture atlas="hud-microbutton-EJ-Up"/>
+				<PushedTexture atlas="hud-microbutton-EJ-Down"/>
+				<DisabledTexture atlas="hud-microbutton-EJ-Disabled"/>
+				<HighlightTexture atlas="hud-microbutton-highlight" alphaMode="ADD"/>
+				<Scripts>
+					<OnClick>
+						Examiner:OpenJournal();
+					</OnClick>
+				</Scripts>
+			</Button>
+
 			<!-- Tabs, always visible -->
 			<Button name="ExaminerTab1" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="1" text="CHARACTER">
 				<Anchors>
@@ -327,7 +345,6 @@
 					</OnEnter>
 				</Scripts>
 			</Button>
-			<!--
 			<Button name="ExaminerTab3" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="3" text="PVP">
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="ExaminerTab2" relativePoint="RIGHT" x="-16" y="0"/>
@@ -354,7 +371,6 @@
 					</OnEnter>
 				</Scripts>
 			</Button>
-			-->
 
 			<!-- Model/Background, always visible -->
 			<PlayerModel name="ExaminerModelFrame" inherits="ModelWithControlsTemplate" parentKey="model">

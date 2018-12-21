@@ -18,8 +18,7 @@ function ExaminerMixin:OnLoad()
     -- self:RegisterEvent("INSPECT_HONOR_UPDATE");
 
     ButtonFrameTemplate_HideButtonBar(self);
-	PanelTemplates_SetNumTabs(self, 2);
-	--PanelTemplates_SetNumTabs(self, 4);
+	PanelTemplates_SetNumTabs(self, 4);
 	PanelTemplates_SetTab(self, 1); -- Character
 	self.onUpdateTimer = 0;
 end
@@ -153,6 +152,7 @@ function ExaminerMixin:Inspect()
 
 	INSPECTED_UNIT = unit;
 
+	local guid = UnitGUID(unit);
 	local name, realm = UnitName(unit);
 	local class, classFixed, classID = UnitClass(unit);
 
@@ -167,7 +167,7 @@ function ExaminerMixin:Inspect()
 		--canCooperate = UnitCanCooperate("player", unit),
 		canInspect = CanInspect(unit),
 
-		guid = UnitGUID(unit),
+		guid = guid,
 		name = name,
 		realm = realm or nil,
 		pvpName = UnitPVPName(unit),
@@ -180,8 +180,13 @@ function ExaminerMixin:Inspect()
 		guild = guild,
 		guildRank = guildRank,
 		guildIndex = guildIndex,
+
+		npcID = guid and tonumber(guid:match("-(%d+)-%x+$"), 10) or nil,
+		hasLoot = false,
+		loot = {},
 	};
 
+	local oldData = self.data;
 	self.data = data;
 
 	if (data.isPlayer) then
@@ -200,29 +205,38 @@ function ExaminerMixin:Inspect()
 
 		local currentTab = PanelTemplates_GetSelectedTab(self);
 
-		if (data.level < SHOW_TALENT_LEVEL) then
-			PanelTemplates_DisableTab(self, 2); -- Talents
-			if (currentTab == 2) then
-				self:SwitchTabs(1);
-			end
+		if (data.level < SHOW_TALENT_LEVEL and currentTab == 2) then
+			self:SwitchTabs(1);
 		end
 
-		--if (data.level < SHOW_PVP_TALENT_LEVEL) then
-		--	PanelTemplates_DisableTab(self, 3); -- PvP
-		--	if (currentTab == 3) then
-		--		self:SwitchTabs(1);
-		--	end
-		--end
+		if (data.level < SHOW_PVP_TALENT_LEVEL and currentTab == 3) then
+			self:SwitchTabs(1);
+		end
 
-		--if (not data.guild) then
-		--	PanelTemplates_DisableTab(self, 4); -- Guild
-		--	if (currentTab == 4) then
-		--		self:SwitchTabs(1);
-		--	end
-		--end
+		if (not data.guild and currentTab == 4) then
+			self:SwitchTabs(1);
+		end
+
+		-- switch between npc and player
+		if (oldData and oldData.guid and oldData.isPlayer ~= data.isPlayer) then
+			self:SwitchTabs(1);
+		end
 	else
 		data.race = UnitCreatureFamily(unit) or UnitCreatureType(unit);
 		self:SwitchTabs(1);
+
+		local entry = ExaminerNPCData[data.npcID];
+		if (entry) then
+			local instanceID, encounterID = unpack(entry);
+
+			data.instanceID = instanceID;
+			data.encounterID = encounterID;
+
+			EJ_SelectInstance(instanceID);
+			EJ_SelectEncounter(encounterID);
+
+			data.hasLoot = C_EncounterJournal.InstanceHasLoot();
+		end
 	end
 
 	self:UpdateTitleFrame();
@@ -344,8 +358,8 @@ function ExaminerMixin:UpdatePortraitFrame()
 
 	if (UnitIsVisible(unit)) then
 		SetPortraitTexture(self.portrait, unit);
-	--else
-		--ex.portrait:SetTexture("Interface\\CharacterFrame\\TemporaryPortrait-"..(info.sex == 3 and "Female" or "Male").."-"..(info.raceFileName or ""));	-- Az: WoD: raceFileName has a risk of being nil
+	else
+		self.portrait:SetTexture("Interface\\CharacterFrame\\TemporaryPortrait-"..(self.data.sex == 3 and "Female" or "Male").."-"..(self.data.raceFileName or ""));
 	end
 end
 
@@ -370,8 +384,20 @@ function ExaminerMixin:UpdateModel()
 	self.model.BackgroundBotRight:SetShown(isVisible);
 end
 
+local function GetTabByIndex(frame, index)
+	return frame.Tabs and frame.Tabs[index] or _G[frame:GetName().."Tab"..index];
+end
+
+local function TabSetEnable(frame, index, state)
+	local tab = GetTabByIndex(frame, index);
+	(state and PanelTemplates_EnableTab or PanelTemplates_DisableTab)(frame, index);
+end
+
 function ExaminerMixin:UpdateFrames()
-	if (self.data.loading) then
+	local data = self.data;
+	local isPlayer = data.isPlayer;
+
+	if (data.loading) then
 		self.Bg:SetVertexColor(0.5, 1, 0.5);
 		self.Inset.Bg:SetVertexColor(0.5, 1, 0.5);
 		self.TitleBg:SetVertexColor(0.5, 1, 0.5);
@@ -381,36 +407,39 @@ function ExaminerMixin:UpdateFrames()
 		self.TitleBg:SetVertexColor(1, 1, 1);
 	end
 
-	local isPlayer = self.data.isPlayer;
-
 	self.items:SetShown(isPlayer);
-
-	if (isPlayer) then
-		if (self.data.level >= SHOW_TALENT_LEVEL) then
-			PanelTemplates_EnableTab(self, 2); -- Talents
-		end
-
-		--if (self.data.level >= SHOW_PVP_TALENT_LEVEL) then
-		--	PanelTemplates_EnableTab(self, 3); -- PvP
-		--end
-
-		--if (self.data.guild and self.data.guildMembers) then
-		--	PanelTemplates_EnableTab(self, 4); -- Guild
-		--end
-	end
 
 	local TabSetShown = _G[isPlayer and "PanelTemplates_ShowTab" or "PanelTemplates_HideTab"];
 	TabSetShown(self, 1); -- Character
 	TabSetShown(self, 2); -- Talents
-	-- TabSetShown(self, 3); -- PvP
-	-- TabSetShown(self, 4); -- Guild
+	TabSetShown(self, 3); -- PvP
+	TabSetShown(self, 4); -- Guild
+
+	if (isPlayer) then
+		TabSetEnable(self, 2, data.level >= SHOW_TALENT_LEVEL); -- Talents
+		TabSetEnable(self, 3, false); --data.level >= SHOW_PVP_TALENT_LEVEL); -- PvP, TODO
+		TabSetEnable(self, 4, false); --data.guild); -- Guild, TODO
+	end
+
+	self.ej:SetShown(not isPlayer and data.hasLoot);
 end
 
 function ExaminerMixin:SwitchTabs(id)
+	local isPlayer = self.data.isPlayer;
+
 	PanelTemplates_SetTab(self, id);
 
 	self.model:SetAlpha(id ~= 1 and 0.2 or 1);
-	self.talents:SetShown(id == 2);
-	--self.pvp:SetShown(id == 3);
-	--self.guild:SetShown(id == 4);
+	self.talents:SetShown(isPlayer and id == 2);
+	self.pvp:SetShown(isPlayer and id == 3);
+	self.guild:SetShown(isPlayer and id == 4);
+end
+
+function ExaminerMixin:OpenJournal()
+	local data = self.data;
+
+	if (not data.isPlayer and data.hasLoot) then
+		EncounterJournal_LoadUI();
+		EncounterJournal_OpenJournal(nil, data.instanceID, data.encounterID);
+	end
 end
