@@ -75,8 +75,8 @@ ExaminerNPCData = {
     [136160] = { 1041, 2172 }, -- King Dazar
 
     -- Siege of Boralus --
-    --[144158] = { 1023, 0 }, -- Sergeant Bainbridge (A)
-    --[128649] = { 1023, 0 }, -- Sergeant Bainbridge (H)
+    [144158] = { 1023, 2133 }, -- Sergeant Bainbridge (A)
+    [128649] = { 1023, 2133 }, -- Sergeant Bainbridge (H)
     [144160] = { 1023, 2132 }, -- Chopper Redhook (H)
     [128650] = { 1023, 2132 }, -- Chopper Redhook (A)
     [129208] = { 1023, 2173 }, -- Dread Captain Lockwood
