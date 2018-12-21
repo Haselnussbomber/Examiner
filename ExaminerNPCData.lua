@@ -124,4 +124,177 @@ ExaminerNPCData = {
     [134058] = { 1036, 2154 }, -- Tidesage Council: Galecaller Faye
     [134060] = { 1036, 2155 }, -- Lord Stormsong
     [134069] = { 1036, 2156 }, -- Vol'zith the Whisperer
+
+
+    ------------------
+    -- Legion Raids --
+    ------------------
+
+    -- The Emerald Nightmare --
+    [102672] = { 768, 1703 }, -- Nythendra
+    [100497] = { 768, 1667 }, -- Ursoc
+    [105393] = { 768, 1738 }, -- Ilgynoth
+    [106087] = { 768, 1744 }, -- Elerethe Renferal
+    [102679] = { 768, 1704 }, -- Dragons of Nightmare: Ysondre
+    [102683] = { 768, 1704 }, -- Dragons of Nightmare: Emeriss
+    [102682] = { 768, 1704 }, -- Dragons of Nightmare: Lethon
+    [102681] = { 768, 1704 }, -- Dragons of Nightmare: Taerar
+    [104636] = { 768, 1750 }, -- Cenarius
+    [103769] = { 768, 1726 }, -- Xavius
+
+    -- The Nighthold --
+    [102263] = { 786, 1706 }, -- Skorpyron
+    [104415] = { 786, 1725 }, -- Chronomatic Anomaly
+    [104288] = { 786, 1731 }, -- Trilliax
+    [107699] = { 786, 1751 }, -- Spellblade Aluriel
+    [103685] = { 786, 1762 }, -- Tichondrius
+    [101002] = { 786, 1713 }, -- Krosus
+    [104528] = { 786, 1761 }, -- High Botanist Tel'arn
+    [109040] = { 786, 1761 }, -- High Botanist Tel'arn: Arcanist Tel'arn
+    [109041] = { 786, 1761 }, -- High Botanist Tel'arn: Naturalist Tel'arn
+    [109038] = { 786, 1761 }, -- High Botanist Tel'arn: Solarist Tel'arn
+    [103758] = { 786, 1732 }, -- Star Augur Etraeus
+    [110965] = { 786, 1743 }, -- Grand Magistrix Elisande
+    [105503] = { 786, 1737 }, -- Gul'dan
+
+    -- Trial of Valor --
+    [114263] = { 861, 1819 }, -- Odyn
+    [114344] = { 861, 1830 }, -- Guarm
+    [114537] = { 861, 1829 }, -- Helya
+
+    -- Tomb of Sargeras --
+    [115844] = { 875, 1862 }, -- Goroth
+    [120996] = { 875, 1862 }, -- Demonic Inquisition: Atrigan
+    [116691] = { 875, 1862 }, -- Demonic Inquisition: Belac
+    [116407] = { 875, 1856 }, -- Harjatan
+    [118523] = { 875, 1903 }, -- Sisters of the Moon: Huntress Kasparian
+    [118374] = { 875, 1903 }, -- Sisters of the Moon: Captain Yathae Moonstrike
+    [118518] = { 875, 1903 }, -- Sisters of the Moon: Priestess Lunaspyre
+    [119205] = { 875, 1903 }, -- Sisters of the Moon: Moontalon
+    [115767] = { 875, 1861 }, -- Mistress Sassz'ine
+    [119072] = { 875, 1896 }, -- The Desolate Host
+    [118460] = { 875, 1896 }, -- The Desolate Host: Engine of Souls
+    [118289] = { 875, 1897 }, -- Maiden of Vigilance
+    [120436] = { 875, 1873 }, -- Fallen Avatar
+    [117264] = { 875, 1873 }, -- Fallen Avatar: Maiden of Valor
+    [120437] = { 875, 1873 }, -- Fallen Avatar: Maiden of Valor 2
+    [117269] = { 875, 1898 }, -- Kil'jaeden
+
+    -- Antorus, the Burning Throne --
+    [123371] = { 946, 1992 }, -- Garothi Worldbreaker
+    [126915] = { 946, 1987 }, -- Felhounds of Sargeras: Shatug
+    [126916] = { 946, 1987 }, -- Felhounds of Sargeras: F'harg
+    [122367] = { 946, 1997 }, -- Antoran High Command: Admiral Svirax
+    [122369] = { 946, 1997 }, -- Antoran High Command: Chief Engineer Ishkar
+    [125012] = { 946, 1997 }, -- Antoran High Command: Chief Engineer Ishkar 2
+    [122333] = { 946, 1997 }, -- Antoran High Command: General Erodus
+    [125014] = { 946, 1997 }, -- Antoran High Command: General Erodus 2
+    [124393] = { 946, 1985 }, -- Portal Keeper Hasabel
+    [124396] = { 946, 1985 }, -- Portal Keeper Hasabel: Vulcanar
+    [124395] = { 946, 1985 }, -- Portal Keeper Hasabel: Lady Dacidion
+    [124394] = { 946, 1985 }, -- Portal Keeper Hasabel: Lord Eilgar
+    [131561] = { 946, 2025 }, -- Eonar the Life-Binder: Essence of Eonar
+    [125055] = { 946, 2009 }, -- Imonar the Soulhunter
+    [125050] = { 946, 2004 }, -- Kin'garoth
+    [125075] = { 946, 1983 }, -- Varimathras
+    [122468] = { 946, 1986 }, -- The Coven of Shivarra: Noura, Mother of Flames
+    [122467] = { 946, 1986 }, -- The Coven of Shivarra: Asara, Mother of Night
+    [122469] = { 946, 1986 }, -- The Coven of Shivarra: Diima, Mother of Gloom
+    [125436] = { 946, 1986 }, -- The Coven of Shivarra: Thu'raya, Mother of the Cosmos
+    [124691] = { 946, 1984 }, -- Aggramar
+    [124828] = { 946, 2031 }, -- Argus the Unmaker
+
+
+    ---------------------
+    -- Legion Dungeons --
+    ---------------------
+
+    -- Halls of Valor --
+    [94960] = { 721, 1485 }, -- Hymdall
+    [95833] = { 721, 1486 }, -- Hyrja
+    [99868] = { 721, 1487 }, -- Fenryr
+    [95674] = { 721, 1487 }, -- Fenryr ("This NPC is not in game"?)
+    [95675] = { 721, 1488 }, -- God-King Skovald
+    [95676] = { 721, 1489 }, -- Odyn
+
+    -- Lower Karazhan --
+    [113971] = { 860, 1825 }, -- Maiden of Virtue
+    [114262] = { 860, 1835 }, -- Attumen the Huntsman
+    [114312] = { 860, 1837 }, -- Moroes
+    [114316] = { 860, 1837 }, -- Moroes: Baroness Dorothea Millstipe
+    [114317] = { 860, 1837 }, -- Moroes: Lady Catriona Von'Indi
+    [114319] = { 860, 1837 }, -- Moroes: Lady Keira Berrybuck
+    [114318] = { 860, 1837 }, -- Moroes: Baron Rafe Dreuger
+    [114320] = { 860, 1837 }, -- Moroes: Lord Robin Daris
+    [114321] = { 860, 1837 }, -- Moroes: Lord Crispin Ference
+
+    -- Upper Karazhan --
+    [114247] = { 860, 1836 }, -- The Curator
+    [114350] = { 860, 1817 }, -- Shade of Medivh
+    [116494] = { 860, 1818 }, -- Mana Devourer
+    [114790] = { 860, 1838 }, -- Viz'aduum the Watcher
+
+    -- Eye of Azshara --
+    [91784] = { 716, 1480 }, -- Warlord Parjesh
+    [91789] = { 716, 1490 }, -- Lady Hatecoil
+    [91797] = { 716, 1491 }, -- King Deepbeard
+    [91808] = { 716, 1479 }, -- Serpentrix
+    [96028] = { 716, 1491 }, -- Wrath of Azshara
+
+    -- Black Rook Hold --
+    [98542] = { 740, 1518 }, -- Amalgam of Souls
+    [98696] = { 740, 1653 }, -- Illysanna Ravencrest
+    [98949] = { 740, 1664 }, -- Smashspite the Hateful
+    [94923] = { 740, 1672 }, -- Lord Kur'talos Ravencrest
+
+    -- Arcway --
+    [98203] = { 726, 1497 }, -- Ivanyr
+    [98205] = { 726, 1498 }, -- Corstilax
+    [98206] = { 726, 1499 }, -- General Xakal
+    [98207] = { 726, 1500 }, -- Nal'tira
+    [98208] = { 726, 1501 }, -- Advisor Vandros
+
+    -- Darkheart Thicket --
+    [96512] = { 762, 1654 }, -- Archdruid Glaidalis
+    [103344] = { 762, 1655 }, -- Oakheart
+    [99200] = { 762, 1656 }, -- Dresaron
+    [99192] = { 762, 1657 }, -- Shade of Xavius
+
+    -- Seat of the Triumvirate --
+    [122313] = { 945, 1979 }, -- Zuraal the Ascended
+    [122316] = { 945, 1980 }, -- Saprish
+    [125340] = { 945, 1980 }, -- Saprish: Shadewing
+    [122319] = { 945, 1980 }, -- Saprish: Darkfang
+    [124309] = { 945, 1981 }, -- Viceroy Nezhar
+    [122314] = { 945, 1982 }, -- L'ura
+
+    -- Vault of the Wardens --
+    [95885] = { 707, 1467 }, -- Tirathon Saltheril
+    [96015] = { 707, 1695 }, -- Inquisitor Tormentorum
+    [95886] = { 707, 1468 }, -- Ash'Golm
+    [95887] = { 707, 1469 }, -- Glazer
+    [95888] = { 707, 1470 }, -- Cordana Felsong
+
+    -- Maw of Souls --
+    [96756] = { 727, 1502 }, -- Ymiron, the Fallen King
+    [96754] = { 727, 1512 }, -- Harbaron
+    [96759] = { 727, 1663 }, -- Helya
+
+    -- Neltharion's Lair --
+    [91003] = { 767, 1662 }, -- Rokmora
+    [91004] = { 767, 1665 }, -- Ularogg Cragshaper
+    [91005] = { 767, 1673 }, -- Naraxas
+    [91007] = { 767, 1687 }, -- Dargrul
+
+    -- Cathedral of Eternal Night --
+    [117193] = { 900, 1905 }, -- Agronox
+    [117194] = { 900, 1906 }, -- Thrashbite the Scornful
+    [119542] = { 900, 1904 }, -- Domatrax (pre-fight?)
+    [118804] = { 900, 1904 }, -- Domatrax
+    [120793] = { 900, 1878 }, -- Mephistroth
+
+    -- Court of Stars --
+    [104215] = { 800, 1718 }, -- Patrol Captain Gerdo
+    [104217] = { 800, 1719 }, -- Talixae Flamewreath
+    [104218] = { 800, 1720 }, -- Advisor Melandrus
 };
