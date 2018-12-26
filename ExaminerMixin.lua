@@ -61,6 +61,10 @@ function ExaminerMixin:PLAYER_TARGET_CHANGED()
 		return;
 	end
 
+	if (self.data.loading) then
+		ClearInspectPlayer(self.data.guid);
+	end
+
 	self:Inspect();
 end
 
