@@ -52,10 +52,6 @@ function ExaminerMixin:OnUpdate(elapsed)
 	NotifyInspect(self.data.unit);
 end
 
-function ExaminerMixin:OnShow()
-
-end
-
 function ExaminerMixin:ShouldHandleEvent(guid)
 	return self:IsVisible() and self.data and guid == self.data.guid;
 end

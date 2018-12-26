@@ -577,7 +577,6 @@
 		<Scripts>
 			<OnLoad method="OnLoad"/>
 			<OnEvent method="OnEvent"/>
-			<OnShow method="OnShow"/>
 			<OnUpdate method="OnUpdate"/>
 		</Scripts>
 	</Frame>
