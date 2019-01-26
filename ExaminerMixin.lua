@@ -259,12 +259,16 @@ function ExaminerMixin:UpdateSpecialization()
 	if (data.isSelf) then
 		local specID = GetSpecialization();
 		if (specID) then
-			data.specName = select(2, GetSpecializationInfo(specID, nil, nil, nil, data.sex));
+			local _, name, _, _, role = GetSpecializationInfo(specID, nil, nil, nil, data.sex);
+			data.specName = name;
+			data.specRole = role;
 		end
 	else
 		local specID = GetInspectSpecialization(data.unit);
 		if (specID) then
-			data.specName = select(2, GetSpecializationInfoByID(specID, data.sex));
+			local _, name, _, _, role = GetSpecializationInfoByID(specID, data.sex);
+			data.specName = name;
+			data.specRole = role;
 		end
 	end
 
@@ -346,8 +350,16 @@ function ExaminerMixin:UpdateDetailFrame()
 		guild = string.format("\n<%s> %s (%d)", data.guild, data.guildRank, data.guildIndex);
 	end
 
-	if (data.specName) then
-		self.details:SetFormattedText(PLAYER_LEVEL..guild, level, classColorString, data.specName, data.class);
+	if (data.specName and data.specRole) then
+		local texture = "";
+		if (data.specRole == "TANK") then
+			texture = " " .. CreateAtlasMarkup("roleicon-tiny-tank");
+		elseif (data.specRole == "DAMAGER") then
+			texture = " " .. CreateAtlasMarkup("roleicon-tiny-dps");
+		elseif (data.specRole == "HEALER") then
+			texture = " " .. CreateAtlasMarkup("roleicon-tiny-healer");
+		end
+		self.details:SetFormattedText(PLAYER_LEVEL..texture..guild, level, classColorString, data.specName, data.class);
 	else
 		self.details:SetFormattedText(PLAYER_LEVEL_NO_SPEC..guild, level, classColorString, data.class);
 	end
