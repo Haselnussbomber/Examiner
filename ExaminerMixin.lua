@@ -309,7 +309,7 @@ function ExaminerMixin:UpdateTalents()
 						SetItemButtonTexture(columnFrame, iconTexture);
 						SetDesaturation(columnFrame.icon, not (selected or grantedByAura));
 						columnFrame.border:SetShown(selected or grantedByAura);
-						if ( grantedByAura ) then
+						if (grantedByAura) then
 							local color = ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_LEGENDARY];
 							columnFrame.border:SetVertexColor(color.r, color.g, color.b);
 						else
@@ -329,7 +329,7 @@ end
 function ExaminerMixin:UpdateDetailFrame()
 	local data = self.data;
 
-	local classColorString = RAID_CLASS_COLORS[data.classFixed].colorStr;
+	local classColorString = RAID_CLASS_COLORS[data.classFixed or "WARRIOR"].colorStr;
 	local level = data.level;
 
 	if (level == -1 or effectiveLevel == -1) then
