@@ -6,7 +6,7 @@ function ExaminerItemSlotButtonMixin:OnLoad()
     self.slotName = strsub(self:GetName(), 9);
 	local id, texture = GetInventorySlotInfo(self.slotName);
 	self:SetID(id);
-	self.icon:SetTexture(texture);
+    SetItemButtonTexture(self, texture);
 	self.backgroundTextureName = texture;
 end
 

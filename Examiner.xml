@@ -9,7 +9,7 @@
 	<Script file="ExaminerTalentButtonMixin.lua"/>
 
 	<!-- copy pasta from FrameXML/AzeritePaperDollItemOverlay.xml -->
-	<Frame name="ExaminerAzeriteItemOverlayTemplate" mixin="ExaminerAzeriteItemOverlayMixin" virtual="true">
+	<ItemButton name="ExaminerAzeriteItemOverlayTemplate" mixin="ExaminerAzeriteItemOverlayMixin" virtual="true">
 		<KeyValues>
 			<KeyValue key="HasPaperDollAzeriteItemOverlay" value="true"/>
 		</KeyValues>
@@ -191,9 +191,9 @@
 				</Animations>
 			</Frame>
 		</Frames>
-	</Frame>
+	</ItemButton>
 
-	<Button name="ExaminerItemSlotButtonTemplate" inherits="ItemButtonTemplate, ExaminerAzeriteItemOverlayTemplate" mixin="ExaminerItemSlotButtonMixin" virtual="true">
+	<ItemButton name="ExaminerItemSlotButtonTemplate" inherits="ExaminerAzeriteItemOverlayTemplate" mixin="ExaminerItemSlotButtonMixin" virtual="true">
 		<Layers>
 			<Layer level="OVERLAY">
 				<FontString name="$parentLevel" inherits="GameFontHighlightOutline" parentKey="level">
@@ -216,7 +216,7 @@
 			<OnLeave method="OnLeave"/>
 			<OnUpdate function="CursorOnUpdate"/>
 		</Scripts>
-	</Button>
+	</ItemButton>
 
 	<Button name="ExaminerTalentButtonTemplate" virtual="true" mixin="ExaminerTalentButtonMixin">
 		<Size x="26" y="26"/>
@@ -416,87 +416,87 @@
 			<!-- Items, always visible (Tab 1) -->
 			<Frame name="ExaminerItemsFrame" setAllPoints="true" parentKey="items">
 				<Frames>
-					<Button name="ExaminerHeadSlot" inherits="ExaminerItemSlotButtonTemplate">
+					<ItemButton name="ExaminerHeadSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerInset" x="7" y="-7"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerNeckSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerNeckSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerHeadSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerShoulderSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerShoulderSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerNeckSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerBackSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerBackSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerShoulderSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerChestSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerChestSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerBackSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerShirtSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerShirtSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerChestSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerTabardSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerTabardSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerShirtSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerWristSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerWristSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerTabardSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerHandsSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerHandsSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPRIGHT" relativeTo="ExaminerInset" x="-5" y="-7"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerWaistSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerWaistSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerHandsSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerLegsSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerLegsSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerWaistSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerFeetSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerFeetSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerLegsSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerFinger0Slot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerFinger0Slot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerFeetSlot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerFinger1Slot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerFinger1Slot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerFinger0Slot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerTrinket0Slot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerTrinket0Slot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerFinger1Slot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerTrinket1Slot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerTrinket1Slot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerTrinket0Slot" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
 						</Anchors>
-					</Button>
-					<Button name="ExaminerMainHandSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerMainHandSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="BOTTOMLEFT" x="130" y="11"/>
 						</Anchors>
@@ -511,12 +511,12 @@
 							</Layer>
 						</Layers>
 						-->
-					</Button>
-					<Button name="ExaminerSecondaryHandSlot" inherits="ExaminerItemSlotButtonTemplate">
+					</ItemButton>
+					<ItemButton name="ExaminerSecondaryHandSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="ExaminerMainHandSlot" relativePoint="TOPRIGHT" x="5" y="0"/>
 						</Anchors>
-					</Button>
+					</ItemButton>
 				</Frames>
 			</Frame>
 
