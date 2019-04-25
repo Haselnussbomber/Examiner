@@ -140,6 +140,38 @@ ExaminerNPCData = {
     [134069] = { 1036, 2156 }, -- Vol'zith the Whisperer
 
 
+    ----------------------------
+    -- Legion Invasion Bosses --
+    ----------------------------
+    [124625] = { 959, 2011 }, -- Mistress Alluradel
+    [124514] = { 959, 2010 }, -- Matron Folnuna
+    [124592] = { 959, 2012 }, -- Inquisitor Meto
+    [124492] = { 959, 2013 }, -- Occularus
+    [124555] = { 959, 2014 }, -- Sothanar
+    [124719] = { 959, 2015 }, -- Pit Lord Vilemus
+
+
+    -------------------------
+    -- Legion World Bosses --
+    -------------------------
+    [109943] = { 822, 1750 }, -- Ana-Mouz
+    [121124] = { 822, 1956 }, -- Apocron
+    [117239] = { 822, 1883 }, -- Brutallus
+    [109331] = { 822, 1774 }, -- Calamir
+    [110378] = { 822, 1789 }, -- Drugon the Frostblood
+    [99929] = { 822, 1795 }, -- Flotsam
+    [108879] = { 822, 1770 }, -- Humongris
+    [108829] = { 822, 1769 }, -- Levantus
+    [117303] = { 822, 1884 }, -- Malificus
+    [110321] = { 822, 1783 }, -- Na'zak the Fiend
+    [107023] = { 822, 1749 }, -- Nithogg
+    [108678] = { 822, 1763 }, -- Shar'thos
+    [117470] = { 822, 1885 }, -- Si'vash
+    [106981] = { 822, 1756 }, -- The Soultakers
+    [102075] = { 822, 1796 }, -- Withered J'im
+    [112350] = { 822, 1796 }, -- Withered J'im (Clone)
+
+
     ------------------
     -- Legion Raids --
     ------------------
