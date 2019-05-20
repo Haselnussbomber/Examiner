@@ -7,6 +7,7 @@
 	<Script file="ExaminerTabMixin.lua"/>
 	<Script file="ExaminerItemSlotButtonMixin.lua"/>
 	<Script file="ExaminerTalentButtonMixin.lua"/>
+	<Script file="ExaminerPvpTalentButtonMixin.lua"/>
 
 	<!-- copy pasta from FrameXML/AzeritePaperDollItemOverlay.xml -->
 	<ItemButton name="ExaminerAzeriteItemOverlayTemplate" mixin="ExaminerAzeriteItemOverlayMixin" virtual="true">
@@ -251,6 +252,60 @@
 			<OnLeave function="GameTooltip_Hide"/>
 		</Scripts>
 	</Button>
+
+	<Button name="ExaminerPvpTalentButtonTemplate" virtual="true" mixin="ExaminerPvpTalentButtonMixin" motionScriptsWhileDisabled="true">
+		<Size x="32" y="32"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Texture">
+					<Size x="23" y="23"/>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture parentKey="Arrow" atlas="pvptalents-selectedarrow" hidden="true">
+					<Size x="19" y="19"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.Border" relativePoint="RIGHT" x="-5" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture parentKey="Border" atlas="pvptalents-talentborder" setAllPoints="true"/>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnClick method="OnClick"/>
+			<OnEnter method="OnEnter"/>
+			<OnLeave function="GameTooltip_Hide"/>
+		</Scripts>
+	</Button>
+
+	<Frame name="ExaminerPvpStatTemplate" virtual="true">
+		<Size x="320" y="60"/>
+		<Layers>
+			<Layer level="BORDER">
+				<FontString name="$parentBGType" parentKey="BGType" inherits="Game13FontShadow">
+					<Anchors>
+						<Anchor point="TOP" x="0" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+				<FontString parentKey="Rating" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.BGType" relativePoint="BOTTOM" x="0" y="-4"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="Record" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.Rating" relativePoint="BOTTOM" x="0" y="-2"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
 
 	<Frame name="ExaminerTalentRowTemplate" virtual="true">
 		<Size x="180" y="26"/>
@@ -522,19 +577,97 @@
 
 			<!-- PvP, visible on Tab 2 -->
 			<Frame name="ExaminerPvPFrame" setAllPoints="true" parentKey="pvp" hidden="true">
-
+				<Size x="320" y="352"/>
+				<Anchors>
+					<Anchor point="TOP" x="0" y="-66"/>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parentLevel" inherits="GameFontNormalLargeOutline" parentKey="honorLevel">
+							<Anchors>
+								<Anchor point="TOP" relativePoint="TOP" y="-15"/>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentHKs" inherits="GameFontHighlightOutline" parentKey="HKs">
+							<Anchors>
+								<Anchor point="TOP" relativeTo="$parentLevel" relativePoint="BOTTOM" x="0" y="-6"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+					<Layer level="BACKGROUND">
+						<Texture name="$parentBackground" parentKey="background" file="Interface\Timer\Panda-Logo" hidden="true" alphaMode="ADD" alpha=".5">
+							<Size x="256" y="256"/>
+							<Anchors>
+								<Anchor point="CENTER" x="0" y="10"/>
+							</Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="$parentTalent1" parentArray="talents" inherits="ExaminerPvpTalentButtonTemplate" parentKey="talent1">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOP" x="-73" y="-62"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentTalent2" parentArray="talents" inherits="ExaminerPvpTalentButtonTemplate" parentKey="talent2">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentTalent1" relativePoint="RIGHT" x="6"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentTalent3" parentArray="talents" inherits="ExaminerPvpTalentButtonTemplate" parentKey="talent3">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentTalent2" relativePoint="RIGHT" x="6"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentTalent4" parentArray="talents" inherits="ExaminerPvpTalentButtonTemplate" parentKey="talent4">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentTalent3" relativePoint="RIGHT" x="6"/>
+						</Anchors>
+					</Button>
+					<Frame parentKey="ratedbg" inherits="ExaminerPvpStatTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="TOP" x="0" y="-105"/>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self.BGType:SetText(PVP_RATED_BATTLEGROUNDS);
+							</OnLoad>
+						</Scripts>
+					</Frame>
+					<Frame parentKey="arena1" inherits="ExaminerPvpStatTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.ratedbg" relativePoint="BOTTOMLEFT" x="0" y="-5"/>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self.BGType:SetText(ARENA_BATTLES_2V2);
+							</OnLoad>
+						</Scripts>
+					</Frame>
+					<Frame parentKey="arena2" inherits="ExaminerPvpStatTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.arena1" relativePoint="BOTTOMLEFT" x="0" y="-5"/>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self.BGType:SetText(ARENA_BATTLES_3V3);
+							</OnLoad>
+						</Scripts>
+					</Frame>
+				</Frames>
 			</Frame>
 
 			<!-- Talents, visible on Tab 3 -->
 			<Frame name="ExaminerTalentsFrame" parentKey="talents" hidden="true">
-				<Size x="300" y="300"/>
+				<Size x="320" y="352"/>
 				<Anchors>
-					<Anchor point="TOP" x="0" y="0"/>
+					<Anchor point="TOP" x="0" y="-96"/>
 				</Anchors>
 				<Frames>
 					<Frame name="$parentTalentRow1" inherits="ExaminerTalentRowTemplate" parentKey="tier1" id="1">
 						<Anchors>
-							<Anchor point="TOP" x="0" y="-100"/>
+							<Anchor point="TOP" x="0" y="0"/>
 						</Anchors>				
 					</Frame>
 					<Frame name="$parentTalentRow2" inherits="ExaminerTalentRowTemplate" parentKey="tier2" id="2">

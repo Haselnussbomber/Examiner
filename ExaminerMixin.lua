@@ -7,15 +7,14 @@ function ExaminerMixin:OnLoad()
 	UIPanelWindows[self:GetName()] = { area = "left", pushable = 3, whileDead = 1 };
     --UISpecialFrames[#UISpecialFrames + 1] = modName;
 
-	self:RegisterEvent("PLAYER_TARGET_CHANGED");
-	self:RegisterEvent("UNIT_MODEL_CHANGED");
-	self:RegisterEvent("UNIT_PORTRAIT_UPDATE");
-	self:RegisterEvent("UNIT_LEVEL");
-	self:RegisterEvent("UNIT_NAME_UPDATE");
 	self:RegisterEvent("INSPECT_READY");
 	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED");
+	self:RegisterEvent("PLAYER_TARGET_CHANGED");
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED");
-    -- self:RegisterEvent("INSPECT_HONOR_UPDATE");
+	self:RegisterEvent("UNIT_LEVEL");
+	self:RegisterEvent("UNIT_MODEL_CHANGED");
+	self:RegisterEvent("UNIT_NAME_UPDATE");
+	self:RegisterEvent("UNIT_PORTRAIT_UPDATE");
 
     ButtonFrameTemplate_HideButtonBar(self);
 	PanelTemplates_SetNumTabs(self, 4);
@@ -152,6 +151,7 @@ function ExaminerMixin:Inspect()
 
 	INSPECTED_UNIT = unit;
 
+	local isPlayer = UnitIsPlayer(unit);
 	local guid = UnitGUID(unit);
 	local name, realm = UnitName(unit);
 	local class, classFixed, classID = UnitClass(unit);
@@ -159,10 +159,43 @@ function ExaminerMixin:Inspect()
 	-- Note: NPC guild names are only accessible via tooltip parsing
 	local guild, guildRank, guildIndex = GetGuildInfo(unit);
 
+	-- Honor Data
+	local _, arenaTeams = nil, {};
+	local ratedBgRating, ratedBgPlayed, ratedBgWon = 0, 0, 0
+	local lifetimeHKs, honorLevel = 0, 0;
+
+	if (isPlayer) then
+		-- local RATED_BG_ID = 3 in Blizzard_PVPUI/Blizzard_PVPUI.lua
+		ratedBgRating, _, _, ratedBgPlayed, ratedBgWon = GetPersonalRatedInfo(3);
+		lifetimeHKs = GetPVPLifetimeStats();
+		honorLevel = UnitHonorLevel(unit);
+
+		for i=1, MAX_ARENA_TEAMS do
+			local arenarating, _, _, seasonPlayed, seasonWon = GetPersonalRatedInfo(i);
+			arenaTeams[i] = {
+				arenarating = arenarating,
+				seasonPlayed = seasonPlayed,
+				seasonWon = seasonWon,
+			};
+		end
+	else
+		ratedBgRating, ratedBgPlayed, ratedBgWon = GetInspectRatedBGData();
+		_, _, _, _, lifetimeHKs, _, honorLevel = GetInspectHonorData();
+
+		for i=1, MAX_ARENA_TEAMS do
+			local arenarating, seasonPlayed, seasonWon = GetInspectArenaData(i);
+			arenaTeams[i] = {
+				arenarating = arenarating,
+				seasonPlayed = seasonPlayed,
+				seasonWon = seasonWon,
+			};
+		end
+	end
+
 	local data = {
 		unit = unit,
 
-		isPlayer = UnitIsPlayer(unit),
+		isPlayer = isPlayer,
 		isSelf = UnitIsUnit(unit, "player"),
 		--canCooperate = UnitCanCooperate("player", unit),
 		canInspect = CanInspect(unit),
@@ -170,6 +203,7 @@ function ExaminerMixin:Inspect()
 		guid = guid,
 		name = name,
 		realm = realm or nil,
+		factionGroup = UnitFactionGroup(unit),
 		pvpName = UnitPVPName(unit),
 		level = UnitLevel(unit) or -1,
 		effectiveLevel = UnitEffectiveLevel(unit) or -1,
@@ -180,6 +214,13 @@ function ExaminerMixin:Inspect()
 		guild = guild,
 		guildRank = guildRank,
 		guildIndex = guildIndex,
+
+		lifetimeHKs = lifetimeHKs,
+		honorLevel = honorLevel,
+		ratedBgRating = ratedBgRating,
+		ratedBgPlayed = ratedBgPlayed,
+		ratedBgWon = ratedBgWon,
+		arenaTeams = arenaTeams,
 
 		npcID = guid and tonumber(guid:match("-(%d+)-%x+$"), 10) or nil,
 		hasLoot = false,
@@ -201,6 +242,7 @@ function ExaminerMixin:Inspect()
 			self:UpdateItems();
 			self:UpdateSpecialization();
 			self:UpdateTalents();
+			self:UpdateHonorData();
 		end
 
 		local currentTab = PanelTemplates_GetSelectedTab(self);
@@ -322,6 +364,85 @@ function ExaminerMixin:UpdateTalents()
 	end
 end
 
+-- from Blizzard_InspectUI/InspectPaperDollFrame.lua
+local factionLogoTextures = {
+	["Alliance"]	= "Interface\\Timer\\Alliance-Logo",
+	["Horde"]		= "Interface\\Timer\\Horde-Logo",
+	["Neutral"]		= "Interface\\Timer\\Panda-Logo",
+};
+
+function ExaminerMixin:UpdateHonorData()
+	local data = self.data;
+
+	if (not data.isPlayer or data.level < SHOW_PVP_TALENT_LEVEL) then
+		return;
+	end
+
+	-- Background
+	if (data.factionGroup) then
+		self.pvp.background:SetTexture(factionLogoTextures[data.factionGroup]);
+		self.pvp.background:Show();
+	else
+		self.pvp.background:Hide();
+	end
+
+	-- Honor Level, Honorable Kills
+	self.pvp.honorLevel:SetFormattedText(HONOR_LEVEL_LABEL:gsub("%%d", "%%s"), HIGHLIGHT_FONT_COLOR:WrapTextInColorCode(data.honorLevel));
+	self.pvp.HKs:SetFormattedText(INSPECT_HONORABLE_KILLS, data.lifetimeHKs);
+
+	-- Talents
+	for i, frame in ipairs(self.pvp.talents) do
+		local selectedTalentID = C_SpecializationInfo.GetInspectSelectedPvpTalent(data.unit, i);
+
+		if (selectedTalentID) then
+			frame:SetID(selectedTalentID);
+			SetPortraitToTexture(frame.Texture, select(3, GetPvpTalentInfoByID(selectedTalentID)));
+			frame.Texture:Show();
+		else
+			frame.Texture:Hide();
+		end
+	end
+
+	-- Rated BG
+	self.pvp.ratedbg.Rating:SetFormattedText(
+		"%s %s",
+		PVP_RATING,
+		HIGHLIGHT_FONT_COLOR:WrapTextInColorCode(data.ratedBgRating)
+	);
+	self.pvp.ratedbg.Record:SetFormattedText(
+		"%s %s",
+		PVP_RECORD,
+		HIGHLIGHT_FONT_COLOR:WrapTextInColorCode(
+			PVP_RECORD_DESCRIPTION:format(
+				data.ratedBgWon,
+				data.ratedBgPlayed - data.ratedBgWon
+			)
+		)
+	);
+
+	-- Arena
+	for i, arenaTeam in ipairs(data.arenaTeams) do
+		local frame = self.pvp["arena"..i];
+		if (frame) then
+			frame.Rating:SetFormattedText(
+				"%s %s",
+				PVP_RATING,
+				HIGHLIGHT_FONT_COLOR:WrapTextInColorCode(arenaTeam.arenarating)
+			);
+			frame.Record:SetFormattedText(
+				"%s %s",
+				PVP_RECORD,
+				HIGHLIGHT_FONT_COLOR:WrapTextInColorCode(
+					PVP_RECORD_DESCRIPTION:format(
+						arenaTeam.seasonWon,
+						arenaTeam.seasonPlayed - arenaTeam.seasonWon
+					)
+				)
+			);
+		end
+	end
+end
+
 function ExaminerMixin:UpdateTitleFrame()
 	self.title:SetText(self.data.pvpName or self.data.name);
 end
@@ -429,7 +550,7 @@ function ExaminerMixin:UpdateFrames()
 
 	if (isPlayer) then
 		TabSetEnable(self, 2, data.level >= SHOW_TALENT_LEVEL); -- Talents
-		TabSetEnable(self, 3, false); --data.level >= SHOW_PVP_TALENT_LEVEL); -- PvP, TODO
+		TabSetEnable(self, 3, data.level >= SHOW_PVP_TALENT_LEVEL); -- PvP
 		TabSetEnable(self, 4, false); --data.guild); -- Guild, TODO
 	end
 

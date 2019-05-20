@@ -7,7 +7,7 @@ function ExaminerTalentButtonMixin:OnEnter()
 		return;
 	end
 
-	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");	
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 	GameTooltip:SetTalent(self:GetID(), true, data.specGroup, data.unit, data.classID);
 end
 
