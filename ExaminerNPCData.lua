@@ -34,11 +34,11 @@ ExaminerNPCData = {
     [144683] = { 1176, 2344 }, -- Champion of the Light: Ra'wani Kanae (A)
     [148238] = { 1176, 2323 }, -- Jadefire Masters: Ma'ra Grimfang (A)
     [146100] = { 1176, 2323 }, -- Jadefire Masters: Firecaller (A)
-    [146099] = { 1176, 2323 }, -- Jadefire Masters: Manceroy Flamefist (H)
-    [148270] = { 1176, 2323 }, -- Jadefire Masters: Mestrah (H)
+    [144693] = { 1176, 2323 }, -- Jadefire Masters: Manceroy Flamefist (H)
+    [144690] = { 1176, 2323 }, -- Jadefire Masters: Mestrah (H)
     [144638] = { 1176, 2340 }, -- Grong the Revenant (A)
     [148117] = { 1176, 2340 }, -- Grong, the Jungle Lord (H)
-    [147564] = { 1176, 2342 }, -- Opulence
+    [145261] = { 1176, 2342 }, -- Opulence
     [144747] = { 1176, 2330 }, -- Conclave of the Chosen: Pa'ku's Aspect
     [144767] = { 1176, 2330 }, -- Conclave of the Chosen: Gonk's Aspect
     [144963] = { 1176, 2330 }, -- Conclave of the Chosen: Kimbul's Aspect
@@ -52,7 +52,7 @@ ExaminerNPCData = {
     [146256] = { 1176, 2337 }, -- Stormwall Blockade: Laminaria
     [146253] = { 1176, 2337 }, -- Stormwall Blockade: Brother Joseph
     [146251] = { 1176, 2337 }, -- Stormwall Blockade: Sister Katherine
-    [149684] = { 1176, 2343 }, -- Lady Jaina Proudmoore
+    [146409] = { 1176, 2343 }, -- Lady Jaina Proudmoore
 
     -- Crucible of Storms --
     [146497] = { 1177, 2328 }, -- The Restless Cabal: Zaxasj the Speaker
