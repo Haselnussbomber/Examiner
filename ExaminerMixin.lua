@@ -22,27 +22,20 @@ function ExaminerMixin:OnLoad()
 	PanelTemplates_SetTab(self, 1); -- Character
 	self.onUpdateTimer = 0;
 
-	do
-		-- set guildName font size to 18 (instead of 20)
-		local font, _, fontFlags = self.guild.guildName:GetFont();
-		self.guild.guildName:SetFont(font, 18, fontFlags);
+	-- set guildName font size to 18 (instead of 20)
+	local font, _, fontFlags = self.guild.guildName:GetFont();
+	self.guild.guildName:SetFont(font, 18, fontFlags);
+
+	-- only show model controlFrame and allow model rotating and zooming when on first tab
+	for _, event in pairs({"OnEnter", "OnUpdate", "OnMouseWheel"}) do
+		local fn = self.model:GetScript(event);
+		self.model:SetScript(event, function(...)
+			local currentTab = PanelTemplates_GetSelectedTab(self);
+			if (currentTab == 1) then
+				fn(...);
+			end
+		end)
 	end
-
-	-- only show model controls when on first tab
-	self.model:SetScript("OnEnter", function()
-		local currentTab = PanelTemplates_GetSelectedTab(self);
-		if (currentTab == 1) then
-			self.model.controlFrame:Show();
-		end
-	end)
-
-	-- only allow model rotation when on first tab
-	self.model:SetScript("OnUpdate", function(_, elapsedTime, rotationsPerSecond)
-		local currentTab = PanelTemplates_GetSelectedTab(self);
-		if (currentTab == 1) then
-			Model_OnUpdate(self.model, elapsedTime, rotationsPerSecond)
-		end
-	end)
 end
 
 function ExaminerMixin:OnEvent(event, ...)
