@@ -7,6 +7,7 @@ function ExaminerMixin:OnLoad()
 	UIPanelWindows[self:GetName()] = { area = "left", pushable = 3, whileDead = 1 };
     --UISpecialFrames[#UISpecialFrames + 1] = modName;
 
+	self:RegisterEvent("INSPECT_HONOR_UPDATE");
 	self:RegisterEvent("INSPECT_READY");
 	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED");
 	self:RegisterEvent("PLAYER_TARGET_CHANGED");
@@ -72,7 +73,7 @@ function ExaminerMixin:UNIT_INVENTORY_CHANGED(unit)
 		return;
 	end
 
-	self:UpdateItems();
+	self:UpdateItemFrames();
 end
 
 function ExaminerMixin:UNIT_MODEL_CHANGED(unit)
@@ -88,7 +89,7 @@ function ExaminerMixin:UNIT_PORTRAIT_UPDATE(unit)
 		return;
 	end
 
-	self:UpdatePortraitFrame();
+	self:UpdatePortrait();
 end
 
 function ExaminerMixin:UNIT_LEVEL(unit)
@@ -99,7 +100,7 @@ function ExaminerMixin:UNIT_LEVEL(unit)
 	self.data.level = UnitLevel(unit) or -1;
 	self.data.effectiveLevel = UnitEffectiveLevel(unit) or -1;
 
-	self:UpdateDetailFrame();
+	self:UpdateDetails();
 end
 
 function ExaminerMixin:UNIT_NAME_UPDATE(unit)
@@ -110,7 +111,7 @@ function ExaminerMixin:UNIT_NAME_UPDATE(unit)
 	self.data.name, self.data.realm = UnitName(unit);
 	self.data.pvpName = UnitPVPName(unit);
 
-	self:UpdateTitleFrame();
+	self:UpdateTitle();
 end
 
 function ExaminerMixin:INSPECT_READY(guid)
@@ -125,11 +126,20 @@ function ExaminerMixin:INSPECT_READY(guid)
 		self.data.guildPoints, self.data.guildMembers = GetInspectGuildInfo(self.data.unit);
 	end
 
-	self:UpdateSpecialization();
-	self:UpdateTalents();
-	self:UpdateDetailFrame();
-	self:UpdateItems();
-	self:UpdateFrames();
+	self:FetchSpecialization();
+	self:UpdateTalentTab();
+	self:UpdateDetails();
+	self:UpdateItemFrames();
+	self:UpdateFrame();
+end
+
+function ExaminerMixin:INSPECT_HONOR_UPDATE()
+	if (not self.data or not self:ShouldHandleEvent(UnitGUID(self.data.unit))) then
+		return;
+	end
+
+	self:FetchHonorData();
+	self:UpdatePVPTab();
 end
 
 function ExaminerMixin:PLAYER_SPECIALIZATION_CHANGED()
@@ -137,9 +147,9 @@ function ExaminerMixin:PLAYER_SPECIALIZATION_CHANGED()
 		return;
 	end
 
-	self:UpdateSpecialization();
-	self:UpdateTalents();
-	self:UpdateDetailFrame();
+	self:FetchSpecialization();
+	self:UpdateTalentTab();
+	self:UpdateDetails();
 end
 
 function ExaminerMixin:Inspect()
@@ -151,7 +161,6 @@ function ExaminerMixin:Inspect()
 
 	INSPECTED_UNIT = unit;
 
-	local isPlayer = UnitIsPlayer(unit);
 	local guid = UnitGUID(unit);
 	local name, realm = UnitName(unit);
 	local class, classFixed, classID = UnitClass(unit);
@@ -159,43 +168,10 @@ function ExaminerMixin:Inspect()
 	-- Note: NPC guild names are only accessible via tooltip parsing
 	local guild, guildRank, guildIndex = GetGuildInfo(unit);
 
-	-- Honor Data
-	local _, arenaTeams = nil, {};
-	local ratedBgRating, ratedBgPlayed, ratedBgWon = 0, 0, 0
-	local lifetimeHKs, honorLevel = 0, 0;
-
-	if (isPlayer) then
-		-- local RATED_BG_ID = 3 in Blizzard_PVPUI/Blizzard_PVPUI.lua
-		ratedBgRating, _, _, ratedBgPlayed, ratedBgWon = GetPersonalRatedInfo(3);
-		lifetimeHKs = GetPVPLifetimeStats();
-		honorLevel = UnitHonorLevel(unit);
-
-		for i=1, MAX_ARENA_TEAMS do
-			local arenarating, _, _, seasonPlayed, seasonWon = GetPersonalRatedInfo(i);
-			arenaTeams[i] = {
-				arenarating = arenarating,
-				seasonPlayed = seasonPlayed,
-				seasonWon = seasonWon,
-			};
-		end
-	else
-		ratedBgRating, ratedBgPlayed, ratedBgWon = GetInspectRatedBGData();
-		_, _, _, _, lifetimeHKs, _, honorLevel = GetInspectHonorData();
-
-		for i=1, MAX_ARENA_TEAMS do
-			local arenarating, seasonPlayed, seasonWon = GetInspectArenaData(i);
-			arenaTeams[i] = {
-				arenarating = arenarating,
-				seasonPlayed = seasonPlayed,
-				seasonWon = seasonWon,
-			};
-		end
-	end
-
 	local data = {
 		unit = unit,
 
-		isPlayer = isPlayer,
+		isPlayer = UnitIsPlayer(unit),
 		isSelf = UnitIsUnit(unit, "player"),
 		--canCooperate = UnitCanCooperate("player", unit),
 		canInspect = CanInspect(unit),
@@ -215,16 +191,16 @@ function ExaminerMixin:Inspect()
 		guildRank = guildRank,
 		guildIndex = guildIndex,
 
-		lifetimeHKs = lifetimeHKs,
-		honorLevel = honorLevel,
-		ratedBgRating = ratedBgRating,
-		ratedBgPlayed = ratedBgPlayed,
-		ratedBgWon = ratedBgWon,
-		arenaTeams = arenaTeams,
+		lifetimeHKs = 0,
+		honorLevel = 0,
+		ratedBgRating = 0,
+		ratedBgPlayed = 0,
+		ratedBgWon = 0,
+		arenaTeams = {},
+		pvpTalents = {},
 
 		npcID = guid and tonumber(guid:match("-(%d+)-%x+$"), 10) or nil,
 		hasLoot = false,
-		loot = {},
 	};
 
 	local oldData = self.data;
@@ -237,12 +213,15 @@ function ExaminerMixin:Inspect()
 			if (not data.isSelf) then
 				data.loading = true;
 				NotifyInspect(unit);
+			else
+				self:FetchHonorData();
 			end
 
-			self:UpdateItems();
-			self:UpdateSpecialization();
-			self:UpdateTalents();
-			self:UpdateHonorData();
+			self:FetchSpecialization();
+
+			self:UpdateItemFrames();
+			self:UpdateTalentTab();
+			self:UpdatePVPTab();
 		end
 
 		local currentTab = PanelTemplates_GetSelectedTab(self);
@@ -281,11 +260,11 @@ function ExaminerMixin:Inspect()
 		end
 	end
 
-	self:UpdateTitleFrame();
-	self:UpdateDetailFrame();
-	self:UpdatePortraitFrame();
+	self:UpdateTitle();
+	self:UpdateDetails();
+	self:UpdatePortrait();
 	self:UpdateModel();
-	self:UpdateFrames();
+	self:UpdateFrame();
 
 	ShowUIPanel(self);
 
@@ -296,7 +275,7 @@ function ExaminerMixin:Inspect()
 	end
 end
 
-function ExaminerMixin:UpdateSpecialization()
+function ExaminerMixin:FetchSpecialization()
 	local data = self.data;
 	if (data.isSelf) then
 		local specID = GetSpecialization();
@@ -317,7 +296,7 @@ function ExaminerMixin:UpdateSpecialization()
 	data.specGroup = GetActiveSpecGroup(data.unit);
 end
 
-function ExaminerMixin:UpdateItems()
+function ExaminerMixin:UpdateItemFrames()
 	if (not self.data.isPlayer) then
 		return;
 	end
@@ -328,7 +307,7 @@ function ExaminerMixin:UpdateItems()
 	end
 end
 
-function ExaminerMixin:UpdateTalents()
+function ExaminerMixin:UpdateTalentTab()
 	local data = self.data;
 
 	if (not data.isPlayer) then
@@ -371,7 +350,60 @@ local factionLogoTextures = {
 	["Neutral"]		= "Interface\\Timer\\Panda-Logo",
 };
 
-function ExaminerMixin:UpdateHonorData()
+function ExaminerMixin:FetchHonorData()
+	local data = self.data;
+
+	if (not data or not data.isPlayer or data.level < SHOW_PVP_TALENT_LEVEL) then
+		return;
+	end
+
+	local _, arenaTeams, pvpTalents = nil, {}, {};
+	local ratedBgRating, ratedBgPlayed, ratedBgWon, lifetimeHKs, honorLevel;
+
+	if (data.isSelf) then
+		-- local RATED_BG_ID = 3 in Blizzard_PVPUI/Blizzard_PVPUI.lua
+		ratedBgRating, _, _, ratedBgPlayed, ratedBgWon = GetPersonalRatedInfo(3);
+		lifetimeHKs = GetPVPLifetimeStats();
+		honorLevel = UnitHonorLevel(data.unit);
+
+		for i=1, MAX_ARENA_TEAMS do
+			local arenarating, _, _, seasonPlayed, seasonWon = GetPersonalRatedInfo(i);
+			arenaTeams[i] = {
+				arenarating = arenarating,
+				seasonPlayed = seasonPlayed,
+				seasonWon = seasonWon,
+			};
+		end
+
+		pvpTalents = C_SpecializationInfo.GetAllSelectedPvpTalentIDs();
+	else
+		ratedBgRating, ratedBgPlayed, ratedBgWon = GetInspectRatedBGData();
+		_, _, _, _, lifetimeHKs, _, honorLevel = GetInspectHonorData();
+
+		for i=1, MAX_ARENA_TEAMS do
+			local arenarating, seasonPlayed, seasonWon = GetInspectArenaData(i);
+			arenaTeams[i] = {
+				arenarating = arenarating,
+				seasonPlayed = seasonPlayed,
+				seasonWon = seasonWon,
+			};
+		end
+
+		for i=1, 4 do
+			pvpTalents[i] = C_SpecializationInfo.GetInspectSelectedPvpTalent(data.unit, i);
+		end
+	end
+
+	data.ratedBgRating = ratedBgRating;
+	data.ratedBgPlayed = ratedBgPlayed;
+	data.ratedBgWon = ratedBgWon;
+	data.lifetimeHKs = lifetimeHKs;
+	data.honorLevel = honorLevel;
+	data.arenaTeams = arenaTeams;
+	data.pvpTalents = pvpTalents;
+end
+
+function ExaminerMixin:UpdatePVPTab()
 	local data = self.data;
 
 	if (not data.isPlayer or data.level < SHOW_PVP_TALENT_LEVEL) then
@@ -387,19 +419,21 @@ function ExaminerMixin:UpdateHonorData()
 	end
 
 	-- Honor Level, Honorable Kills
-	self.pvp.honorLevel:SetFormattedText(HONOR_LEVEL_LABEL:gsub("%%d", "%%s"), HIGHLIGHT_FONT_COLOR:WrapTextInColorCode(data.honorLevel));
+	self.pvp.honorLevel:SetFormattedText(
+		HONOR_LEVEL_LABEL:gsub("%%d", "%%s"),
+		HIGHLIGHT_FONT_COLOR:WrapTextInColorCode(data.honorLevel)
+	);
 	self.pvp.HKs:SetFormattedText(INSPECT_HONORABLE_KILLS, data.lifetimeHKs);
 
 	-- Talents
 	for i, frame in ipairs(self.pvp.talents) do
-		local selectedTalentID = C_SpecializationInfo.GetInspectSelectedPvpTalent(data.unit, i);
-
+		local selectedTalentID = data.pvpTalents[i];
 		if (selectedTalentID) then
 			frame:SetID(selectedTalentID);
 			SetPortraitToTexture(frame.Texture, select(3, GetPvpTalentInfoByID(selectedTalentID)));
-			frame.Texture:Show();
+			frame:Show();
 		else
-			frame.Texture:Hide();
+			frame:Hide();
 		end
 	end
 
@@ -443,11 +477,11 @@ function ExaminerMixin:UpdateHonorData()
 	end
 end
 
-function ExaminerMixin:UpdateTitleFrame()
+function ExaminerMixin:UpdateTitle()
 	self.title:SetText(self.data.pvpName or self.data.name);
 end
 
-function ExaminerMixin:UpdateDetailFrame()
+function ExaminerMixin:UpdateDetails()
 	local data = self.data;
 
 	local classColorString = RAID_CLASS_COLORS[data.classFixed or "WARRIOR"].colorStr;
@@ -486,13 +520,19 @@ function ExaminerMixin:UpdateDetailFrame()
 	end
 end
 
-function ExaminerMixin:UpdatePortraitFrame()
-	local unit = self.data.unit;
+function ExaminerMixin:UpdatePortrait()
+	local data = self.data;
 
-	if (UnitIsVisible(unit)) then
-		SetPortraitTexture(self.portrait, unit);
+	if (UnitIsVisible(data.unit)) then
+		SetPortraitTexture(self.portrait, data.unit);
 	else
-		self.portrait:SetTexture("Interface\\CharacterFrame\\TemporaryPortrait-"..(self.data.sex == 3 and "Female" or "Male").."-"..(self.data.raceFileName or ""));
+		self.portrait:SetTexture(
+			("%s-%s-%s"):format(
+				"Interface\\CharacterFrame\\TemporaryPortrait",
+				data.sex == 3 and "Female" or "Male",
+				data.raceFileName or ""
+			)
+		);
 	end
 end
 
@@ -501,7 +541,7 @@ function ExaminerMixin:UpdateModel()
 
 	if (isVisible) then
 		self.model:SetUnit(self.data.unit);
-		local race, fileName = UnitRace(self.data.unit);
+		local _, fileName = UnitRace(self.data.unit);
 		local texture = DressUpTexturePath(fileName);
 		self.model.BackgroundTopLeft:SetTexture(texture..1);
 		self.model.BackgroundTopRight:SetTexture(texture..2);
@@ -517,16 +557,11 @@ function ExaminerMixin:UpdateModel()
 	self.model.BackgroundBotRight:SetShown(isVisible);
 end
 
-local function GetTabByIndex(frame, index)
-	return frame.Tabs and frame.Tabs[index] or _G[frame:GetName().."Tab"..index];
-end
-
 local function TabSetEnable(frame, index, state)
-	local tab = GetTabByIndex(frame, index);
 	(state and PanelTemplates_EnableTab or PanelTemplates_DisableTab)(frame, index);
 end
 
-function ExaminerMixin:UpdateFrames()
+function ExaminerMixin:UpdateFrame()
 	local data = self.data;
 	local isPlayer = data.isPlayer;
 
