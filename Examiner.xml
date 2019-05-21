@@ -380,11 +380,6 @@
 				</Anchors>
 				<Scripts>
 					<OnClick method="OnClick"/>
-					<OnLeave method="OnLeave"/>
-					<OnEnter>
-						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText(CHARACTER_INFO, 1.0, 1.0, 1.0);
-					</OnEnter>
 				</Scripts>
 			</Button>
 			<Button name="ExaminerTab2" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="2" text="TALENTS">
@@ -393,11 +388,6 @@
 				</Anchors>
 				<Scripts>
 					<OnClick method="OnClick"/>
-					<OnLeave method="OnLeave"/>
-					<OnEnter>
-						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText(TALENTS, 1.0, 1.0, 1.0);
-					</OnEnter>
 				</Scripts>
 			</Button>
 			<Button name="ExaminerTab3" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="3" text="PVP">
@@ -406,11 +396,6 @@
 				</Anchors>
 				<Scripts>
 					<OnClick method="OnClick"/>
-					<OnLeave method="OnLeave"/>
-					<OnEnter>
-						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText(PLAYER_V_PLAYER, 1.0, 1.0, 1.0);
-					</OnEnter>
 				</Scripts>
 			</Button>
 			<Button name="ExaminerTab4" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="4" text="GUILD">
@@ -419,11 +404,6 @@
 				</Anchors>
 				<Scripts>
 					<OnClick method="OnClick"/>
-					<OnLeave method="OnLeave"/>
-					<OnEnter>
-						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText(GUILD, 1.0, 1.0, 1.0);
-					</OnEnter>
 				</Scripts>
 			</Button>
 
