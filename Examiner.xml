@@ -537,8 +537,8 @@
 			<!-- Talents, visible on Tab 2 -->
 			<Frame name="ExaminerTalentsFrame" parentKey="talents" hidden="true" frameLevel="40">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="1" y="-3"/>
-					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="-4" y="3"/>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="10" y="-3"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="0" y="3"/>
 				</Anchors>
 				<Frames>
 					<Frame name="$parentTalentRow1" inherits="ExaminerTalentRowTemplate" parentKey="tier1" id="1">
@@ -582,8 +582,8 @@
 			<!-- PvP, visible on Tab 3 -->
 			<Frame name="ExaminerPvPFrame" setAllPoints="true" parentKey="pvp" hidden="true" frameLevel="40">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="1" y="-3"/>
-					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="-4" y="3"/>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="10" y="-3"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="0" y="3"/>
 				</Anchors>
 				<Layers>
 					<Layer level="OVERLAY">
@@ -597,15 +597,6 @@
 								<Anchor point="TOP" relativeTo="$parentLevel" relativePoint="BOTTOM" x="0" y="-6"/>
 							</Anchors>
 						</FontString>
-					</Layer>
-					<Layer level="BACKGROUND">
-						<Texture name="$parentBackground" parentKey="background" file="Interface\Timer\Panda-Logo" hidden="true" alphaMode="ADD" alpha=".33">
-							<Size x="256" y="256"/>
-							<Anchors>
-								<Anchor point="CENTER" x="0" y="10"/>
-							</Anchors>
-							<TexCoords left="0" right="1" top="0" bottom="1"/>
-						</Texture>
 					</Layer>
 				</Layers>
 				<Frames>
@@ -665,8 +656,8 @@
 			<!-- Guild, visible on Tab 4 -->
 			<Frame name="ExaminerGuildFrame" setAllPoints="true" parentKey="guild" hidden="true" frameLevel="40">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="4" y="-3"/>
-					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="-4" y="3"/>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="10" y="-3"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="0" y="3"/>
 				</Anchors>
 				<Layers>
 					<Layer level="BACKGROUND" textureSubLevel="1">
@@ -718,7 +709,7 @@
 						<FontString name="$parentGuildNumMembers" inherits="GameFontNormalLarge" parentKey="guildNumMembers">
 							<Size x="300" y="0"/>
 							<Anchors>
-								<Anchor point="TOP" relativeTo="$parentGuildLevel" relativePoint="BOTTOM" x="0" y="-26"/>
+								<Anchor point="TOP" relativeTo="$parentGuildLevel" relativePoint="BOTTOM" x="0" y="-10"/>
 							</Anchors>
 						</FontString>
 					</Layer>
@@ -728,8 +719,8 @@
 			<!-- Model/Background, always visible -->
 			<PlayerModel name="ExaminerModelFrame" inherits="ModelWithControlsTemplate" parentKey="model" frameLevel="20">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="1" y="-3"/>
-					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="-4" y="3"/>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="10" y="-3"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="0" y="3"/>
 				</Anchors>
 				<Layers>
 					<Layer level="BACKGROUND">

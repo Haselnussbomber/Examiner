@@ -22,6 +22,12 @@ function ExaminerMixin:OnLoad()
 	PanelTemplates_SetTab(self, 1); -- Character
 	self.onUpdateTimer = 0;
 
+	do
+		-- set guildName font size to 18 (instead of 20)
+		local font, _, fontFlags = self.guild.guildName:GetFont();
+		self.guild.guildName:SetFont(font, 18, fontFlags);
+	end
+
 	-- only show model controls when on first tab
 	self.model:SetScript("OnEnter", function()
 		local currentTab = PanelTemplates_GetSelectedTab(self);
@@ -363,13 +369,6 @@ function ExaminerMixin:UpdateTalentTab()
 	end
 end
 
--- from Blizzard_InspectUI/InspectPaperDollFrame.lua
-local factionLogoTextures = {
-	["Alliance"]	= "Interface\\Timer\\Alliance-Logo",
-	["Horde"]		= "Interface\\Timer\\Horde-Logo",
-	["Neutral"]		= "Interface\\Timer\\Panda-Logo",
-};
-
 function ExaminerMixin:FetchHonorData()
 	local data = self.data;
 
@@ -428,14 +427,6 @@ function ExaminerMixin:UpdatePVPTab()
 
 	if (not data.isPlayer or data.level < SHOW_PVP_TALENT_LEVEL) then
 		return;
-	end
-
-	-- Background
-	if (data.factionGroup) then
-		self.pvp.background:SetTexture(factionLogoTextures[data.factionGroup]);
-		self.pvp.background:Show();
-	else
-		self.pvp.background:Hide();
 	end
 
 	-- Honor Level, Honorable Kills
@@ -510,11 +501,6 @@ function ExaminerMixin:UpdateGuildTab()
 		self.guild.guildLevel:SetFormattedText(INSPECT_GUILD_FACTION, data.factionName);
 		self.guild.guildNumMembers:SetFormattedText(INSPECT_GUILD_NUM_MEMBERS, data.guildMembers);
 	end
-
-	--local pointFrame = self.guild.Points;
-	--pointFrame.SumText:SetText(data.guildPoints);
-	--local width = pointFrame.SumText:GetStringWidth() + pointFrame.LeftCap:GetWidth() + pointFrame.RightCap:GetWidth() + pointFrame.Icon:GetWidth();
-	--pointFrame:SetWidth(width);
 
 	SetDoubleGuildTabardTextures(
 		data.unit,
