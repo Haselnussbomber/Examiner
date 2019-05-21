@@ -21,6 +21,22 @@ function ExaminerMixin:OnLoad()
 	PanelTemplates_SetNumTabs(self, 4);
 	PanelTemplates_SetTab(self, 1); -- Character
 	self.onUpdateTimer = 0;
+
+	-- only show model controls when on first tab
+	self.model:SetScript("OnEnter", function()
+		local currentTab = PanelTemplates_GetSelectedTab(self);
+		if (currentTab == 1) then
+			self.model.controlFrame:Show();
+		end
+	end)
+
+	-- only allow model rotation when on first tab
+	self.model:SetScript("OnUpdate", function(_, elapsedTime, rotationsPerSecond)
+		local currentTab = PanelTemplates_GetSelectedTab(self);
+		if (currentTab == 1) then
+			Model_OnUpdate(self.model, elapsedTime, rotationsPerSecond)
+		end
+	end)
 end
 
 function ExaminerMixin:OnEvent(event, ...)
@@ -128,6 +144,7 @@ function ExaminerMixin:INSPECT_READY(guid)
 
 	self:FetchSpecialization();
 	self:UpdateTalentTab();
+	self:UpdateGuildTab();
 	self:UpdateDetails();
 	self:UpdateItemFrames();
 	self:UpdateFrame();
@@ -164,6 +181,7 @@ function ExaminerMixin:Inspect()
 	local guid = UnitGUID(unit);
 	local name, realm = UnitName(unit);
 	local class, classFixed, classID = UnitClass(unit);
+	local factionGroup, factionName = UnitFactionGroup(unit);
 
 	-- Note: NPC guild names are only accessible via tooltip parsing
 	local guild, guildRank, guildIndex = GetGuildInfo(unit);
@@ -179,7 +197,8 @@ function ExaminerMixin:Inspect()
 		guid = guid,
 		name = name,
 		realm = realm or nil,
-		factionGroup = UnitFactionGroup(unit),
+		factionGroup = factionGroup,
+		factionName = factionName,
 		pvpName = UnitPVPName(unit),
 		level = UnitLevel(unit) or -1,
 		effectiveLevel = UnitEffectiveLevel(unit) or -1,
@@ -222,6 +241,7 @@ function ExaminerMixin:Inspect()
 			self:UpdateItemFrames();
 			self:UpdateTalentTab();
 			self:UpdatePVPTab();
+			self:UpdateGuildTab();
 		end
 
 		local currentTab = PanelTemplates_GetSelectedTab(self);
@@ -477,6 +497,34 @@ function ExaminerMixin:UpdatePVPTab()
 	end
 end
 
+function ExaminerMixin:UpdateGuildTab()
+	local data = self.data;
+
+	if (not data.isPlayer or not data.guild) then
+		return;
+	end
+
+	self.guild.guildName:SetText(data.guild);
+
+	if (data.factionName and data.guildMembers) then
+		self.guild.guildLevel:SetFormattedText(INSPECT_GUILD_FACTION, data.factionName);
+		self.guild.guildNumMembers:SetFormattedText(INSPECT_GUILD_NUM_MEMBERS, data.guildMembers);
+	end
+
+	--local pointFrame = self.guild.Points;
+	--pointFrame.SumText:SetText(data.guildPoints);
+	--local width = pointFrame.SumText:GetStringWidth() + pointFrame.LeftCap:GetWidth() + pointFrame.RightCap:GetWidth() + pointFrame.Icon:GetWidth();
+	--pointFrame:SetWidth(width);
+
+	SetDoubleGuildTabardTextures(
+		data.unit,
+		self.guild.tabardLeftIcon,
+		self.guild.tabardRightIcon,
+		self.guild.banner,
+		self.guild.bannerBorder
+	);
+end
+
 function ExaminerMixin:UpdateTitle()
 	self.title:SetText(self.data.pvpName or self.data.name);
 end
@@ -586,7 +634,7 @@ function ExaminerMixin:UpdateFrame()
 	if (isPlayer) then
 		TabSetEnable(self, 2, data.level >= SHOW_TALENT_LEVEL); -- Talents
 		TabSetEnable(self, 3, data.level >= SHOW_PVP_TALENT_LEVEL); -- PvP
-		TabSetEnable(self, 4, false); --data.guild); -- Guild, TODO
+		TabSetEnable(self, 4, data.guild); -- Guild
 	end
 
 	self.ej:SetShown(not isPlayer and data.hasLoot);

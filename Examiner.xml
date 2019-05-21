@@ -427,49 +427,8 @@
 				</Scripts>
 			</Button>
 
-			<!-- Model/Background, always visible -->
-			<PlayerModel name="ExaminerModelFrame" inherits="ModelWithControlsTemplate" parentKey="model">
-				<Size x="320" y="352"/>
-				<Anchors>
-					<Anchor point="TOP" x="0" y="-66"/>
-				</Anchors>
-				<Layers>
-					<Layer level="BACKGROUND">
-						<Texture name="ExaminerModelFrameBackgroundTopLeft" parentKey="BackgroundTopLeft">
-							<Size x="256" y="272.384"/> <!-- 272.384 = 256 * 1.064 -->
-							<Anchors>
-								<Anchor point="TOPLEFT" x="0" y="0"/>
-							</Anchors>
-						</Texture>
-						<Texture name="ExaminerModelFrameBackgroundTopRight" parentKey="BackgroundTopRight">
-							<Size x="64" y="272.384"/>
-							<Anchors>
-								<Anchor point="TOPLEFT" relativeTo="ExaminerModelFrameBackgroundTopLeft" relativePoint="TOPRIGHT"/>
-							</Anchors>
-						</Texture>
-						<Texture name="ExaminerModelFrameBackgroundBotLeft" parentKey="BackgroundBotLeft">
-							<Size x="256" y="136.192"/> <!-- 136.192 = 128 * 1.064 -->
-							<Anchors>
-								<Anchor point="TOPLEFT" relativeTo="ExaminerModelFrameBackgroundTopLeft" relativePoint="BOTTOMLEFT"/>
-							</Anchors>
-						</Texture>
-						<Texture name="ExaminerModelFrameBackgroundBotRight" parentKey="BackgroundBotRight">
-							<Size x="64" y="136.192"/>
-							<Anchors>
-								<Anchor point="TOPLEFT" relativeTo="ExaminerModelFrameBackgroundTopLeft" relativePoint="BOTTOMRIGHT"/>
-							</Anchors>
-						</Texture>
-					</Layer>
-				</Layers>
-				<Scripts>
-					<OnLoad>
-						Model_OnLoad(self, MODELFRAME_MAX_PLAYER_ZOOM);
-					</OnLoad>
-				</Scripts>
-			</PlayerModel>
-
 			<!-- Items, always visible (Tab 1) -->
-			<Frame name="ExaminerItemsFrame" setAllPoints="true" parentKey="items">
+			<Frame name="ExaminerItemsFrame" setAllPoints="true" parentKey="items" frameLevel="60">
 				<Frames>
 					<ItemButton name="ExaminerHeadSlot" inherits="ExaminerItemSlotButtonTemplate">
 						<Anchors>
@@ -576,41 +535,41 @@
 			</Frame>
 
 			<!-- Talents, visible on Tab 2 -->
-			<Frame name="ExaminerTalentsFrame" parentKey="talents" hidden="true">
-				<Size x="320" y="352"/>
+			<Frame name="ExaminerTalentsFrame" parentKey="talents" hidden="true" frameLevel="40">
 				<Anchors>
-					<Anchor point="TOP" x="0" y="-96"/>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="1" y="-3"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="-4" y="3"/>
 				</Anchors>
 				<Frames>
 					<Frame name="$parentTalentRow1" inherits="ExaminerTalentRowTemplate" parentKey="tier1" id="1">
 						<Anchors>
-							<Anchor point="TOP" x="0" y="0"/>
-						</Anchors>				
+							<Anchor point="TOP" x="0" y="-30"/>
+						</Anchors>			
 					</Frame>
 					<Frame name="$parentTalentRow2" inherits="ExaminerTalentRowTemplate" parentKey="tier2" id="2">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow1" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>				
+						</Anchors>			
 					</Frame>
 					<Frame name="$parentTalentRow3" inherits="ExaminerTalentRowTemplate" parentKey="tier3" id="3">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow2" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>				
+						</Anchors>			
 					</Frame>
 					<Frame name="$parentTalentRow4" inherits="ExaminerTalentRowTemplate" parentKey="tier4" id="4">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow3" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>				
+						</Anchors>			
 					</Frame>
 					<Frame name="$parentTalentRow5" inherits="ExaminerTalentRowTemplate" parentKey="tier5" id="5">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow4" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>				
+						</Anchors>			
 					</Frame>
 					<Frame name="$parentTalentRow6" inherits="ExaminerTalentRowTemplate" parentKey="tier6" id="6">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow5" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>				
+						</Anchors>			
 					</Frame>
 					<Frame name="$parentTalentRow7" inherits="ExaminerTalentRowTemplate" parentKey="tier7" id="7">
 						<Anchors>
@@ -621,10 +580,10 @@
 			</Frame>
 
 			<!-- PvP, visible on Tab 3 -->
-			<Frame name="ExaminerPvPFrame" setAllPoints="true" parentKey="pvp" hidden="true">
-				<Size x="320" y="352"/>
+			<Frame name="ExaminerPvPFrame" setAllPoints="true" parentKey="pvp" hidden="true" frameLevel="40">
 				<Anchors>
-					<Anchor point="TOP" x="0" y="-66"/>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="1" y="-3"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="-4" y="3"/>
 				</Anchors>
 				<Layers>
 					<Layer level="OVERLAY">
@@ -704,8 +663,108 @@
 			</Frame>
 
 			<!-- Guild, visible on Tab 4 -->
-			<Frame name="ExaminerGuildFrame" setAllPoints="true" parentKey="guild" hidden="true">
+			<Frame name="ExaminerGuildFrame" setAllPoints="true" parentKey="guild" hidden="true" frameLevel="40">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="4" y="-3"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="-4" y="3"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND" textureSubLevel="1">
+						<Texture name="$parentBanner" file="Interface\GuildFrame\GuildInspect-Parts" virtual="true" parentKey="banner">
+							<Size x="118" y="144"/>
+							<Anchors>
+								<Anchor point="TOP" y="0"/>
+							</Anchors>
+							<TexCoords left="0.23632813" right="0.46679688" top="0.70117188" bottom="0.98242188"/>
+						</Texture>
+					</Layer>
+					<Layer level="BACKGROUND" textureSubLevel="2">
+						<Texture name="$parentBannerBorder" file="Interface\GuildFrame\GuildInspect-Parts" virtual="true" parentKey="bannerBorder">
+							<Size x="118" y="144"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="$parentBanner"/>
+							</Anchors>
+							<TexCoords left="0.00195313" right="0.23242188" top="0.70117188" bottom="0.98242188"/>
+						</Texture>
+					</Layer>
+					<Layer level="ARTWORK">
+						<Texture name="$parentTabardLeftIcon" parentKey="tabardLeftIcon">
+							<Size x="50" y="125"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="$parentBanner" x="10" y="-1"/>
+							</Anchors>
+							<TexCoords left="1" right="0" top="0" bottom="1"/>
+						</Texture>
+						<Texture name="$parentTabardRightIcon" parentKey="tabardRightIcon">
+							<Size x="50" y="125"/>
+							<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentTabardLeftIcon" relativePoint="RIGHT" x="-1" />
+							</Anchors>
+						</Texture>
+					</Layer>
+					<Layer level="OVERLAY">
+						<FontString name="$parentGuildName" inherits="GameFontNormalHuge" parentKey="guildName">
+							<Size x="300" y="0"/>
+							<Anchors>
+								<Anchor point="TOP" relativePoint="CENTER" y="0"/>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentGuildLevel" inherits="GameFontNormalLarge" parentKey="guildLevel">
+							<Size x="300" y="0"/>
+							<Anchors>
+								<Anchor point="TOP" relativeTo="$parentGuildName" relativePoint="BOTTOM" x="0" y="-10"/>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentGuildNumMembers" inherits="GameFontNormalLarge" parentKey="guildNumMembers">
+							<Size x="300" y="0"/>
+							<Anchors>
+								<Anchor point="TOP" relativeTo="$parentGuildLevel" relativePoint="BOTTOM" x="0" y="-26"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
 			</Frame>
+
+			<!-- Model/Background, always visible -->
+			<PlayerModel name="ExaminerModelFrame" inherits="ModelWithControlsTemplate" parentKey="model" frameLevel="20">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="1" y="-3"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="-4" y="3"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture name="ExaminerModelFrameBackgroundTopLeft" parentKey="BackgroundTopLeft">
+							<Size x="256" y="272.384"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" x="0" y="0"/>
+							</Anchors>
+						</Texture>
+						<Texture name="ExaminerModelFrameBackgroundTopRight" parentKey="BackgroundTopRight">
+							<Size x="64" y="272.384"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="ExaminerModelFrameBackgroundTopLeft" relativePoint="TOPRIGHT"/>
+							</Anchors>
+						</Texture>
+						<Texture name="ExaminerModelFrameBackgroundBotLeft" parentKey="BackgroundBotLeft">
+							<Size x="256" y="136.192"/> <!-- 136.192 = 128 * 1.064 -->
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="ExaminerModelFrameBackgroundTopLeft" relativePoint="BOTTOMLEFT"/>
+							</Anchors>
+						</Texture>
+						<Texture name="ExaminerModelFrameBackgroundBotRight" parentKey="BackgroundBotRight">
+							<Size x="64" y="136.192"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="ExaminerModelFrameBackgroundTopLeft" relativePoint="BOTTOMRIGHT"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						Model_OnLoad(self, MODELFRAME_MAX_PLAYER_ZOOM);
+					</OnLoad>
+				</Scripts>
+			</PlayerModel>
 		</Frames>
 		<Scripts>
 			<OnLoad method="OnLoad"/>
