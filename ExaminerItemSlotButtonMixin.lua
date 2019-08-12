@@ -1,5 +1,3 @@
-local LibItemUpgradeInfo = LibStub("LibItemUpgradeInfo-1.0");
-
 ExaminerItemSlotButtonMixin = {}
 
 function ExaminerItemSlotButtonMixin:OnLoad()
@@ -108,7 +106,7 @@ function ExaminerItemSlotButtonMixin:Update()
         self.hasItem = true;
 
         self.link = GetInventoryItemLink(unit, id);
-        self.level:SetText(LibItemUpgradeInfo:GetUpgradedItemLevel(self.link));
+        self.level:SetText(Item:CreateFromItemLink(self.link):GetCurrentItemLevel());
 
         if (data.isSelf) then
             local itemLocation = ItemLocation:CreateFromEquipmentSlot(self:GetID());
