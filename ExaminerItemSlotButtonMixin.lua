@@ -1,3 +1,5 @@
+local LibItemUpgradeInfo = LibStub("LibItemUpgradeInfo-1.0")
+
 ExaminerItemSlotButtonMixin = {}
 
 function ExaminerItemSlotButtonMixin:OnLoad()
@@ -106,12 +108,12 @@ function ExaminerItemSlotButtonMixin:Update()
         self.hasItem = true;
 
         self.link = GetInventoryItemLink(unit, id);
+        self.level:SetText(LibItemUpgradeInfo:GetUpgradedItemLevel(self.link));
 
         if (data.isSelf) then
             local itemLocation = ItemLocation:CreateFromEquipmentSlot(self:GetID());
 
             if (itemLocation and itemLocation:HasAnyLocation()) then
-                self.level:SetText(Item:CreateFromItemLocation(itemLocation):GetCurrentItemLevel());
                 self.isAzeriteItem = C_AzeriteItem.IsAzeriteItem(itemLocation);
                 self.isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation);
                 if (self.isAzeriteItem) then
@@ -122,7 +124,6 @@ function ExaminerItemSlotButtonMixin:Update()
                 end
             end
         elseif (self.link) then
-            self.level:SetText(Item:CreateFromItemLink(self.link):GetCurrentItemLevel());
             self.isAzeriteItem = C_AzeriteItem.IsAzeriteItemByID(self.link);
             self.isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(self.link);
             self.azeritePowerIDs = C_PaperDollInfo.GetInspectAzeriteItemEmpoweredChoices(unit, self:GetID());
