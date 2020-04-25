@@ -285,7 +285,11 @@ function ExaminerMixin:Inspect()
 	self:UpdateModel();
 	self:UpdateFrame();
 
-	ShowUIPanel(self);
+	if (InCombatLockdown()) then
+		self:Show();
+	else
+		ShowUIPanel(self);
+	end
 
 	if (InspectEquip) then
 		InspectEquip:SetParent(self);

@@ -343,6 +343,9 @@
 
 	<Frame name="Examiner" toplevel="true" movable="true" enableMouse="true" hidden="true" parent="UIParent" inherits="ButtonFrameTemplate" mixin="ExaminerMixin">
 		<Size x="338" y="424"/>
+		<Anchors>
+			<Anchor point="LEFT" />
+		</Anchors>
 		<Layers>
 			<Layer level="OVERLAY">
 				<FontString name="$parentTitleText" inherits="GameFontNormal" parentKey="title">

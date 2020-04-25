@@ -1,7 +1,11 @@
 <Bindings>
 	<Binding name="EXAMINER_OPEN" header="EXAMINER" category="ADDONS">
 		if (Examiner:IsVisible()) then
-			HideUIPanel(Examiner);
+			if (InCombatLockdown()) then
+				Examiner:Hide();
+			else
+				HideUIPanel(Examiner);
+			end
 		else
 			Examiner:Inspect();
 		end
