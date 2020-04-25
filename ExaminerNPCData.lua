@@ -2,6 +2,7 @@ ExaminerNPCData = {
     -------------------------------------
     -- Battle for Azeroth World Bosses --
     -------------------------------------
+
     [132701] = { 1028, 2139 }, -- T'zane
     [132253] = { 1028, 2141 }, -- Ji'arak
     [140252] = { 1028, 2197 }, -- Hailstone Construct
@@ -12,6 +13,10 @@ ExaminerNPCData = {
     [138794] = { 1028, 2210 }, -- Dunegorger Kraulok
     [144946] = { 1028, 2329 }, -- Ivus the Forest Lord (H)
     [148295] = { 1028, 2345 }, -- Ivus the Decayed (A)
+    [152697] = { 1028, 2362 }, -- Ulmath
+    [152671] = { 1028, 2363 }, -- Wekemara
+    [154638] = { 1028, 2378 }, -- Grand Empress Shek'zara
+    [160970] = { 1028, 2381 }, -- Vuk'laz the Earthbreaker
 
 
     ------------------------------
@@ -58,6 +63,34 @@ ExaminerNPCData = {
     [146497] = { 1177, 2328 }, -- The Restless Cabal: Zaxasj the Speaker
     [146495] = { 1177, 2328 }, -- The Restless Cabal: Fa'thuul the Feared
     [145371] = { 1177, 2332 }, -- Uu'nat
+
+    -- Azshara's Eternal Palace --
+    [155144] = { 1179, 2352 }, -- Abyssal Commander Sivara
+    [154986] = { 1179, 2347 }, -- Blackwater Behemoth
+    [152364] = { 1179, 2353 }, -- Radiance of Azshara
+    [153142] = { 1179, 2354 }, -- Lady Ashvane
+    [152128] = { 1179, 2351 }, -- Orgozoa
+    [152853] = { 1179, 2359 }, -- Queen's Court: Silivaz the Zealous
+    [152852] = { 1179, 2359 }, -- Queen's Court: Pashmar the Fanatical
+    [150859] = { 1179, 2349 }, -- Za'qul
+    [155126] = { 1179, 2361 }, -- Queen Azshara
+    [153059] = { 1179, 2361 }, -- Queen Azshara: Aethanel
+    [153060] = { 1179, 2361 }, -- Queen Azshara: Cyranus
+
+    -- Ny'alotha, The Waking City --
+    [156818] = { 1180, 2368 }, -- Wrathion
+    [156523] = { 1180, 2365 }, -- Maut
+    [157238] = { 1180, 2369 }, -- Prophet Skitra (LFR?)
+    [161901] = { 1180, 2369 }, -- Prophet Skitra
+    [156575] = { 1180, 2377 }, -- Dark Inquisitor Xanesh
+    [157253] = { 1180, 2372 }, -- The Hivemind: Ka'zir
+    [157231] = { 1180, 2367 }, -- Shad'har the Insatiable
+    [157602] = { 1180, 2373 }, -- Drest'agath
+    [105393] = { 1180, 2374 }, -- Il'gynoth
+    [157354] = { 1180, 2370 }, -- Vexiona
+    [156866] = { 1180, 2364 }, -- Ra-den
+    [157439] = { 1180, 2366 }, -- Carapace of N'zoth: Fury of N'Zoth
+    [158041] = { 1180, 2375 }, -- N'Zoth the Corruptor
 
 
     ---------------------------------
@@ -139,10 +172,22 @@ ExaminerNPCData = {
     [134060] = { 1036, 2155 }, -- Lord Stormsong
     [134069] = { 1036, 2156 }, -- Vol'zith the Whisperer
 
+    -- Operation: Mechagon --
+    [150159] = { 1178, 2357 }, -- King Gobbamak
+    [150222] = { 1178, 2358 }, -- Gunker
+    [155407] = { 1178, 2360 }, -- Trixie & Naeno: Trixie Tazer
+    [155406] = { 1178, 2360 }, -- Trixie & Naeno: Naeno Megacrash
+    [155157] = { 1178, 2355 }, -- HK-8 Aerial Oppression Unit
+    [144244] = { 1178, 2336 }, -- Tussle Tonks: The Platinum Pummeler
+    [144246] = { 1178, 2339 }, -- K.U.-J.0.
+    [144248] = { 1178, 2348 }, -- Machinist's Garden: Head Machinist Sparkflux
+    [154817] = { 1178, 2331 }, -- King Mechagon
+
 
     ----------------------------
     -- Legion Invasion Bosses --
     ----------------------------
+
     [124625] = { 959, 2011 }, -- Mistress Alluradel
     [124514] = { 959, 2010 }, -- Matron Folnuna
     [124592] = { 959, 2012 }, -- Inquisitor Meto
@@ -154,6 +199,7 @@ ExaminerNPCData = {
     -------------------------
     -- Legion World Bosses --
     -------------------------
+
     [109943] = { 822, 1750 }, -- Ana-Mouz
     [121124] = { 822, 1956 }, -- Apocron
     [117239] = { 822, 1883 }, -- Brutallus
