@@ -1,4 +1,75 @@
 ExaminerNPCData = {
+    ------------------------------
+    -- Shadowlands World Bosses --
+    ------------------------------
+
+
+    -----------------------
+    -- Shadowlands Raids --
+    -----------------------
+
+    -- Castle Nathria ---
+    --[?] = { 1190, 2398 }, -- Shriekwing
+    --[?] = { 1190, 2405 }, -- Artificer Xy'Mox
+    --[?] = { 1190, 2402 }, -- Kael'thas
+    --[?] = { 1190, 2406 }, -- Lady Inerva Darkvein
+    --[?] = { 1190, 2399 }, -- Dredger Giant
+    --[?] = { 1190, 2407 }, -- Sire Denathrius
+
+
+    --------------------------
+    -- Shadowlands Dungeons --
+    --------------------------
+
+    -- Spires of Ascension ---
+    --[?] = { 1186, 2357 }, -- Kin-Tara
+    --[?] = { 1186, 2356 }, -- Ventunax
+    --[?] = { 1186, 2358 }, -- Oryphrion
+    --[?] = { 1186, 2359 }, -- Devos, Paragon of Doubt
+
+    -- De Other Side ---
+    --[?] = { 1188, 2395 }, -- Hakkar the Soulflayer
+    --[?] = { 1188, 2394 }, -- The Manastorms
+    --[?] = { 1188, 2400 }, -- Dealer G'exa
+    --[?] = { 1188, 2396 }, -- Mueh'zala
+
+    -- Sanguine Depths ---
+    --[?] = { 1189, 2360 }, -- Kryxis the Voracious
+    --[?] = { 1189, 2361 }, -- Executor Tarvold
+    --[?] = { 1189, 2362 }, -- Grand Proctor Beryllia
+    --[?] = { 1189, 2363 }, -- General Kaal
+
+    -- Mists of Tirna Scithe ---
+    --[?] = { 1184, 2397 }, -- Ingra Maloch
+    --[?] = { 1184, 2392 }, -- Mistcaller
+    --[?] = { 1184, 2393 }, -- Tred'ova
+
+    -- Theater of Pain ---
+    --[?] = { 1187, 2391 }, -- An Affront of Challengers
+    --[?] = { 1187, 2365 }, -- Gorechop
+    --[?] = { 1187, 2366 }, -- Hazak the Unfallen
+    --[?] = { 1187, 2364 }, -- Kul'tharok
+    --[?] = { 1187, 2404 }, -- Mordretha, the Endless Empress
+
+    -- The Necrotic Wake ---
+    --[?] = { 1182, 2387 }, -- Blightbone
+    --[?] = { 1182, 2388 }, -- Amarth, The Reanimator
+    --[?] = { 1182, 2389 }, -- Surgeon Stitchflesh
+    --[?] = { 1182, 2390 }, -- Nalthor the Rimebinder
+
+    -- Halls of Atonement ---
+    --[?] = { 1185, 2401 }, -- Halkias, the Sin-Stained Goliath
+    --[?] = { 1185, 2380 }, -- Echelon
+    --[?] = { 1185, 2403 }, -- High Adjudicator Aleez
+    --[?] = { 1185, 2381 }, -- Lord Chamberlain
+
+    -- Plaguefall ---
+    --[?] = { 1183, 2382 }, -- Globgrog
+    --[?] = { 1183, 2384 }, -- Doctor Ickus
+    --[?] = { 1183, 2385 }, -- Domina Venomblade
+    --[?] = { 1183, 2386 }, -- Stradama Margrave
+
+
     -------------------------------------
     -- Battle for Azeroth World Bosses --
     -------------------------------------
