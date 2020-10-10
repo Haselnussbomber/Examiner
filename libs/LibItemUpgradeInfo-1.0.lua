@@ -69,7 +69,7 @@ lib.itemcache=lib.itemcache or
 			local itemID=lib:GetItemID(itemLink)
 			local quality=cached[3]
 			local cacheIt=true
-			if quality==LE_ITEM_QUALITY_ARTIFACT then 
+			if quality==Enum.ItemQuality.Artifact then 
 				local relic1, relic2, relic3 = select(4,strsplit(':', itemLink))
 				if relic1 and relic1 ~= '' and not oGetItemInfo(relic1) then cacheIt = false end
 				if relic2 and relic2 ~= '' and not oGetItemInfo(relic2) then cacheIt = false end
@@ -207,7 +207,7 @@ local function ScanTip(itemLink,itemLevel,show)
 		-- line 2 may be the item level, or it may be a modifier like "Heroic"
 		-- check up to line 6 just in case
 		local ilevel,soulbound,bop,boe,boa,heirloom
-		if quality==LE_ITEM_QUALITY_ARTIFACT and itemLevel then 
+		if quality==Enum.ItemQuality.Artifact and itemLevel then 
 			local relic1, relic2, relic3 = select(4,strsplit(':', itemLink))
 			if relic1 and relic1 ~= '' and not CachedGetItemInfo(relic1) then cacheIt = false end
 			if relic2 and relic2 ~= '' and not CachedGetItemInfo(relic2) then cacheIt = false end
@@ -459,7 +459,7 @@ end
 --   Boolean - True if Artifact
 
 function lib:IsArtifact(itemString)
-	return CachedGetItemInfo(itemString,i_Quality)==LE_ITEM_QUALITY_ARTIFACT
+	return CachedGetItemInfo(itemString,i_Quality)==Enum.ItemQuality.Artifact
 end
 
 -- GetClassInfoIsHeirloom(itemString)
@@ -490,7 +490,7 @@ end
 --   Boolean - True if Heirloom
 
 function lib:IsHeirloom(itemString)
-	return CachedGetItemInfo(itemString,i_Quality) ==LE_ITEM_QUALITY_HEIRLOOM
+	return CachedGetItemInfo(itemString,i_Quality) ==Enum.ItemQuality.Heirloom
 end
 ---
 -- Parses an itemlink and returns itemId without calling API again
