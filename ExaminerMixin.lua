@@ -245,11 +245,11 @@ function ExaminerMixin:Inspect()
 
 		local currentTab = PanelTemplates_GetSelectedTab(self);
 
-		if (data.level < SHOW_TALENT_LEVEL and currentTab == 2) then
+		if (not C_SpecializationInfo.CanPlayerUseTalentUI() and currentTab == 2) then
 			self:SwitchTabs(1);
 		end
 
-		if (data.level < SHOW_PVP_TALENT_LEVEL and currentTab == 3) then
+		if (not C_SpecializationInfo.CanPlayerUsePVPTalentUI() and currentTab == 3) then
 			self:SwitchTabs(1);
 		end
 
@@ -340,9 +340,8 @@ function ExaminerMixin:UpdateTalentTab()
 	for tier=1, MAX_TALENT_TIERS do
 		local tierFrame = self.talents["tier"..tier];
 		if (tierFrame) then
-			local tierAvailable, selectedTalent = GetTalentTierInfo(tier, data.specGroup, not data.isSelf, data.unit);
-			local talentLevel = CLASS_TALENT_LEVELS[class] or CLASS_TALENT_LEVELS["DEFAULT"];
-			tierFrame.level:SetText(talentLevel[tier] or "??");
+			local tierAvailable, selectedTalent, tierUnlockLevel = GetTalentTierInfo(tier, data.specGroup, not data.isSelf, data.unit);
+			tierFrame.level:SetText(tierUnlockLevel or "??");
 
 			for column=1, NUM_TALENT_COLUMNS do
 				local columnFrame = tierFrame["talent"..column];
@@ -354,7 +353,7 @@ function ExaminerMixin:UpdateTalentTab()
 						SetDesaturation(columnFrame.icon, not (selected or grantedByAura));
 						columnFrame.border:SetShown(selected or grantedByAura);
 						if (grantedByAura) then
-							local color = ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_LEGENDARY];
+							local color = ITEM_QUALITY_COLORS[Enum.ItemQuality.Legendary];
 							columnFrame.border:SetVertexColor(color.r, color.g, color.b);
 						else
 							columnFrame.border:SetVertexColor(1, 1, 1);
@@ -369,7 +368,7 @@ end
 function ExaminerMixin:FetchHonorData()
 	local data = self.data;
 
-	if (not data or not data.isPlayer or data.level < SHOW_PVP_TALENT_LEVEL) then
+	if (not data or not data.isPlayer or not C_SpecializationInfo.CanPlayerUsePVPTalentUI()) then
 		return;
 	end
 
@@ -422,7 +421,7 @@ end
 function ExaminerMixin:UpdatePVPTab()
 	local data = self.data;
 
-	if (not data.isPlayer or data.level < SHOW_PVP_TALENT_LEVEL) then
+	if (not data.isPlayer or not C_SpecializationInfo.CanPlayerUsePVPTalentUI()) then
 		return;
 	end
 
@@ -615,8 +614,8 @@ function ExaminerMixin:UpdateFrame()
 	TabSetShown(self, 4); -- Guild
 
 	if (isPlayer) then
-		TabSetEnable(self, 2, data.level >= SHOW_TALENT_LEVEL); -- Talents
-		TabSetEnable(self, 3, data.level >= SHOW_PVP_TALENT_LEVEL); -- PvP
+		TabSetEnable(self, 2, C_SpecializationInfo.CanPlayerUseTalentUI()); -- Talents
+		TabSetEnable(self, 3, C_SpecializationInfo.CanPlayerUsePVPTalentUI()); -- PvP
 		TabSetEnable(self, 4, data.guild); -- Guild
 	end
 
