@@ -20,15 +20,17 @@ function ExaminerAzeriteItemOverlayMixin:DisplayAsAzeriteItem()
 	self.AzeriteTexture:SetSize(50, 44);
 	self.AzeriteTexture:SetDrawLayer("OVERLAY", 1);
 
-	local ATLAS_NAME = "AzeriteArmor-CharacterInfo-NeckHighlight";
-	self:SetHighlightAtlas(ATLAS_NAME, "ADD");
+	local atlasName = "AzeriteArmor-CharacterInfo-NeckHighlight";
+	self:SetHighlightAtlas(atlasName, "ADD");
 	local highlightTexture = self:GetHighlightTexture();
 	highlightTexture:ClearAllPoints();
 	highlightTexture:SetPoint("CENTER");
 
-	local _, width, height = GetAtlasInfo(ATLAS_NAME);
-	local SCALAR = .55;
-	highlightTexture:SetSize(width * SCALAR, height * SCALAR);
+	local textureInfo = C_Texture.GetAtlasInfo(atlasName);
+	local width = textureInfo and textureInfo.width or 0;
+	local height = textureInfo and textureInfo.height or 0;
+	local scale = 0.55;
+	highlightTexture:SetSize(width * scale, height * scale);
 
 	self:UpdateAzeriteRank();
 end
