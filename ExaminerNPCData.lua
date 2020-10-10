@@ -3,71 +3,80 @@ ExaminerNPCData = {
     -- Shadowlands World Bosses --
     ------------------------------
 
+    -- [?] = { 1192, 2430 }, -- Valinor, the Light of Eons
+    -- [?] = { 1192, 2431 }, -- Mortanis
+    -- [?] = { 1192, 2432 }, -- Oranomonos the Everbranching
+    -- [?] = { 1192, 2433 }, -- Nurgash Muckformed
+
 
     -----------------------
     -- Shadowlands Raids --
     -----------------------
 
-    -- Castle Nathria ---
-    --[?] = { 1190, 2398 }, -- Shriekwing
-    --[?] = { 1190, 2405 }, -- Artificer Xy'Mox
-    --[?] = { 1190, 2402 }, -- Kael'thas
-    --[?] = { 1190, 2406 }, -- Lady Inerva Darkvein
-    --[?] = { 1190, 2399 }, -- Dredger Giant
-    --[?] = { 1190, 2407 }, -- Sire Denathrius
+    -- Castle Nathria --
+    -- [?] = { 1190, 2393 }, -- Shriekwing
+    -- [?] = { 1190, 2429 }, -- Huntsman Altimor
+    -- [?] = { 1190, 2422 }, -- Sun King's Salvation
+    -- [?] = { 1190, 2418 }, -- Artificer Xy'mox
+    -- [?] = { 1190, 2428 }, -- Hungering Destroyer
+    -- [?] = { 1190, 2420 }, -- Lady Inerva Darkvein
+    -- [?] = { 1190, 2426 }, -- The Council of Blood
+    -- [?] = { 1190, 2394 }, -- Sludgefist
+    -- [?] = { 1190, 2425 }, -- Stone Legion Generals
+    -- [?] = { 1190, 2424 }, -- Sire Denathrius
 
 
     --------------------------
     -- Shadowlands Dungeons --
     --------------------------
 
-    -- Spires of Ascension ---
-    --[?] = { 1186, 2357 }, -- Kin-Tara
-    --[?] = { 1186, 2356 }, -- Ventunax
-    --[?] = { 1186, 2358 }, -- Oryphrion
-    --[?] = { 1186, 2359 }, -- Devos, Paragon of Doubt
+    -- De Other Side --
+    -- [?] = { 1188, 2408 }, -- Hakkar the Soulflayer
+    -- [?] = { 1188, 2409 }, -- The Manastorms
+    -- [?] = { 1188, 2398 }, -- Dealer Xy'exa
+    -- [?] = { 1188, 2410 }, -- Mueh'zala
 
-    -- De Other Side ---
-    --[?] = { 1188, 2395 }, -- Hakkar the Soulflayer
-    --[?] = { 1188, 2394 }, -- The Manastorms
-    --[?] = { 1188, 2400 }, -- Dealer G'exa
-    --[?] = { 1188, 2396 }, -- Mueh'zala
+    -- Halls of Atonement --
+    -- [?] = { 1185, 2406 }, -- Halkias, the Sin-Stained Goliath
+    -- [?] = { 1185, 2387 }, -- Echelon
+    -- [?] = { 1185, 2411 }, -- High Adjudicator Aleez
+    -- [?] = { 1185, 2413 }, -- Lord Chamberlain
 
-    -- Sanguine Depths ---
-    --[?] = { 1189, 2360 }, -- Kryxis the Voracious
-    --[?] = { 1189, 2361 }, -- Executor Tarvold
-    --[?] = { 1189, 2362 }, -- Grand Proctor Beryllia
-    --[?] = { 1189, 2363 }, -- General Kaal
+    -- Mists of Tirna Scithe --
+    -- [?] = { 1184, 2400 }, -- Ingra Maloch
+    -- [?] = { 1184, 2402 }, -- Mistcaller
+    -- [?] = { 1184, 2405 }, -- Tred'ova
 
-    -- Mists of Tirna Scithe ---
-    --[?] = { 1184, 2397 }, -- Ingra Maloch
-    --[?] = { 1184, 2392 }, -- Mistcaller
-    --[?] = { 1184, 2393 }, -- Tred'ova
+    -- Plaguefall --
+    -- [?] = { 1183, 2419 }, -- Globgrog
+    -- [?] = { 1183, 2403 }, -- Doctor Ickus
+    -- [?] = { 1183, 2423 }, -- Domina Venomblade
+    -- [?] = { 1183, 2404 }, -- Margrave Stradama
 
-    -- Theater of Pain ---
-    --[?] = { 1187, 2391 }, -- An Affront of Challengers
-    --[?] = { 1187, 2365 }, -- Gorechop
-    --[?] = { 1187, 2366 }, -- Hazak the Unfallen
-    --[?] = { 1187, 2364 }, -- Kul'tharok
-    --[?] = { 1187, 2404 }, -- Mordretha, the Endless Empress
+    -- Sanguine Depths --
+    -- [?] = { 1189, 2388 }, -- Kryxis the Voracious
+    -- [?] = { 1189, 2415 }, -- Executor Tarvold
+    -- [?] = { 1189, 2421 }, -- Grand Proctor Beryllia
+    -- [?] = { 1189, 2407 }, -- General Kaal
 
-    -- The Necrotic Wake ---
-    --[?] = { 1182, 2387 }, -- Blightbone
-    --[?] = { 1182, 2388 }, -- Amarth, The Reanimator
-    --[?] = { 1182, 2389 }, -- Surgeon Stitchflesh
-    --[?] = { 1182, 2390 }, -- Nalthor the Rimebinder
+    -- Spires of Ascention --
+    -- [?] = { 1186, 2399 }, -- Kin-Tara
+    -- [?] = { 1186, 2416 }, -- Ventunax
+    -- [?] = { 1186, 2414 }, -- Oryphrion
+    -- [?] = { 1186, 2412 }, -- Devos, Paragon of Doubt
 
-    -- Halls of Atonement ---
-    --[?] = { 1185, 2401 }, -- Halkias, the Sin-Stained Goliath
-    --[?] = { 1185, 2380 }, -- Echelon
-    --[?] = { 1185, 2403 }, -- High Adjudicator Aleez
-    --[?] = { 1185, 2381 }, -- Lord Chamberlain
+    -- The Necrotic Wake --
+    -- [?] = { 1182, 2395 }, -- Blightbone
+    -- [?] = { 1182, 2391 }, -- Amarth, The Harvester
+    -- [?] = { 1182, 2392 }, -- Surgeon Stitchflesh
+    -- [?] = { 1182, 2396 }, -- Nalthor the Rimebinder
 
-    -- Plaguefall ---
-    --[?] = { 1183, 2382 }, -- Globgrog
-    --[?] = { 1183, 2384 }, -- Doctor Ickus
-    --[?] = { 1183, 2385 }, -- Domina Venomblade
-    --[?] = { 1183, 2386 }, -- Stradama Margrave
+    -- Theatre of Pain --
+    -- [?] = { 1187, 2397 }, -- An Affront of Challengers
+    -- [?] = { 1187, 2401 }, -- Gorechop
+    -- [?] = { 1187, 2390 }, -- Xav the Unfallen
+    -- [?] = { 1187, 2389 }, -- Kul'tharok
+    -- [?] = { 1187, 2417 }, -- Mordretha, the Endless Empress
 
 
     -------------------------------------
