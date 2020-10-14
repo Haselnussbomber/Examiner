@@ -181,6 +181,15 @@ function ExaminerMixin:Inspect()
 	local name, realm = UnitName(unit);
 	local class, classFixed, classID = UnitClass(unit);
 	local factionGroup, factionName = UnitFactionGroup(unit);
+	
+	local playerFlag = nil
+	local mentorshipStatus = C_PlayerMentorship.GetMentorshipStatus(PlayerLocation:CreateFromUnit(unit))
+
+	if (mentorshipStatus == Enum.PlayerMentorshipStatus.Mentor) then
+		playerFlag = "|A:newplayerchat-chaticon-guide:0:0:0:0|a"; -- NPEV2_CHAT_USER_TAG_GUIDE
+	elseif (mentorshipStatus == Enum.PlayerMentorshipStatus.Newcomer) then
+		playerFlag = NPEV2_CHAT_USER_TAG_NEWCOMER;
+	end
 
 	-- Note: NPC guild names are only accessible via tooltip parsing
 	local guild, guildRank, guildIndex = GetGuildInfo(unit);
@@ -199,6 +208,7 @@ function ExaminerMixin:Inspect()
 		factionGroup = factionGroup,
 		factionName = factionName,
 		pvpName = UnitPVPName(unit),
+		playerFlag = playerFlag,
 		level = UnitLevel(unit) or -1,
 		effectiveLevel = UnitEffectiveLevel(unit) or -1,
 		sex = UnitSex(unit) or 1,
@@ -508,7 +518,8 @@ function ExaminerMixin:UpdateGuildTab()
 end
 
 function ExaminerMixin:UpdateTitle()
-	self.title:SetText(self.data.pvpName or self.data.name);
+	local flag = self.data.playerFlag and (self.data.playerFlag .. " ") or "";
+	self.title:SetText(flag .. (self.data.pvpName or self.data.name));
 end
 
 function ExaminerMixin:UpdateDetails()
