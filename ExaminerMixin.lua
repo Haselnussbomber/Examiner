@@ -175,9 +175,14 @@ function ExaminerMixin:Inspect()
 		unit = "player";
 	end
 
+	local guid = UnitGUID(unit);
+
+	if (guid:find("^ClientActor-") ~= nil) then
+		return;
+	end
+
 	INSPECTED_UNIT = unit;
 
-	local guid = UnitGUID(unit);
 	local name, realm = UnitName(unit);
 	local class, classFixed, classID = UnitClass(unit);
 	local factionGroup, factionName = UnitFactionGroup(unit);
