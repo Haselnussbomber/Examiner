@@ -3,10 +3,10 @@ ExaminerNPCData = {
     -- Shadowlands World Bosses --
     ------------------------------
 
-    -- [?] = { 1192, 2430 }, -- Valinor, the Light of Eons
-    -- [?] = { 1192, 2431 }, -- Mortanis
-    -- [?] = { 1192, 2432 }, -- Oranomonos the Everbranching
-    -- [?] = { 1192, 2433 }, -- Nurgash Muckformed
+    [167524] = { 1192, 2430 }, -- Valinor, the Light of Eons
+    [173104] = { 1192, 2431 }, -- Mortanis
+    [167527] = { 1192, 2432 }, -- Oranomonos the Everbranching
+    [167526] = { 1192, 2433 }, -- Nurgash Muckformed
 
 
     -----------------------
@@ -14,16 +14,19 @@ ExaminerNPCData = {
     -----------------------
 
     -- Castle Nathria --
-    -- [?] = { 1190, 2393 }, -- Shriekwing
-    -- [?] = { 1190, 2429 }, -- Huntsman Altimor
-    -- [?] = { 1190, 2422 }, -- Sun King's Salvation
-    -- [?] = { 1190, 2418 }, -- Artificer Xy'mox
-    -- [?] = { 1190, 2428 }, -- Hungering Destroyer
-    -- [?] = { 1190, 2420 }, -- Lady Inerva Darkvein
-    -- [?] = { 1190, 2426 }, -- The Council of Blood
-    -- [?] = { 1190, 2394 }, -- Sludgefist
-    -- [?] = { 1190, 2425 }, -- Stone Legion Generals
-    -- [?] = { 1190, 2424 }, -- Sire Denathrius
+    [172145] = { 1190, 2393 }, -- Shriekwing
+    [165066] = { 1190, 2429 }, -- Huntsman Altimor
+    [165759] = { 1190, 2422 }, -- Sun King's Salvation: Kael'thas Sunstrider
+    [166644] = { 1190, 2418 }, -- Artificer Xy'mox
+    [164261] = { 1190, 2428 }, -- Hungering Destroyer
+    [167517] = { 1190, 2420 }, -- Lady Inerva Darkvein
+    [166969] = { 1190, 2426 }, -- The Council of Blood: Baroness Frieda
+    [166971] = { 1190, 2426 }, -- The Council of Blood: Castellan Niklaus
+    [166970] = { 1190, 2426 }, -- The Council of Blood: Lord Stavros
+    [174733] = { 1190, 2394 }, -- Sludgefist
+    [165318] = { 1190, 2425 }, -- Stone Legion Generals: General Kaal
+    [170323] = { 1190, 2425 }, -- Stone Legion Generals: General Grashaal
+    [168938] = { 1190, 2424 }, -- Sire Denathrius
 
 
     --------------------------
@@ -31,52 +34,55 @@ ExaminerNPCData = {
     --------------------------
 
     -- De Other Side --
-    -- [?] = { 1188, 2408 }, -- Hakkar the Soulflayer
-    -- [?] = { 1188, 2409 }, -- The Manastorms
-    -- [?] = { 1188, 2398 }, -- Dealer Xy'exa
-    -- [?] = { 1188, 2410 }, -- Mueh'zala
+    [164558] = { 1188, 2408 }, -- Hakkar the Soulflayer
+    [164556] = { 1188, 2409 }, -- The Manastorms: Millhouse Manastorm
+    [164555] = { 1188, 2409 }, -- The Manastorms: Millificent Manastorm
+    [164450] = { 1188, 2398 }, -- Dealer Xy'exa
+    [166608] = { 1188, 2410 }, -- Mueh'zala
 
     -- Halls of Atonement --
-    -- [?] = { 1185, 2406 }, -- Halkias, the Sin-Stained Goliath
-    -- [?] = { 1185, 2387 }, -- Echelon
-    -- [?] = { 1185, 2411 }, -- High Adjudicator Aleez
-    -- [?] = { 1185, 2413 }, -- Lord Chamberlain
+    [165408] = { 1185, 2406 }, -- Halkias, the Sin-Stained Goliath
+    [164185] = { 1185, 2387 }, -- Echelon
+    [165410] = { 1185, 2411 }, -- High Adjudicator Aleez
+    [164218] = { 1185, 2413 }, -- Lord Chamberlain
 
     -- Mists of Tirna Scithe --
-    -- [?] = { 1184, 2400 }, -- Ingra Maloch
-    -- [?] = { 1184, 2402 }, -- Mistcaller
-    -- [?] = { 1184, 2405 }, -- Tred'ova
+    [164567] = { 1184, 2400 }, -- Ingra Maloch
+    [170217] = { 1184, 2402 }, -- Mistcaller
+    [164517] = { 1184, 2405 }, -- Tred'ova
 
     -- Plaguefall --
-    -- [?] = { 1183, 2419 }, -- Globgrog
-    -- [?] = { 1183, 2403 }, -- Doctor Ickus
-    -- [?] = { 1183, 2423 }, -- Domina Venomblade
-    -- [?] = { 1183, 2404 }, -- Margrave Stradama
+    [164255] = { 1183, 2419 }, -- Globgrog
+    [164967] = { 1183, 2403 }, -- Doctor Ickus
+    [164266] = { 1183, 2423 }, -- Domina Venomblade
+    [164267] = { 1183, 2404 }, -- Margrave Stradama
 
     -- Sanguine Depths --
-    -- [?] = { 1189, 2388 }, -- Kryxis the Voracious
-    -- [?] = { 1189, 2415 }, -- Executor Tarvold
-    -- [?] = { 1189, 2421 }, -- Grand Proctor Beryllia
-    -- [?] = { 1189, 2407 }, -- General Kaal
+    [162100] = { 1189, 2388 }, -- Kryxis the Voracious
+    [162103] = { 1189, 2415 }, -- Executor Tarvold
+    [162102] = { 1189, 2421 }, -- Grand Proctor Beryllia
+    [162099] = { 1189, 2407 }, -- General Kaal
 
     -- Spires of Ascention --
-    -- [?] = { 1186, 2399 }, -- Kin-Tara
-    -- [?] = { 1186, 2416 }, -- Ventunax
-    -- [?] = { 1186, 2414 }, -- Oryphrion
-    -- [?] = { 1186, 2412 }, -- Devos, Paragon of Doubt
+    [162059] = { 1186, 2399 }, -- Kin-Tara
+    [162058] = { 1186, 2416 }, -- Ventunax
+    [162060] = { 1186, 2414 }, -- Oryphrion
+    [167410] = { 1186, 2412 }, -- Devos, Paragon of Doubt
 
     -- The Necrotic Wake --
-    -- [?] = { 1182, 2395 }, -- Blightbone
-    -- [?] = { 1182, 2391 }, -- Amarth, The Harvester
-    -- [?] = { 1182, 2392 }, -- Surgeon Stitchflesh
-    -- [?] = { 1182, 2396 }, -- Nalthor the Rimebinder
+    [162691] = { 1182, 2395 }, -- Blightbone
+    [163157] = { 1182, 2391 }, -- Amarth, The Harvester
+    [162689] = { 1182, 2392 }, -- Surgeon Stitchflesh
+    [162693] = { 1182, 2396 }, -- Nalthor the Rimebinder
 
     -- Theatre of Pain --
-    -- [?] = { 1187, 2397 }, -- An Affront of Challengers
-    -- [?] = { 1187, 2401 }, -- Gorechop
-    -- [?] = { 1187, 2390 }, -- Xav the Unfallen
-    -- [?] = { 1187, 2389 }, -- Kul'tharok
-    -- [?] = { 1187, 2417 }, -- Mordretha, the Endless Empress
+    [164451] = { 1187, 2397 }, -- An Affront of Challengers: Dessia the Decapitator
+    [164461] = { 1187, 2397 }, -- An Affront of Challengers: Sathel the Accursed
+    [164463] = { 1187, 2397 }, -- An Affront of Challengers: Paceran the Virulent
+    [162317] = { 1187, 2401 }, -- Gorechop
+    [162329] = { 1187, 2390 }, -- Xav the Unfallen
+    [162309] = { 1187, 2389 }, -- Kul'tharok
+    [165946] = { 1187, 2417 }, -- Mordretha, the Endless Empress
 
 
     -------------------------------------
