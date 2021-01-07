@@ -186,7 +186,7 @@ function ExaminerMixin:Inspect()
 	local name, realm = UnitName(unit);
 	local class, classFixed, classID = UnitClass(unit);
 	local factionGroup, factionName = UnitFactionGroup(unit);
-	
+
 	local playerFlag = nil
 	local mentorshipStatus = C_PlayerMentorship.GetMentorshipStatus(PlayerLocation:CreateFromUnit(unit))
 
