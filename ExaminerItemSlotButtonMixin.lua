@@ -8,6 +8,7 @@ function ExaminerItemSlotButtonMixin:OnLoad()
 	self:SetID(id);
     SetItemButtonTexture(self, texture);
 	self.backgroundTextureName = texture;
+	self.itemLevel = 0;
 end
 
 function ExaminerItemSlotButtonMixin:OnClick(button)
@@ -95,6 +96,7 @@ function ExaminerItemSlotButtonMixin:Update()
     local unit = data.unit;
     local id = self:GetID();
 
+	self.itemLevel = 0;
     self.isAzeriteItem = false;
     self.isAzeriteEmpoweredItem = false;
     self.azeritePowerLevel = nil;
@@ -108,7 +110,8 @@ function ExaminerItemSlotButtonMixin:Update()
         self.hasItem = true;
 
         self.link = GetInventoryItemLink(unit, id);
-        self.level:SetText(LibItemUpgradeInfo:GetUpgradedItemLevel(self.link));
+		self.itemLevel = LibItemUpgradeInfo:GetUpgradedItemLevel(self.link);
+		self.level:SetText(self.itemLevel);
 
         if (data.isSelf) then
             local itemLocation = ItemLocation:CreateFromEquipmentSlot(self:GetID());

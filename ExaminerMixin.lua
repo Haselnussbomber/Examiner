@@ -343,6 +343,31 @@ function ExaminerMixin:UpdateItemFrames()
 	for _, button in ipairs(itemButtonFrames) do
 		button:Update();
 	end
+
+	local averageItemLevel = 0;
+	if (self.data.isSelf) then
+		averageItemLevel = select(2, GetAverageItemLevel());
+	else
+		local totalItemLevel = 0;
+		local totalItemCount = 0;
+		for _, button in ipairs(itemButtonFrames) do
+			-- ignore shirt and tabard
+			local isShirtOrTabard = button:GetID() == 4 or button:GetID() == 19;
+			local hasValidItemLevel = button.itemLevel and button.itemLevel > 0;
+			if (not isShirtOrTabard and hasValidItemLevel) then
+				totalItemLevel = totalItemLevel + button.itemLevel;
+				totalItemCount = totalItemCount + 1;
+			end
+		end
+		if (totalItemCount > 0) then
+			averageItemLevel = totalItemLevel / totalItemCount;
+		end
+	end
+	if (averageItemLevel > 0) then
+		self.averageItemLevel.text:SetFormattedText("Ø: %d", averageItemLevel);
+	else
+		self.averageItemLevel.text:SetText("");
+	end
 end
 
 function ExaminerMixin:UpdateTalentTab()
@@ -644,6 +669,7 @@ function ExaminerMixin:SwitchTabs(id)
 	PanelTemplates_SetTab(self, id);
 
 	self.model:SetAlpha(id ~= 1 and 0.2 or 1);
+	self.averageItemLevel:SetShown(isPlayer and id == 1);
 	self.talents:SetShown(isPlayer and id == 2);
 	self.pvp:SetShown(isPlayer and id == 3);
 	self.guild:SetShown(isPlayer and id == 4);

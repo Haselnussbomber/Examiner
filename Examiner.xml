@@ -520,6 +520,19 @@
 				</Frames>
 			</Frame>
 
+			<!-- Average Item Level, visible on Tab 1 -->
+			<Frame name="ExaminerAverageItemLevelFrame" parentKey="averageItemLevel" setAllPoints="true" frameLevel="70">
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parentText" parentKey="text" inherits="GameFontNormal" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="TOPRIGHT" relativeTo="ExaminerInset" x="-49" y="-8"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+	
 			<!-- Talents, visible on Tab 2 -->
 			<Frame name="ExaminerTalentsFrame" parentKey="talents" hidden="true" frameLevel="40">
 				<Anchors>
