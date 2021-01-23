@@ -108,7 +108,9 @@ function ExaminerItemSlotButtonMixin:Update()
         self.hasItem = true;
 
         self.link = GetInventoryItemLink(unit, id);
-		self.itemLevel = GetDetailedItemLevelInfo(self.link);
+        if (self.link) then
+            self.itemLevel = GetDetailedItemLevelInfo(self.link);
+        end
 		self.level:SetText(self.itemLevel);
 
         if (data.isSelf) then
