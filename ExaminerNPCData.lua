@@ -14,18 +14,31 @@ ExaminerNPCData = {
     -----------------------
 
     -- Castle Nathria --
-    [172145] = { 1190, 2393 }, -- Shriekwing
+    --[172145] = { 1190, 2393 }, -- Shriekwing??? Wrong Wowhead data?
+    [164406] = { 1190, 2394 }, -- Shriekwing
     [165066] = { 1190, 2429 }, -- Huntsman Altimor
+    [169457] = { 1190, 2429 }, -- Huntsman Altimor: Bargast
+    [171557] = { 1190, 2429 }, -- Huntsman Altimor: Shade of Bargast
+    [171577] = { 1190, 2429 }, -- Huntsman Altimor: Ripped Soul
+    [169458] = { 1190, 2429 }, -- Huntsman Altimor: Hecutis
+    [165067] = { 1190, 2429 }, -- Huntsman Altimor: Margore
     [165759] = { 1190, 2422 }, -- Sun King's Salvation: Kael'thas Sunstrider
+    [165805] = { 1190, 2422 }, -- Sun King's Salvation: Shade of Kael'thas
+    [165764] = { 1190, 2422 }, -- Sun King's Salvation: Rockbound Vanquisher
     [166644] = { 1190, 2418 }, -- Artificer Xy'mox
     [164261] = { 1190, 2428 }, -- Hungering Destroyer
-    [167517] = { 1190, 2420 }, -- Lady Inerva Darkvein
+    --[167517] = { 1190, 2420 }, -- Lady Inerva Darkvein??? Wrong Wowhead data?
+    [165521] = { 1190, 2420 }, -- Lady Inerva Darkvein
     [166969] = { 1190, 2426 }, -- The Council of Blood: Baroness Frieda
     [166971] = { 1190, 2426 }, -- The Council of Blood: Castellan Niklaus
     [166970] = { 1190, 2426 }, -- The Council of Blood: Lord Stavros
-    [174733] = { 1190, 2394 }, -- Sludgefist
-    [165318] = { 1190, 2425 }, -- Stone Legion Generals: General Kaal
-    [170323] = { 1190, 2425 }, -- Stone Legion Generals: General Grashaal
+    [164407] = { 1190, 2394 }, -- Sludgefist
+    [168112] = { 1190, 2425 }, -- Stone Legion Generals: General Kaal? (ingame)
+    [162133] = { 1190, 2425 }, -- Stone Legion Generals: General Kaal?
+    [165318] = { 1190, 2425 }, -- Stone Legion Generals: General Kaal?
+    [170323] = { 1190, 2425 }, -- Stone Legion Generals: General Grashaal?
+    [168113] = { 1190, 2425 }, -- Stone Legion Generals: General Grashaal? (ingame)
+    [172858] = { 1190, 2425 }, -- Stone Legion Generals: Stone Legion Goliath
     [168938] = { 1190, 2424 }, -- Sire Denathrius
 
 
@@ -48,14 +61,22 @@ ExaminerNPCData = {
 
     -- Mists of Tirna Scithe --
     [164567] = { 1184, 2400 }, -- Ingra Maloch
-    [170217] = { 1184, 2402 }, -- Mistcaller
+    [164804] = { 1184, 2400 }, -- Ingra Maloch: Droman Oulfarran
+    --[170217] = { 1184, 2402 }, -- Mistcaller??? Wrong Wowhead data?
+    [164501] = { 1184, 2402 }, -- Mistcaller
+    [165108] = { 1184, 2402 }, -- Mistcaller: Illusionary Clone
+    [165251] = { 1184, 2402 }, -- Mistcaller: Illusionary Vulpin
     [164517] = { 1184, 2405 }, -- Tred'ova
+    [165560] = { 1184, 2405 }, -- Tred'ova: Gormling Larva
+    [172647] = { 1184, 2405 }, -- Tred'ova: Parasitic Infestor?
 
     -- Plaguefall --
     [164255] = { 1183, 2419 }, -- Globgrog
     [164967] = { 1183, 2403 }, -- Doctor Ickus
+    [169498] = { 1183, 2403 }, -- Doctor Ickus: Plague Bomb
     [164266] = { 1183, 2423 }, -- Domina Venomblade
     [164267] = { 1183, 2404 }, -- Margrave Stradama
+    [165430] = { 1183, 2404 }, -- Margrave Stradama: Malignant Spawn
 
     -- Sanguine Depths --
     [162100] = { 1189, 2388 }, -- Kryxis the Voracious
@@ -65,14 +86,16 @@ ExaminerNPCData = {
 
     -- Spires of Ascention --
     [162059] = { 1186, 2399 }, -- Kin-Tara
+    [163077] = { 1186, 2399 }, -- Kin-Tara: Azules
     [162058] = { 1186, 2416 }, -- Ventunax
     [162060] = { 1186, 2414 }, -- Oryphrion
-    [167410] = { 1186, 2412 }, -- Devos, Paragon of Doubt
+    [162061] = { 1186, 2412 }, -- Devos, Paragon of Doubt
 
     -- The Necrotic Wake --
     [162691] = { 1182, 2395 }, -- Blightbone
     [163157] = { 1182, 2391 }, -- Amarth, The Harvester
     [162689] = { 1182, 2392 }, -- Surgeon Stitchflesh
+    [164578] = { 1182, 2392 }, -- Surgeon Stitchflesh: Stitchflesh's Creation
     [162693] = { 1182, 2396 }, -- Nalthor the Rimebinder
 
     -- Theatre of Pain --
@@ -81,6 +104,7 @@ ExaminerNPCData = {
     [164463] = { 1187, 2397 }, -- An Affront of Challengers: Paceran the Virulent
     [162317] = { 1187, 2401 }, -- Gorechop
     [162329] = { 1187, 2390 }, -- Xav the Unfallen
+    [170234] = { 1187, 2390 }, -- Xav the Unfallen: Oppressive Banner
     [162309] = { 1187, 2389 }, -- Kul'tharok
     [165946] = { 1187, 2417 }, -- Mordretha, the Endless Empress
 
