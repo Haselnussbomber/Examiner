@@ -5,7 +5,7 @@ ExaminerMixin = {};
 
 function ExaminerMixin:OnLoad()
 	UIPanelWindows[self:GetName()] = { area = "left", pushable = 3, whileDead = 1 };
-    --UISpecialFrames[#UISpecialFrames + 1] = modName;
+	--UISpecialFrames[#UISpecialFrames + 1] = modName;
 
 	self:RegisterEvent("INSPECT_HONOR_UPDATE");
 	self:RegisterEvent("INSPECT_READY");
@@ -17,7 +17,7 @@ function ExaminerMixin:OnLoad()
 	self:RegisterEvent("UNIT_NAME_UPDATE");
 	self:RegisterEvent("UNIT_PORTRAIT_UPDATE");
 
-    ButtonFrameTemplate_HideButtonBar(self);
+	ButtonFrameTemplate_HideButtonBar(self);
 	PanelTemplates_SetNumTabs(self, 4);
 	PanelTemplates_SetTab(self, 1); -- Character
 	self.onUpdateTimer = 0;

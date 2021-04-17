@@ -1,10 +1,10 @@
 ExaminerItemSlotButtonMixin = {}
 
 function ExaminerItemSlotButtonMixin:OnLoad()
-    self.slotName = strsub(self:GetName(), 9);
+	self.slotName = strsub(self:GetName(), 9);
 	local id, texture = GetInventorySlotInfo(self.slotName);
 	self:SetID(id);
-    SetItemButtonTexture(self, texture);
+	SetItemButtonTexture(self, texture);
 	self.backgroundTextureName = texture;
 	self.itemLevel = 0;
 end
@@ -15,26 +15,26 @@ function ExaminerItemSlotButtonMixin:OnClick(button)
 		return;
 	end
 
-    local data = Examiner.data;
+	local data = Examiner.data;
 
-    if (not data or not self.link) then
-        return;
-    end
+	if (not data or not self.link) then
+		return;
+	end
 
 	if (IsModifiedClick("EXPANDITEM")) then
-        if (data.isSelf) then
-            local itemLocation = ItemLocation:CreateFromEquipmentSlot(self:GetID());
-            if C_Item.DoesItemExist(itemLocation) and self.isAzeriteEmpoweredItem then
-                OpenAzeriteEmpoweredItemUIFromItemLocation(itemLocation);
-                return;
-            end
-        end
+		if (data.isSelf) then
+			local itemLocation = ItemLocation:CreateFromEquipmentSlot(self:GetID());
+			if C_Item.DoesItemExist(itemLocation) and self.isAzeriteEmpoweredItem then
+				OpenAzeriteEmpoweredItemUIFromItemLocation(itemLocation);
+				return;
+			end
+		end
 		if (self.link and self.azeritePowerIDs and self.isAzeriteEmpoweredItem) then
 			OpenAzeriteEmpoweredItemUIFromLink(self.link, data.classID, self.azeritePowerIDs);
 			return;
 		end
 
-        SocketInventoryItem(self:GetID());
+		SocketInventoryItem(self:GetID());
 		return;
 	end
 
@@ -46,26 +46,26 @@ function ExaminerItemSlotButtonMixin:OnClick(button)
 end
 
 function ExaminerItemSlotButtonMixin:OnUpdate()
-    CursorOnUpdate(self);
+	CursorOnUpdate(self);
 end
 
 function ExaminerItemSlotButtonMixin:OnEnter()
-    local data = Examiner.data;
+	local data = Examiner.data;
 
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 
-    if (data and data.unit and (UnitExists(data.unit) or UnitGUID(data.unit) == data.guid) and GameTooltip:SetInventoryItem(data.unit, self:GetID())) then
-	    CursorUpdate(self);
-        return;
+	if (data and data.unit and (UnitExists(data.unit) or UnitGUID(data.unit) == data.guid) and GameTooltip:SetInventoryItem(data.unit, self:GetID())) then
+		CursorUpdate(self);
+		return;
 	end
 
-    if (self.link) then
-        GameTooltip:SetHyperlink(self.link, data.classID, data.specID);
-	    CursorUpdate(self);
-        return;
-    end
+	if (self.link) then
+		GameTooltip:SetHyperlink(self.link, data.classID, data.specID);
+		CursorUpdate(self);
+		return;
+	end
 
-    GameTooltip:SetText(_G[strupper(self.slotName)]);
+	GameTooltip:SetText(_G[strupper(self.slotName)]);
 	CursorUpdate(self);
 end
 
@@ -73,11 +73,11 @@ function ExaminerItemSlotButtonMixin:OnLeave()
 	if (GameTooltip:IsOwned(self)) then
 		GameTooltip:Hide();
 	end
-    ResetCursor();
+	ResetCursor();
 end
 
 function ExaminerItemSlotButtonMixin:OnDrag()
-    local data = Examiner.data;
+	local data = Examiner.data;
 
 	if (data and data.isSelf) then
 		PickupInventoryItem(self:GetID());
@@ -85,65 +85,65 @@ function ExaminerItemSlotButtonMixin:OnDrag()
 end
 
 function ExaminerItemSlotButtonMixin:Update()
-    local data = Examiner.data;
+	local data = Examiner.data;
 
-    if (not data or not data.unit) then
-        return;
-    end
+	if (not data or not data.unit) then
+		return;
+	end
 
-    local unit = data.unit;
-    local id = self:GetID();
+	local unit = data.unit;
+	local id = self:GetID();
 
 	self.itemLevel = 0;
-    self.isAzeriteItem = false;
-    self.isAzeriteEmpoweredItem = false;
-    self.azeritePowerLevel = nil;
-    self.azeritePowerIDs = nil;
-    self.hasAnyUnselectedPowers = false;
+	self.isAzeriteItem = false;
+	self.isAzeriteEmpoweredItem = false;
+	self.azeritePowerLevel = nil;
+	self.azeritePowerIDs = nil;
+	self.hasAnyUnselectedPowers = false;
 
-    local textureName = GetInventoryItemTexture(unit, id);
-    if (textureName) then
-        SetItemButtonTexture(self, textureName);
-        SetItemButtonCount(self, GetInventoryItemCount(unit, id));
-        self.hasItem = true;
+	local textureName = GetInventoryItemTexture(unit, id);
+	if (textureName) then
+		SetItemButtonTexture(self, textureName);
+		SetItemButtonCount(self, GetInventoryItemCount(unit, id));
+		self.hasItem = true;
 
-        self.link = GetInventoryItemLink(unit, id);
-        if (self.link) then
-            self.itemLevel = GetDetailedItemLevelInfo(self.link);
-        end
+		self.link = GetInventoryItemLink(unit, id);
+		if (self.link) then
+			self.itemLevel = GetDetailedItemLevelInfo(self.link);
+		end
 		self.level:SetText(self.itemLevel);
 
-        if (data.isSelf) then
-            local itemLocation = ItemLocation:CreateFromEquipmentSlot(self:GetID());
+		if (data.isSelf) then
+			local itemLocation = ItemLocation:CreateFromEquipmentSlot(self:GetID());
 
-            if (itemLocation and itemLocation:HasAnyLocation()) then
-                self.isAzeriteItem = C_AzeriteItem.IsAzeriteItem(itemLocation);
-                self.isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation);
-                if (self.isAzeriteItem) then
-                    self.azeritePowerLevel = C_AzeriteItem.GetPowerLevel(itemLocation);
-                end
-                if (self.isAzeriteEmpoweredItem) then
-                    self.hasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers(itemLocation);
-                end
-            end
-        elseif (self.link) then
-            self.isAzeriteItem = C_AzeriteItem.IsAzeriteItemByID(self.link);
-            self.isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(self.link);
-            self.azeritePowerIDs = C_PaperDollInfo.GetInspectAzeriteItemEmpoweredChoices(unit, self:GetID());
-        end
-    else
-        SetItemButtonTexture(self, self.backgroundTextureName);
-        SetItemButtonCount(self, 0);
-        self.IconBorder:Hide();
-        self.hasItem = nil;
-        self.link = nil;
-        self.level:SetText("");
-    end
+			if (itemLocation and itemLocation:HasAnyLocation()) then
+				self.isAzeriteItem = C_AzeriteItem.IsAzeriteItem(itemLocation);
+				self.isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation);
+				if (self.isAzeriteItem) then
+					self.azeritePowerLevel = C_AzeriteItem.GetPowerLevel(itemLocation);
+				end
+				if (self.isAzeriteEmpoweredItem) then
+					self.hasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers(itemLocation);
+				end
+			end
+		elseif (self.link) then
+			self.isAzeriteItem = C_AzeriteItem.IsAzeriteItemByID(self.link);
+			self.isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(self.link);
+			self.azeritePowerIDs = C_PaperDollInfo.GetInspectAzeriteItemEmpoweredChoices(unit, self:GetID());
+		end
+	else
+		SetItemButtonTexture(self, self.backgroundTextureName);
+		SetItemButtonCount(self, 0);
+		self.IconBorder:Hide();
+		self.hasItem = nil;
+		self.link = nil;
+		self.level:SetText("");
+	end
 
-    local quality = GetInventoryItemQuality(unit, id);
-    SetItemButtonQuality(self, quality, GetInventoryItemID(unit, id), self.HasPaperDollAzeriteItemOverlay);
+	local quality = GetInventoryItemQuality(unit, id);
+	SetItemButtonQuality(self, quality, GetInventoryItemID(unit, id), self.HasPaperDollAzeriteItemOverlay);
 
-    self:SetAzeriteItem(self);
+	self:SetAzeriteItem(self);
 
 	if (GameTooltip:IsOwned(self)) then
 		GameTooltip:Hide();
