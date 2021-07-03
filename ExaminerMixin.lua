@@ -330,6 +330,10 @@ function ExaminerMixin:ClearInspect()
 end
 
 function ExaminerMixin:UpdateDungeonScores()
+	if (not C_Club.IsEnabled()) then
+		return;
+	end
+
 	local clubs = C_Club.GetSubscribedClubs();
 	for i, clubInfo in ipairs(clubs) do
 		local memberIds = C_Club.GetClubMembers(clubInfo.clubId);
