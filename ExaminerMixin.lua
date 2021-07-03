@@ -16,11 +16,15 @@ function ExaminerMixin:OnLoad()
 	self:RegisterEvent("UNIT_MODEL_CHANGED");
 	self:RegisterEvent("UNIT_NAME_UPDATE");
 	self:RegisterEvent("UNIT_PORTRAIT_UPDATE");
+	self:RegisterEvent("GUILD_ROSTER_UPDATE");
 
 	ButtonFrameTemplate_HideButtonBar(self);
 	PanelTemplates_SetNumTabs(self, 4);
 	PanelTemplates_SetTab(self, 1); -- Character
 	self.onUpdateTimer = 0;
+
+	self.dungeonScores = {};
+	self:UpdateDungeonScores();
 
 	-- set guildName font size to 18 (instead of 20)
 	local font, _, fontFlags = self.guild.guildName:GetFont();
@@ -127,6 +131,10 @@ function ExaminerMixin:UNIT_NAME_UPDATE(unit)
 	self.data.pvpName = UnitPVPName(unit);
 
 	self:UpdateTitle();
+end
+
+function ExaminerMixin:GUILD_ROSTER_UPDATE()
+	self:UpdateDungeonScores();
 end
 
 function ExaminerMixin:INSPECT_READY(guid)
@@ -313,6 +321,20 @@ function ExaminerMixin:Inspect()
 	end
 end
 
+function ExaminerMixin:UpdateDungeonScores()
+	local clubs = C_Club.GetSubscribedClubs();
+	for i, clubInfo in ipairs(clubs) do
+		local memberIds = C_Club.GetClubMembers(clubInfo.clubId);
+
+		for _, memberId in ipairs(memberIds) do
+			local memberInfo = C_Club.GetMemberInfo(clubInfo.clubId, memberId);
+			if (memberInfo and memberInfo.overallDungeonScore) then
+				self.dungeonScores[memberInfo.guid] = memberInfo.overallDungeonScore;
+			end
+		end
+	end
+end
+
 function ExaminerMixin:FetchSpecialization()
 	local data = self.data;
 	if (data.isSelf) then
@@ -344,6 +366,13 @@ function ExaminerMixin:UpdateItemFrames()
 		button:Update();
 	end
 
+	local dungeonScore = "";
+	if (self.dungeonScores[self.data.guid]) then
+		local score = self.dungeonScores[self.data.guid];
+		local color = C_ChallengeMode.GetDungeonScoreRarityColor(score);
+		dungeonScore = color and color:WrapTextInColorCode(score) or score;
+	end
+
 	local averageItemLevel = 0;
 	if (self.data.isSelf) then
 		averageItemLevel = select(2, GetAverageItemLevel());
@@ -363,8 +392,13 @@ function ExaminerMixin:UpdateItemFrames()
 			averageItemLevel = totalItemLevel / totalItemCount;
 		end
 	end
-	if (averageItemLevel > 0) then
+
+	if (averageItemLevel > 0 and dungeonScore ~= "") then
+		self.averageItemLevel.text:SetFormattedText("Ø: %d|nM+: %s", averageItemLevel, dungeonScore);
+	elseif (averageItemLevel > 0) then
 		self.averageItemLevel.text:SetFormattedText("Ø: %d", averageItemLevel);
+	elseif (dungeonScore ~= "") then
+		self.averageItemLevel.text:SetFormattedText("M+: %s", dungeonScore);
 	else
 		self.averageItemLevel.text:SetText("");
 	end
