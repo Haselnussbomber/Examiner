@@ -51,10 +51,13 @@ end
 
 function ExaminerItemSlotButtonMixin:OnEnter()
 	local data = Examiner.data;
+	if (not data) then
+		return;
+	end
 
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 
-	if (data and data.unit and (UnitExists(data.unit) or UnitGUID(data.unit) == data.guid) and GameTooltip:SetInventoryItem(data.unit, self:GetID())) then
+	if (data.unit and (UnitExists(data.unit) or UnitGUID(data.unit) == data.guid) and GameTooltip:SetInventoryItem(data.unit, self:GetID())) then
 		CursorUpdate(self);
 		return;
 	end
