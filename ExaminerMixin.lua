@@ -42,6 +42,10 @@ function ExaminerMixin:OnLoad()
 	end
 end
 
+function ExaminerMixin:OnHide()
+	self:ClearInspect();
+end
+
 function ExaminerMixin:OnEvent(event, ...)
 	if (self[event]) then
 		self[event](self, ...);
@@ -76,14 +80,11 @@ function ExaminerMixin:ShouldHandleEvent(guid)
 end
 
 function ExaminerMixin:PLAYER_TARGET_CHANGED()
-	if (not UnitExists("target") or not self:IsVisible() or not (self.data and UnitGUID("target") ~= self.data.guid)) then
+	if (IsModifierKeyDown() or not UnitExists("target") or not self:IsVisible() or not (self.data and UnitGUID("target") ~= self.data.guid)) then
 		return;
 	end
 
-	if (self.data.loading) then
-		ClearInspectPlayer(self.data.guid);
-	end
-
+	self:ClearInspect();
 	self:Inspect();
 end
 
@@ -318,6 +319,13 @@ function ExaminerMixin:Inspect()
 		InspectEquip:SetParent(self);
 		InspectEquip_InfoWindow:SetPoint("TOPLEFT", self, "TOPRIGHT", 5, 0);
 		InspectEquip:Inspect(unit);
+	end
+end
+
+function ExaminerMixin:ClearInspect()
+	if (self.data) then
+		ClearInspectPlayer(self.data.guid);
+		self.data = nil;
 	end
 end
 
