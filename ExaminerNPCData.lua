@@ -7,11 +7,45 @@ ExaminerNPCData = {
 	[173104] = { 1192, 2431 }, -- Mortanis
 	[167527] = { 1192, 2432 }, -- Oranomonos the Everbranching
 	[167526] = { 1192, 2433 }, -- Nurgash Muckformed
+	[178958] = { 1192, 2456 }, -- Mor'geth
+	[182466] = { 1192, 2468 }, -- Antros
 
 
 	-----------------------
 	-- Shadowlands Raids --
 	-----------------------
+
+	-- Sepulcher of the First Ones --
+	[180773] = { 1195, 2458 }, -- Vigilant Guardian
+	[181395] = { 1195, 2465 }, -- Skolex, the Insatiable Ravener
+	[183501] = { 1195, 2470 }, -- Artificer Xy'mox
+	[181224] = { 1195, 2459 }, -- Dausegne, the Fallen Oracle
+	[181548] = { 1195, 2460 }, -- Prototype Pantheon: Prototype of Absolution
+	[181546] = { 1195, 2460 }, -- Prototype Pantheon: Prototype of Renewal
+	[181551] = { 1195, 2460 }, -- Prototype Pantheon: Prototype of Duty
+	[181549] = { 1195, 2460 }, -- Prototype Pantheon: Prototype of War
+	[182169] = { 1195, 2461 }, -- Lihuvim, Principal Architect
+	[180906] = { 1195, 2463 }, -- Halondrus the Reclaimer
+	[181954] = { 1195, 2469 }, -- Anduin Wrynn
+	[183463] = { 1195, 2469 }, -- Anduin Wrynn - Remnant of a Fallen King
+	[181399] = { 1195, 2457 }, -- Lords of Dread - Kin'tessa
+	[181398] = { 1195, 2457 }, -- Lords of Dread - Mal'Ganis
+	[182777] = { 1195, 2467 }, -- Rygelon
+	[180990] = { 1195, 2464 }, -- The Jailer
+
+	-- Sanctum of Domination --
+	[175611] = { 1193, 2435 }, -- Tarragrue
+	[175725] = { 1193, 2442 }, -- Eye of the Jailer
+	[177095] = { 1193, 2439 }, -- The Nine: Kyra
+	[177094] = { 1193, 2439 }, -- The Nine: Signe
+	[175726] = { 1193, 2439 }, -- The Nine: Skyja
+	[175729] = { 1193, 2444 }, -- Remnant of Ner'zhul
+	[175727] = { 1193, 2445 }, -- Soulrender Dormazain
+	[176523] = { 1193, 2443 }, -- Painsmith Raznal
+	[175731] = { 1193, 2446 }, -- Guardian of the First Ones
+	[175730] = { 1193, 2447 }, -- Fatescribe Roh-Kalo
+	[175559] = { 1193, 2440 }, -- Kel'Thuzad
+	[175732] = { 1193, 2441 }, -- Sylvanas Windrunner
 
 	-- Castle Nathria --
 	--[172145] = { 1190, 2393 }, -- Shriekwing??? Wrong Wowhead data?
