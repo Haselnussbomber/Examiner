@@ -490,7 +490,7 @@ function ExaminerMixin:FetchHonorData()
 			};
 		end
 
-		for i=1, 4 do
+		for i=1, #self.talents do
 			pvpTalents[i] = C_SpecializationInfo.GetInspectSelectedPvpTalent(data.unit, i);
 		end
 	end

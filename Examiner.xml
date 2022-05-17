@@ -598,7 +598,7 @@
 				<Frames>
 					<Button name="$parentTalent1" parentArray="talents" inherits="ExaminerPvpTalentButtonTemplate" parentKey="talent1">
 						<Anchors>
-							<Anchor point="TOPLEFT" relativePoint="TOP" x="-73" y="-62"/>
+							<Anchor point="TOPLEFT" relativePoint="TOP" x="-54" y="-62"/>
 						</Anchors>
 					</Button>
 					<Button name="$parentTalent2" parentArray="talents" inherits="ExaminerPvpTalentButtonTemplate" parentKey="talent2">
@@ -609,11 +609,6 @@
 					<Button name="$parentTalent3" parentArray="talents" inherits="ExaminerPvpTalentButtonTemplate" parentKey="talent3">
 						<Anchors>
 							<Anchor point="LEFT" relativeTo="$parentTalent2" relativePoint="RIGHT" x="6"/>
-						</Anchors>
-					</Button>
-					<Button name="$parentTalent4" parentArray="talents" inherits="ExaminerPvpTalentButtonTemplate" parentKey="talent4">
-						<Anchors>
-							<Anchor point="LEFT" relativeTo="$parentTalent3" relativePoint="RIGHT" x="6"/>
 						</Anchors>
 					</Button>
 					<Frame parentKey="ratedbg" inherits="ExaminerPvpStatTemplate">
