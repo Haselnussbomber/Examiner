@@ -375,6 +375,19 @@
 					</OnClick>
 				</Scripts>
 			</Button>
+			<!-- Dress Up Button -->
+			<Button name="ExaminerDressUpButton" parentKey="dressUpButton" hidden="true" text="VIEW_IN_DRESSUP_FRAME">
+				<Size x="20" y="26"/>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-10" y="-28"/>
+				</Anchors>
+				<NormalTexture atlas="poi-transmogrifier"/>
+				<Scripts>
+					<OnClick>
+						Examiner:DressUp();
+					</OnClick>
+				</Scripts>
+			</Button>
 
 			<!-- Tabs, always visible -->
 			<Button name="ExaminerTab1" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="1" text="CHARACTER">

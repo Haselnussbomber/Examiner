@@ -414,6 +414,8 @@ function ExaminerMixin:UpdateItemFrames()
 	else
 		self.averageItemLevel.text:SetText("");
 	end
+
+	self.data.itemTransmogInfoList = C_TransmogCollection.GetInspectItemTransmogInfoList();
 end
 
 function ExaminerMixin:UpdateTalentTab()
@@ -707,6 +709,7 @@ function ExaminerMixin:UpdateFrame()
 	end
 
 	self.ej:SetShown(not isPlayer and data.hasLoot);
+	self.dressUpButton:SetShown(isPlayer and self.data.itemTransmogInfoList);
 end
 
 function ExaminerMixin:SwitchTabs(id)
@@ -727,5 +730,22 @@ function ExaminerMixin:OpenJournal()
 	if (not data.isPlayer and data.hasLoot) then
 		EncounterJournal_LoadUI();
 		EncounterJournal_OpenJournal(nil, data.instanceID, data.encounterID);
+	end
+end
+
+function ExaminerMixin:DressUp()
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
+
+	DressUpFrame.ModelScene:Reset();
+
+	local playerActor = DressUpFrame.ModelScene:GetPlayerActor();
+	if (playerActor) then
+		playerActor:Undress();
+	end
+
+	DressUpItemTransmogInfoList(self.data.itemTransmogInfoList);
+
+	if (playerActor) then
+		playerActor:SetSheathed(true);
 	end
 end
