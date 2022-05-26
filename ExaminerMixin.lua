@@ -682,7 +682,7 @@ end
 
 function ExaminerMixin:UpdateFrame()
 	local data = self.data;
-	local isPlayer = data.isPlayer;
+	local canInspect = data.isPlayer and data.canInspect;
 
 	if (data.loading) then
 		self.Bg:SetVertexColor(0.5, 1, 0.5);
@@ -694,22 +694,22 @@ function ExaminerMixin:UpdateFrame()
 		self.TitleBg:SetVertexColor(1, 1, 1);
 	end
 
-	self.items:SetShown(isPlayer);
+	self.items:SetShown(canInspect);
 
-	local TabSetShown = _G[isPlayer and "PanelTemplates_ShowTab" or "PanelTemplates_HideTab"];
+	local TabSetShown = _G[canInspect and "PanelTemplates_ShowTab" or "PanelTemplates_HideTab"];
 	TabSetShown(self, 1); -- Character
 	TabSetShown(self, 2); -- Talents
 	TabSetShown(self, 3); -- PvP
 	TabSetShown(self, 4); -- Guild
 
-	if (isPlayer) then
+	if (canInspect) then
 		TabSetEnable(self, 2, C_SpecializationInfo.CanPlayerUseTalentUI()); -- Talents
 		TabSetEnable(self, 3, C_SpecializationInfo.CanPlayerUsePVPTalentUI()); -- PvP
 		TabSetEnable(self, 4, data.guild); -- Guild
 	end
 
-	self.ej:SetShown(not isPlayer and data.hasLoot);
-	self.dressUpButton:SetShown(isPlayer and self.data.itemTransmogInfoList);
+	self.ej:SetShown(not canInspect and data.hasLoot);
+	self.dressUpButton:SetShown(canInspect and self.data.itemTransmogInfoList);
 end
 
 function ExaminerMixin:SwitchTabs(id)
