@@ -407,12 +407,16 @@ function ExaminerMixin:UpdateItemFrames()
 
 	if (averageItemLevel > 0 and dungeonScore ~= "") then
 		self.averageItemLevel.text:SetFormattedText("Ø: %d|nM+: %s", averageItemLevel, dungeonScore);
+		self.averageItemLevel:SetShown(true);
 	elseif (averageItemLevel > 0) then
 		self.averageItemLevel.text:SetFormattedText("Ø: %d", averageItemLevel);
+		self.averageItemLevel:SetShown(true);
 	elseif (dungeonScore ~= "") then
 		self.averageItemLevel.text:SetFormattedText("M+: %s", dungeonScore);
+		self.averageItemLevel:SetShown(true);
 	else
 		self.averageItemLevel.text:SetText("");
+		self.averageItemLevel:SetShown(false);
 	end
 
 	self.data.itemTransmogInfoList = C_TransmogCollection.GetInspectItemTransmogInfoList();
@@ -718,7 +722,6 @@ function ExaminerMixin:SwitchTabs(id)
 	PanelTemplates_SetTab(self, id);
 
 	self.model:SetAlpha(id ~= 1 and 0.2 or 1);
-	self.averageItemLevel:SetShown(isPlayer and id == 1);
 	self.talents:SetShown(isPlayer and id == 2);
 	self.pvp:SetShown(isPlayer and id == 3);
 	self.guild:SetShown(isPlayer and id == 4);
