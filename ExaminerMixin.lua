@@ -288,6 +288,7 @@ function ExaminerMixin:Inspect()
 	else
 		data.race = UnitCreatureFamily(unit) or UnitCreatureType(unit);
 		self:SwitchTabs(1);
+		self.averageItemLevel:SetShown(false);
 
 		local entry = ExaminerNPCData[data.npcID];
 		if (entry) then
