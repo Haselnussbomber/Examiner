@@ -19,7 +19,7 @@ function ExaminerMixin:OnLoad()
 	self:RegisterEvent("GUILD_ROSTER_UPDATE");
 
 	ButtonFrameTemplate_HideButtonBar(self);
-	PanelTemplates_SetNumTabs(self, 4);
+	PanelTemplates_SetNumTabs(self, 3);
 	PanelTemplates_SetTab(self, 1); -- Character
 	self.onUpdateTimer = 0;
 
@@ -80,7 +80,13 @@ function ExaminerMixin:ShouldHandleEvent(guid)
 end
 
 function ExaminerMixin:PLAYER_TARGET_CHANGED()
-	if (IsModifierKeyDown() or not UnitExists("target") or not self:IsVisible() or not (self.data and UnitGUID("target") ~= self.data.guid)) then
+	if (not self:IsVisible()) then
+		return;
+	end
+
+	self:UpdateTalentButton();
+
+	if (IsModifierKeyDown() or not UnitExists("target") or not (self.data and UnitGUID("target") ~= self.data.guid)) then
 		return;
 	end
 
@@ -151,7 +157,7 @@ function ExaminerMixin:INSPECT_READY(guid)
 	end
 
 	self:FetchSpecialization();
-	self:UpdateTalentTab();
+	self:UpdateTalentButton();
 	self:UpdateGuildTab();
 	self:UpdateDetails();
 	self:UpdateItemFrames();
@@ -173,7 +179,7 @@ function ExaminerMixin:PLAYER_SPECIALIZATION_CHANGED()
 	end
 
 	self:FetchSpecialization();
-	self:UpdateTalentTab();
+	self:UpdateTalentButton();
 	self:UpdateDetails();
 end
 
@@ -245,6 +251,9 @@ function ExaminerMixin:Inspect()
 		hasLoot = false,
 	};
 
+	data.loading = not data.isSelf;
+	data.loaded = data.isSelf;
+
 	local oldData = self.data;
 	self.data = data;
 
@@ -253,7 +262,6 @@ function ExaminerMixin:Inspect()
 
 		if (data.canInspect) then
 			if (not data.isSelf) then
-				data.loading = true;
 				NotifyInspect(unit);
 			else
 				self:FetchHonorData();
@@ -262,22 +270,18 @@ function ExaminerMixin:Inspect()
 			self:FetchSpecialization();
 
 			self:UpdateItemFrames();
-			self:UpdateTalentTab();
+			self:UpdateTalentButton();
 			self:UpdatePVPTab();
 			self:UpdateGuildTab();
 		end
 
 		local currentTab = PanelTemplates_GetSelectedTab(self);
 
-		if (not C_SpecializationInfo.CanPlayerUseTalentUI() and currentTab == 2) then
+		if (not C_SpecializationInfo.CanPlayerUsePVPTalentUI() and currentTab == 2) then
 			self:SwitchTabs(1);
 		end
 
-		if (not C_SpecializationInfo.CanPlayerUsePVPTalentUI() and currentTab == 3) then
-			self:SwitchTabs(1);
-		end
-
-		if (not data.guild and currentTab == 4) then
+		if (not data.guild and currentTab == 3) then
 			self:SwitchTabs(1);
 		end
 
@@ -423,38 +427,31 @@ function ExaminerMixin:UpdateItemFrames()
 	self.data.itemTransmogInfoList = C_TransmogCollection.GetInspectItemTransmogInfoList();
 end
 
-function ExaminerMixin:UpdateTalentTab()
+function ExaminerMixin:UpdateTalentButton()
+	local data = self.data;
+
+	if (not data.isPlayer
+			or not self.data.loaded
+			or (not data.isSelf and not C_Traits.HasValidInspectData())
+			or UnitGUID(self.data.unit) ~= self.data.guid) then
+		self.TalentsButtonFrame.TalentsButton:Hide();
+		return;
+	end
+
+	ClassTalentFrame_LoadUI();
+	ClassTalentFrame:SetInspecting(not data.isSelf and data.unit or nil);
+	self.TalentsButtonFrame.TalentsButton:Show();
+end
+
+function ExaminerMixin:OpenTalents()
 	local data = self.data;
 
 	if (not data.isPlayer) then
 		return;
 	end
 
-	for tier=1, MAX_TALENT_TIERS do
-		local tierFrame = self.talents["tier"..tier];
-		if (tierFrame) then
-			local tierAvailable, selectedTalent, tierUnlockLevel = GetTalentTierInfo(tier, data.specGroup, not data.isSelf, data.unit);
-			tierFrame.level:SetText(tierUnlockLevel or "??");
-
-			for column=1, NUM_TALENT_COLUMNS do
-				local columnFrame = tierFrame["talent"..column];
-				if (columnFrame) then
-					local talentID, name, iconTexture, selected, available, _, _, _, _, _, grantedByAura = GetTalentInfo(tier, column, data.specGroup, not data.isSelf, data.unit);
-					if (talentID) then
-						columnFrame:SetID(talentID);
-						SetItemButtonTexture(columnFrame, iconTexture);
-						SetDesaturation(columnFrame.icon, not (selected or grantedByAura));
-						columnFrame.border:SetShown(selected or grantedByAura);
-						if (grantedByAura) then
-							local color = ITEM_QUALITY_COLORS[Enum.ItemQuality.Legendary];
-							columnFrame.border:SetVertexColor(color.r, color.g, color.b);
-						else
-							columnFrame.border:SetVertexColor(1, 1, 1);
-						end
-					end
-				end
-			end
-		end
+	if not ClassTalentFrame:IsShown() then
+		ShowUIPanel(ClassTalentFrame);
 	end
 end
 
@@ -602,7 +599,7 @@ end
 
 function ExaminerMixin:UpdateTitle()
 	local flag = self.data.playerFlag and (self.data.playerFlag .. " ") or "";
-	self.title:SetText(flag .. (self.data.pvpName or self.data.name));
+	self:SetTitle(flag .. (self.data.pvpName or self.data.name));
 end
 
 function ExaminerMixin:UpdateDetails()
@@ -629,7 +626,7 @@ function ExaminerMixin:UpdateDetails()
 		guild = string.format("\n<%s> %s (%d)", data.guild, data.guildRank, data.guildIndex);
 	end
 
-	if (data.specName and data.specRole) then
+	if (data.specName and data.specName ~= "" and data.specRole) then
 		local texture = "";
 		if (data.specRole == "TANK") then
 			texture = " " .. CreateAtlasMarkup("roleicon-tiny-tank");
@@ -648,9 +645,9 @@ function ExaminerMixin:UpdatePortrait()
 	local data = self.data;
 
 	if (UnitIsVisible(data.unit)) then
-		SetPortraitTexture(self.portrait, data.unit);
+		SetPortraitTexture(self.PortraitContainer.portrait, data.unit);
 	else
-		self.portrait:SetTexture(
+		self.PortraitContainer.portrait:SetTexture(
 			("%s-%s-%s"):format(
 				"Interface\\CharacterFrame\\TemporaryPortrait",
 				data.sex == 3 and "Female" or "Male",
@@ -692,25 +689,23 @@ function ExaminerMixin:UpdateFrame()
 	if (data.loading) then
 		self.Bg:SetVertexColor(0.5, 1, 0.5);
 		self.Inset.Bg:SetVertexColor(0.5, 1, 0.5);
-		self.TitleBg:SetVertexColor(0.5, 1, 0.5);
+		self.TopTileStreaks:SetVertexColor(0.5, 1, 0.5);
 	else
 		self.Bg:SetVertexColor(1, 1, 1);
 		self.Inset.Bg:SetVertexColor(1, 1, 1);
-		self.TitleBg:SetVertexColor(1, 1, 1);
+		self.TopTileStreaks:SetVertexColor(1, 1, 1);
 	end
 
 	self.items:SetShown(canInspect);
 
 	local TabSetShown = _G[canInspect and "PanelTemplates_ShowTab" or "PanelTemplates_HideTab"];
 	TabSetShown(self, 1); -- Character
-	TabSetShown(self, 2); -- Talents
-	TabSetShown(self, 3); -- PvP
-	TabSetShown(self, 4); -- Guild
+	TabSetShown(self, 2); -- PvP
+	TabSetShown(self, 3); -- Guild
 
 	if (canInspect) then
-		TabSetEnable(self, 2, C_SpecializationInfo.CanPlayerUseTalentUI()); -- Talents
-		TabSetEnable(self, 3, C_SpecializationInfo.CanPlayerUsePVPTalentUI()); -- PvP
-		TabSetEnable(self, 4, data.guild); -- Guild
+		TabSetEnable(self, 2, C_SpecializationInfo.CanPlayerUsePVPTalentUI()); -- PvP
+		TabSetEnable(self, 3, data.guild); -- Guild
 	end
 
 	self.ej:SetShown(not canInspect and data.hasLoot);
@@ -723,9 +718,8 @@ function ExaminerMixin:SwitchTabs(id)
 	PanelTemplates_SetTab(self, id);
 
 	self.model:SetAlpha(id ~= 1 and 0.2 or 1);
-	self.talents:SetShown(isPlayer and id == 2);
-	self.pvp:SetShown(isPlayer and id == 3);
-	self.guild:SetShown(isPlayer and id == 4);
+	self.pvp:SetShown(isPlayer and id == 2);
+	self.guild:SetShown(isPlayer and id == 3);
 end
 
 function ExaminerMixin:OpenJournal()

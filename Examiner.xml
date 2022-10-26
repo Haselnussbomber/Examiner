@@ -6,7 +6,6 @@
 	<Script file="ExaminerAzeriteItemOverlayMixin.lua"/>
 	<Script file="ExaminerTabMixin.lua"/>
 	<Script file="ExaminerItemSlotButtonMixin.lua"/>
-	<Script file="ExaminerTalentButtonMixin.lua"/>
 	<Script file="ExaminerPvpTalentButtonMixin.lua"/>
 
 	<!-- copy pasta from FrameXML/AzeritePaperDollItemOverlay.xml -->
@@ -219,40 +218,6 @@
 		</Scripts>
 	</ItemButton>
 
-	<Button name="ExaminerTalentButtonTemplate" virtual="true" mixin="ExaminerTalentButtonMixin">
-		<Size x="26" y="26"/>
-		<Layers>
-			<Layer level="BACKGROUND">
-				<Texture name="$parentIconTexture" parentKey="icon">
-					<Size x="26" y="26"/>
-					<Anchors>
-						<Anchor point="CENTER" x="-1" y="2"/>
-					</Anchors>
-				</Texture>
-			</Layer>
-			<Layer level="ARTWORK" textureSubLevel="1">
-				<Texture name="$parentSlot" inherits="Talent-SingleBorder" parentKey="Slot">
-					<Size x="26" y="26"/>
-					<Anchors>
-						<Anchor point="CENTER" x="-1" y="2"/>
-					</Anchors>
-				</Texture>
-			</Layer>
-			<Layer level="OVERLAY">
-				<Texture name="$parentBorder" parentKey="border" atlas="inspect-talent-selected" useAtlasSize="true">
-					<Anchors>
-						<Anchor point="CENTER" x="-1" y="2"/>
-					</Anchors>
-				</Texture>
-			</Layer>
-		</Layers>
-		<Scripts>
-			<OnClick method="OnClick"/>
-			<OnEnter method="OnEnter"/>
-			<OnLeave function="GameTooltip_Hide"/>
-		</Scripts>
-	</Button>
-
 	<Button name="ExaminerPvpTalentButtonTemplate" virtual="true" mixin="ExaminerPvpTalentButtonMixin" motionScriptsWhileDisabled="true">
 		<Size x="32" y="32"/>
 		<Layers>
@@ -307,37 +272,6 @@
 		</Layers>
 	</Frame>
 
-	<Frame name="ExaminerTalentRowTemplate" virtual="true">
-		<Size x="180" y="26"/>
-		<Layers>
-			<Layer level="OVERLAY">
-				<FontString name="$parentLevelText" inherits="GameFontNormal" parentKey="level" justifyH="RIGHT">
-					<Size x="30" y="26"/>
-					<Anchors>
-						<Anchor point="LEFT" relativePoint="LEFT" x="0" y="1"/>
-					</Anchors>
-				</FontString>
-			</Layer>
-		</Layers>
-		<Frames>
-			<Button name="$parentTalent1" inherits="ExaminerTalentButtonTemplate" parentKey="talent1">
-				<Anchors>
-					<Anchor point="LEFT" x="50" y="0"/>
-				</Anchors>
-			</Button>
-			<Button name="$parentTalent2" inherits="ExaminerTalentButtonTemplate" parentKey="talent2">
-				<Anchors>
-					<Anchor point="LEFT" relativeTo="$parentTalent1" relativePoint="RIGHT" x="16"/>
-				</Anchors>
-			</Button>
-			<Button name="$parentTalent3" inherits="ExaminerTalentButtonTemplate" parentKey="talent3">
-				<Anchors>
-					<Anchor point="LEFT" relativeTo="$parentTalent2" relativePoint="RIGHT" x="16"/>
-				</Anchors>
-			</Button>
-		</Frames>
-	</Frame>
-
 	<Frame name="Examiner" toplevel="true" movable="true" enableMouse="true" hidden="true" parent="UIParent" inherits="ButtonFrameTemplate" mixin="ExaminerMixin">
 		<Size x="338" y="424"/>
 		<Anchors>
@@ -363,7 +297,7 @@
 			<Button name="ExaminerEJButton" parentKey="ej" hidden="true">
 				<Size x="28" y="36"/>
 				<Anchors>
-					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-7" y="-25"/>
+					<Anchor point="TOPRIGHT" x="-7" y="-25"/>
 				</Anchors>
 				<NormalTexture atlas="hud-microbutton-EJ-Up"/>
 				<PushedTexture atlas="hud-microbutton-EJ-Down"/>
@@ -379,7 +313,7 @@
 			<Button name="ExaminerDressUpButton" parentKey="dressUpButton" hidden="true" text="VIEW_IN_DRESSUP_FRAME">
 				<Size x="20" y="26"/>
 				<Anchors>
-					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-10" y="-28"/>
+					<Anchor point="TOPRIGHT" x="-10" y="-28"/>
 				</Anchors>
 				<NormalTexture atlas="poi-transmogrifier"/>
 				<Scripts>
@@ -390,7 +324,7 @@
 			</Button>
 
 			<!-- Tabs, always visible -->
-			<Button name="ExaminerTab1" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="1" text="CHARACTER">
+			<Button name="ExaminerTab1" inherits="PanelTabButtonTemplate" mixin="ExaminerTabMixin" id="1" text="CHARACTER">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="11" y="2"/>
 				</Anchors>
@@ -398,7 +332,7 @@
 					<OnClick method="OnClick"/>
 				</Scripts>
 			</Button>
-			<Button name="ExaminerTab2" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="2" text="TALENTS">
+			<Button name="ExaminerTab2" inherits="PanelTabButtonTemplate" mixin="ExaminerTabMixin" id="2" text="PVP">
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="ExaminerTab1" relativePoint="RIGHT" x="-16" y="0"/>
 				</Anchors>
@@ -406,17 +340,9 @@
 					<OnClick method="OnClick"/>
 				</Scripts>
 			</Button>
-			<Button name="ExaminerTab3" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="3" text="PVP">
+			<Button name="ExaminerTab3" inherits="PanelTabButtonTemplate" mixin="ExaminerTabMixin" id="3" text="GUILD">
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="ExaminerTab2" relativePoint="RIGHT" x="-16" y="0"/>
-				</Anchors>
-				<Scripts>
-					<OnClick method="OnClick"/>
-				</Scripts>
-			</Button>
-			<Button name="ExaminerTab4" inherits="CharacterFrameTabButtonTemplate" mixin="ExaminerTabMixin" id="4" text="GUILD">
-				<Anchors>
-					<Anchor point="LEFT" relativeTo="ExaminerTab3" relativePoint="RIGHT" x="-16" y="0"/>
 				</Anchors>
 				<Scripts>
 					<OnClick method="OnClick"/>
@@ -543,52 +469,25 @@
 				</Layers>
 			</Frame>
 
-			<!-- Talents, visible on Tab 2 -->
-			<Frame name="ExaminerTalentsFrame" parentKey="talents" hidden="true" frameLevel="40">
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="4" y="-3"/>
-					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" x="0" y="3"/>
-				</Anchors>
+			<!-- Talents Button, always visible (Tab 1) -->
+			<Frame name="ExaminerTalentsButtonFrame" setAllPoints="true" parentKey="TalentsButtonFrame" frameLevel="60">
 				<Frames>
-					<Frame name="$parentTalentRow1" inherits="ExaminerTalentRowTemplate" parentKey="tier1" id="1">
+					<!-- Talents Button -->
+					<Button name="ExaminerTalentsButton" parentKey="TalentsButton" inherits="UIPanelButtonTemplate" hidden="true" text="INSPECT_TALENTS_BUTTON">
+						<Size x="102" y="20"/>
 						<Anchors>
-							<Anchor point="TOP" x="0" y="-30"/>
+							<Anchor point="BOTTOMRIGHT" x="-10" y="11"/>
 						</Anchors>
-					</Frame>
-					<Frame name="$parentTalentRow2" inherits="ExaminerTalentRowTemplate" parentKey="tier2" id="2">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow1" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>
-					</Frame>
-					<Frame name="$parentTalentRow3" inherits="ExaminerTalentRowTemplate" parentKey="tier3" id="3">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow2" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>
-					</Frame>
-					<Frame name="$parentTalentRow4" inherits="ExaminerTalentRowTemplate" parentKey="tier4" id="4">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow3" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>
-					</Frame>
-					<Frame name="$parentTalentRow5" inherits="ExaminerTalentRowTemplate" parentKey="tier5" id="5">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow4" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>
-					</Frame>
-					<Frame name="$parentTalentRow6" inherits="ExaminerTalentRowTemplate" parentKey="tier6" id="6">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow5" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>
-					</Frame>
-					<Frame name="$parentTalentRow7" inherits="ExaminerTalentRowTemplate" parentKey="tier7" id="7">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="$parentTalentRow6" relativePoint="BOTTOMLEFT" x="0" y="-12"/>
-						</Anchors>
-					</Frame>
+						<Scripts>
+							<OnClick>
+								Examiner:OpenTalents();
+							</OnClick>
+						</Scripts>
+					</Button>
 				</Frames>
 			</Frame>
 
-			<!-- PvP, visible on Tab 3 -->
+			<!-- PvP, visible on Tab 2 -->
 			<Frame name="ExaminerPvPFrame" setAllPoints="true" parentKey="pvp" hidden="true" frameLevel="40">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="4" y="-3"/>
@@ -657,7 +556,7 @@
 				</Frames>
 			</Frame>
 
-			<!-- Guild, visible on Tab 4 -->
+			<!-- Guild, visible on Tab 3 -->
 			<Frame name="ExaminerGuildFrame" setAllPoints="true" parentKey="guild" hidden="true" frameLevel="40">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" x="4" y="-3"/>
