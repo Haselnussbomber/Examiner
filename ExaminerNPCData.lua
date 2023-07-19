@@ -1,4 +1,86 @@
 ExaminerNPCData = {
+	-------------------------------
+	-- Dragonflight World Bosses --
+	-------------------------------
+
+	[193534] = { 1205, 2515 }, -- Strunraan, The Sky's Misery
+	[193535] = { 1205, 2506 }, -- Basrikron, The Shale Wing
+	[193532] = { 1205, 2517 }, -- Bazual, The Dreaded Flame
+	[193533] = { 1205, 2518 }, -- Liskanoth, The Futurebane
+
+
+	------------------------
+	-- Dragonflight Raids --
+	------------------------
+
+	-- Vault of the Incarnates --
+	[184972] = { 1200, 2480 }, -- Eranog
+	[190496] = { 1200, 2500 }, -- Terros
+	[187771] = { 1200, 2486 }, -- The Primal Council: Kadros Icewrath
+	[187967] = { 1200, 2482 }, -- Sennarth, the Cold Breath
+	[189813] = { 1200, 2502 }, -- Dathea, Ascended
+	[184986] = { 1200, 2491 }, -- Kurog Grimtotem
+	[190245] = { 1200, 2493 }, -- Broodkeeper Diurna
+	-- [] = { 1200, 2499 }, -- Raszageth the Storm-Eater
+
+
+	---------------------------
+	-- Dragonflight Dungeons --
+	---------------------------
+
+	-- Algeth'ar Academy --
+	[194181] = { 1201, 2509 }, -- Vexamus
+	[196482] = { 1201, 2512 }, -- Overgrown Ancient
+	[191736] = { 1201, 2495 }, -- Crawth
+	[190609] = { 1201, 2514 }, -- Echo of Doragosa
+
+	-- Brackenhide Hollow --
+	[186122] = { 1196, 2471 }, -- Hackclaw's War-Band
+	[186120] = { 1196, 2473 }, -- Treemouth
+	[186116] = { 1196, 2472 }, -- Gutshot
+	[186121] = { 1196, 2474 }, -- Decatriarch Wratheye
+
+	-- Halls of Infusion --
+	[189719] = { 1204, 2504 }, -- Watcher Irideus
+	[189722] = { 1204, 2507 }, -- Gulping Goliath
+	[189727] = { 1204, 2510 }, -- Khajin the Unyielding
+	[189729] = { 1204, 2511 }, -- Primal Tsunami
+
+	-- Neltharus --
+	[189340] = { 1199, 2490 }, -- Chargath, Bane of Scales
+	[189478] = { 1199, 2489 }, -- Forgemaster Gorek
+	[181861] = { 1199, 2494 }, -- Magmatusk
+	[189901] = { 1199, 2501 }, -- Warlord Sargha
+
+	-- Ruby Life Pools --
+	[188252] = { 1202, 2488 }, -- Melidrussa Chillworn
+	[189232] = { 1202, 2485 }, -- Kokia Blazehoof
+	[190484] = { 1202, 2503 }, -- Kyrakka and Erkhart Stormvein: Kyrakka
+	[190485] = { 1202, 2503 }, -- Kyrakka and Erkhart Stormvein: Erkhart Stormvein
+
+	-- The Azure Vault --
+	[186644] = { 1203, 2492 }, -- Leymor
+	[186739] = { 1203, 2505 }, -- Azureblade
+	[186737] = { 1203, 2483 }, -- Telash Greywing
+	[186738] = { 1203, 2508 }, -- Umbrelskul
+
+	-- The Nokhud Offensive --
+	[186616] = { 1198, 2498 }, -- Granyth
+	[186615] = { 1198, 2497 }, -- The Raging Tempest
+	[186338] = { 1198, 2478 }, -- Teera and Maruuk: Maruuk
+	[186339] = { 1198, 2478 }, -- Teera and Maruuk: Teera
+	[186151] = { 1198, 2477 }, -- Balakar Khan
+
+	-- Uldaman: Legacy of Tyr --
+	[184580] = { 1197, 2475 }, -- The Lost Dwarves: Olaf
+	[184581] = { 1197, 2475 }, -- The Lost Dwarves: Baelog
+	[184582] = { 1197, 2475 }, -- The Lost Dwarves: Eric 'The Swift'
+	[184018] = { 1197, 2487 }, -- Bromach
+	[184124] = { 1197, 2484 }, -- Sentinel Talondras
+	[184422] = { 1197, 2476 }, -- Emberon
+	[184125] = { 1197, 2479 }, -- Chrono-Lord Deios
+
+
 	------------------------------
 	-- Shadowlands World Bosses --
 	------------------------------
