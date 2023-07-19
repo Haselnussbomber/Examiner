@@ -4,8 +4,8 @@ BINDING_NAME_EXAMINER_OPEN = "Open Examiner";
 ExaminerMixin = {};
 
 function ExaminerMixin:OnLoad()
-	UIPanelWindows[self:GetName()] = { area = "left", pushable = 3, whileDead = 1 };
-	--UISpecialFrames[#UISpecialFrames + 1] = modName;
+	RegisterUIPanel(self, { area = "left", pushable = 3, whileDead = 1 });
+	tinsert(UISpecialFrames, self:GetName());
 
 	self:RegisterEvent("INSPECT_HONOR_UPDATE");
 	self:RegisterEvent("INSPECT_READY");
@@ -84,14 +84,13 @@ function ExaminerMixin:PLAYER_TARGET_CHANGED()
 		return;
 	end
 
-	self:UpdateTalentButton();
-
 	if (IsModifierKeyDown() or not UnitExists("target") or not (self.data and UnitGUID("target") ~= self.data.guid)) then
 		return;
 	end
 
 	self:ClearInspect();
 	self:Inspect();
+	self:UpdateTalentButton();
 end
 
 function ExaminerMixin:UNIT_INVENTORY_CHANGED(unit)
@@ -270,7 +269,6 @@ function ExaminerMixin:Inspect()
 			self:FetchSpecialization();
 
 			self:UpdateItemFrames();
-			self:UpdateTalentButton();
 			self:UpdatePVPTab();
 			self:UpdateGuildTab();
 		end
@@ -313,6 +311,7 @@ function ExaminerMixin:Inspect()
 	self:UpdatePortrait();
 	self:UpdateModel();
 	self:UpdateFrame();
+	self:UpdateTalentButton();
 
 	if (InCombatLockdown()) then
 		self:Show();
@@ -494,7 +493,7 @@ function ExaminerMixin:FetchHonorData()
 			};
 		end
 
-		for i=1, #self.talents do
+		for i=1, 3 do
 			pvpTalents[i] = C_SpecializationInfo.GetInspectSelectedPvpTalent(data.unit, i);
 		end
 	end
