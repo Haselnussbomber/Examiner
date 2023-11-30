@@ -7,11 +7,42 @@ ExaminerNPCData = {
 	[193535] = { 1205, 2506 }, -- Basrikron, The Shale Wing
 	[193532] = { 1205, 2517 }, -- Bazual, The Dreaded Flame
 	[193533] = { 1205, 2518 }, -- Liskanoth, The Futurebane
+	[199855] = { 1205, 2531 }, -- Vakan, Zaqali Elder
+	[199853] = { 1205, 2531 }, -- Gholna, Zaqali Elder
+	[209574] = { 1205, 2562 }, -- Aurostor The Hibernating
 
 
 	------------------------
 	-- Dragonflight Raids --
 	------------------------
+
+	-- Amirdrassil, the Dream's Hope --
+	[209333] = { 1207, 2564 }, -- Gnarlroot, Ancient of War
+	[200926] = { 1207, 2554 }, -- Igira the Cruel, Zaqali Elder
+	[208478] = { 1207, 2557 }, -- Volcoross
+	[208363] = { 1207, 2555 }, -- Council of Dreams: Urctos
+	[208365] = { 1207, 2555 }, -- Council of Dreams: Aerwynn
+	[208367] = { 1207, 2555 }, -- Council of Dreams: Pip
+	[208445] = { 1207, 2553 }, -- Larodar, Keeper of the Flame
+	[206172] = { 1207, 2556 }, -- Nymue, Weaver of the Cycle
+	[200927] = { 1207, 2563 }, -- Glimmeron
+	[209090] = { 1207, 2565 }, -- Tindral Sageswift, Seer of the Flame
+	[204931] = { 1207, 2519 }, -- Fyrakk, The Blazing
+
+	-- Aberrus, the Shadowed Crucible --
+	[201261] = { 1208, 2522 }, -- Kazzara, the Hellforged
+	[201934] = { 1208, 2529 }, -- The Amalgamation Chamber: Shadowflame Amalgamation
+	[201773] = { 1208, 2529 }, -- The Amalgamation Chamber: Eternal Blaze
+	[201774] = { 1208, 2529 }, -- The Amalgamation Chamber: Essence of Shadow
+	[200912] = { 1208, 2530 }, -- The Forgotten Experiments: Neldris
+	[200913] = { 1208, 2530 }, -- The Forgotten Experiments: Thadrion
+	[200918] = { 1208, 2530 }, -- The Forgotten Experiments: Rionthus
+	[201320] = { 1208, 2524 }, -- Assault of the Zaqali: Warlord Kagni
+	[199659] = { 1208, 2525 }, -- Rashok, the Elder
+	[202375] = { 1208, 2532 }, -- The Vigilant Steward, Zskarn
+	[201579] = { 1208, 2527 }, -- Magmorax
+	[201668] = { 1208, 2523 }, -- Echo of Neltharion
+	[201754] = { 1208, 2520 }, -- Scalecommander Sarkareth
 
 	-- Vault of the Incarnates --
 	[184972] = { 1200, 2480 }, -- Eranog
@@ -21,7 +52,7 @@ ExaminerNPCData = {
 	[189813] = { 1200, 2502 }, -- Dathea, Ascended
 	[184986] = { 1200, 2491 }, -- Kurog Grimtotem
 	[190245] = { 1200, 2493 }, -- Broodkeeper Diurna
-	-- [] = { 1200, 2499 }, -- Raszageth the Storm-Eater
+	[189492] = { 1200, 2499 }, -- Raszageth the Storm-Eater
 
 
 	---------------------------
@@ -79,6 +110,19 @@ ExaminerNPCData = {
 	[184124] = { 1197, 2484 }, -- Sentinel Talondras
 	[184422] = { 1197, 2476 }, -- Emberon
 	[184125] = { 1197, 2479 }, -- Chrono-Lord Deios
+
+	-- Dawn of the Infinite --
+	[198995] = { 1209, 2521 }, -- Chronikar
+	[198996] = { 1209, 2528 }, -- Manifested Timeways
+	[198997] = { 1209, 2535 }, -- Blight of Galakrond
+	[201792] = { 1209, 2535 }, -- Blight of Galakrond: Ahnzon
+	[201790] = { 1209, 2535 }, -- Blight of Galakrond: Loszkeleth
+	[201788] = { 1209, 2535 }, -- Blight of Galakrond: Dazhak
+	[198933] = { 1209, 2537 }, -- Iridikron, The Stonescaled
+	[198998] = { 1209, 2526 }, -- Tyr, the Infinite Keeper
+	[198999] = { 1209, 2536 }, -- Morchie
+	[209207] = { 1209, 2533 }, -- Grommash Hellscream, Warlord with the Iron Will
+	[199000] = { 1209, 2538 }, -- Chrono-Lord Deios
 
 
 	------------------------------
